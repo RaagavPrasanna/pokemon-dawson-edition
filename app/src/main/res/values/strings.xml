@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Pokemon-Daws</string>
     <string name="title_string">DAWSON EDITION</string>
+    <string name="new_game_string">NEW GAME</string>
+    <string name="load_game_string">LOAD GAME</string>
+    <string name="developer_credits_string">Raagav Prasanna, Aidan Catriel, Vinuyan Sivakolunthu</string>
 </resources>
