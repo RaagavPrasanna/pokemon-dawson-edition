@@ -32,6 +32,18 @@ public final class Pokemon_Math {
     }
 
     fun CurrentLevel(experience: Double): Int {
-        return floor(experience.pow(1.0 / 3.0)).roundToInt();
+        return floor(experience.pow(1.0 / 3.0)).toInt();
+    }
+
+    fun CalculateStat(baseValue: Double, level: Double): Int {
+        val calc1 = (baseValue + 10) * level;
+        val calc2 = (calc1 / 50) + 5;
+        return floor(calc2).toInt();
+    }
+
+    fun CalculateHP(baseValue: Double, level: Double): Int {
+        val calc1 = (baseValue + 10) * level;
+        val calc2 = (calc1 / 50) + level + 10;
+        return floor(calc2).toInt();
     }
 }

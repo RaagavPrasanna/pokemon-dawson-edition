@@ -11,5 +11,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var myMath: Pokemon_Math = Pokemon_Math()
+        Log.v("Damage done", myMath.CalculatePhysicalDamage(1.0, 9.0, 11.0, 40.0).toString())
     }
 }
