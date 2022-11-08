@@ -6,6 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".StarterSelection">
 
+    <ImageView
+        android:id="@+id/starter_sprite"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/bulbasaur_starter_sprite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/starter_selection_text"/>
+
+    <TextView
+        android:id="@+id/starter_selection_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/starter_selection_string"
+        app:layout_constraintTop_toBottomOf="@id/starter_sprite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:paddingTop="50dp"/>
+
+    <LinearLayout
+        android:id="@+id/starter_selection_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/starter_selection_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:paddingTop="100dp">
+
+        <ImageView
+            android:id="@+id/select_bulbasaur"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="0"
+            android:src="@drawable/pokemon_selection_sprite"
+            android:contentDescription="@string/bulbasaur"/>
+
+
+
+        <ImageView
+            android:id="@+id/select_charmander"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:src="@drawable/pokemon_selection_sprite"
+            android:contentDescription="@string/charmander"/>
+
+        <ImageView
+            android:id="@+id/select_squirtle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="0"
+            android:src="@drawable/pokemon_selection_sprite"
+            android:contentDescription="@string/squirtle"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/next_button_starter_selection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next_string"
+        app:layout_constraintTop_toBottomOf="@id/starter_selection_selector"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

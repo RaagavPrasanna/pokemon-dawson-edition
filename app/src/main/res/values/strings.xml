@@ -7,4 +7,8 @@
     <string name="name_pick_string">Trainer, please enter your name</string>
     <string name="next_string">NEXT</string>
     <string name="trainer_name_hint">Ash Ketchum</string>
+    <string name="starter_selection_string">Choose your starter Pokemon!</string>
+    <string name="bulbasaur">Bulbasaur</string>
+    <string name="charmander">Charmander</string>
+    <string name="squirtle">Squirtle</string>
 </resources>
