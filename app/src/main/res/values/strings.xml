@@ -11,4 +11,10 @@
     <string name="bulbasaur">Bulbasaur</string>
     <string name="charmander">Charmander</string>
     <string name="squirtle">Squirtle</string>
+    <string name="main_menu_header_string">What would you like to do?</string>
+    <string name="wild_encounter_button_string">ENCOUNTER WILD POKEMON</string>
+    <string name="trainer_battle_button_string">BATTLE TRAINER</string>
+    <string name="pokecenter_button_string">HEAL POKEMON</string>
+    <string name="change_team_button_string">CHANGE TEAM</string>
+    <string name="save_button_string">SAVE GAME</string>
 </resources>
