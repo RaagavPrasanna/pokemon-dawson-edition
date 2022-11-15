@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Pokemon-Daws</string>
+    <string name="title_string">DAWSON EDITION</string>
+    <string name="new_game_string">NEW GAME</string>
+    <string name="load_game_string">LOAD GAME</string>
+    <string name="developer_credits_string">Raagav Prasanna, Aidan Catriel, Vinuyan Sivakolunthu</string>
+    <string name="name_pick_string">Trainer, please enter your name</string>
+    <string name="next_string">NEXT</string>
+    <string name="trainer_name_hint">Ash Ketchum</string>
+    <string name="starter_selection_string">Choose your starter Pokemon!</string>
+    <string name="bulbasaur">Bulbasaur</string>
+    <string name="charmander">Charmander</string>
+    <string name="squirtle">Squirtle</string>
 </resources>
