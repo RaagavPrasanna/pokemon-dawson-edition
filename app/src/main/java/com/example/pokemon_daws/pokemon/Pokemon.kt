@@ -1,7 +1,5 @@
 package com.example.pokemon_daws.pokemon
 
-import com.example.pokemon_daws.pokemon.move.IMove
-
 class Pokemon(
     val species: String,
     val name: String,
@@ -16,7 +14,7 @@ class Pokemon(
     var specialAttack: Int,
     var specialDefense: Int,
     var speed: Int,
-    var moves: MutableList<IMove>,
+    var moves: MutableList<Move>,
     var status: IStatus
 ) {
 
