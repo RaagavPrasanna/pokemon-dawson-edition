@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         Log.i("Test",jsonReader.readJsonPokemon("pidgey.json").toString())
         Log.i("Test",jsonReader.readJsonTypeRelations("fire.json").toString())
         val math = Pokemon_Math();
-        math.CalculateDamage(1.0, 5.0, 1.0, 1.0, "throw", jsonReader.readJsonTypeRelations("fire.json"), Type.GRASS)
+        Log.i("Damage", math.CalculateDamage(1.0, 5.0, 1.0, 1.0, Type.NORMAL, listOf(Type.NORMAL, Type.FIRE), jsonReader.readJsonTypeRelations("normal.json"), listOf(Type.ICE, Type.GHOST)).toString())
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
