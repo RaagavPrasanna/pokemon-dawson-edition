@@ -1,5 +1,6 @@
 package com.example.pokemon_daws
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -48,6 +49,12 @@ class StarterSelection : AppCompatActivity() {
             val duration = Toast.LENGTH_SHORT
             val toast = Toast.makeText(applicationContext, getString(R.string.squirtle), duration)
             toast.show()
+        }
+
+        binding.nextButtonStarterSelection.setOnClickListener {
+            val mmIntent = Intent(this, MainMenu::class.java)
+
+            startActivity(mmIntent)
         }
     }
 }
