@@ -3,7 +3,6 @@ package com.example.pokemon_daws.utils
 import android.content.Context
 import com.google.gson.Gson
 import java.io.IOException
-import java.net.URL
 
 class Json (private val context: Context){
     private val gson: Gson = Gson()
@@ -20,28 +19,29 @@ class Json (private val context: Context){
         return jsonString
     }
 
-    fun readJsonMove(fileName: String): Move{
+    fun readJsonMove(fileName: String): MoveData{
         val jsonString = readFile(fileName, "moves")
-        return gson.fromJson(jsonString, Move::class.java)
+        return gson.fromJson(jsonString, MoveData::class.java)
     }
 
-    fun readJsonMoveList(fileName: String): List<MoveList>{
+    fun readJsonMoveList(fileName: String): MutableList<MoveListData>{
         val jsonString = readFile(fileName, "move_lists")
-        return gson.fromJson(jsonString, Array<MoveList>::class.java).toList()
+        return gson.fromJson(jsonString, Array<MoveListData>::class.java).toMutableList()
     }
 
-    fun readJsonPokemon(fileName: String): Pokemon{
+    fun readJsonPokemon(fileName: String): PokemonData{
         val jsonString = readFile(fileName, "pokemon")
-        return gson.fromJson(jsonString, Pokemon::class.java)
+        return gson.fromJson(jsonString, PokemonData::class.java)
     }
 
-    fun readJsonTypeRelations(fileName: String): TypeRelations{
+    fun readJsonTypeRelations(fileName: String): TypeRelationsData{
         val jsonString = readFile(fileName, "type_relations")
-        return gson.fromJson(jsonString, TypeRelations::class.java)
+        return gson.fromJson(jsonString, TypeRelationsData::class.java)
     }
 }
-data class Move(
+data class MoveData(
     val accuracy : Int,
+    val ailment : String?,
     val ailmentChance : Int,
     val category : String,
     val damageClass : String,
@@ -53,7 +53,7 @@ data class Move(
     val type : String
 ){}
 
-data class Pokemon(
+data class PokemonData(
     val baseExperienceReward : Int,
     val baseStateAttack : Int,
     val baseStatDefense : Int,
@@ -65,12 +65,12 @@ data class Pokemon(
     val types : ArrayList<String>
 ){}
 
-data class MoveList(
+data class MoveListData(
     val move: String,
     val level: Int
 ){}
 
-data class TypeRelations(
+data class TypeRelationsData(
     val normal: String? = null,
     val fighting: String? = null,
     val flying: String? = null,

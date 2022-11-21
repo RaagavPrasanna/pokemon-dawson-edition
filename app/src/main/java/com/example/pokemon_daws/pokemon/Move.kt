@@ -8,8 +8,9 @@ class Move(
         val heal: Int,
         val damageClass: DamageClass,
         val type: Type,
-        val Target: Pokemon,
-        val ailment: IStatus,
+        //Make target enum ?
+        val Target: String,
+        val ailment: IStatus? = null,
         val ailmentChance: Int,
 ){
 
