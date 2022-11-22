@@ -19,7 +19,7 @@ class Json (private val context: Context){
         return jsonString
     }
 
-    fun readJsonMove(fileName: String): MoveData{
+    fun readJsonMove(fileName: String): MoveData?{
         val jsonString = readFile(fileName, "moves")
         return gson.fromJson(jsonString, MoveData::class.java)
     }

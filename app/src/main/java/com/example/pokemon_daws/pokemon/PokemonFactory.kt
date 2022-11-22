@@ -7,14 +7,14 @@ class PokemonFactory(context: Context) {
     fun createPokemon(level: Int, species: String, name: String? = null): Pokemon{
         //TODO("Add check to see if species is in list")
         val pkData = json.readJsonPokemon("$species.json")
-        val moves = createMove(species)
+        val moves = createMove(species, level)
         return Pokemon(
             species,
             name?: species,
             level,
-            TODO("experience calls math method"),
+            getExperience(level),
             pkData.baseExperienceReward,
-            TODO("Types"),
+            pkData.types.map { type -> Type.getType(type)!! },
             pkData.baseStateMaxHp,
             pkData.baseStateMaxHp,
             pkData.baseStateAttack,
@@ -27,26 +27,29 @@ class PokemonFactory(context: Context) {
             )
     }
 
-    private fun createMove(species: String): MutableList<Move>{
+    private fun createMove(species: String, lvl: Int): MutableList<Move>{
         val moveListData = json.readJsonMoveList("$species.json")
         val moves = mutableListOf<Move>()
         for (move in moveListData){
             val moveData = json.readJsonMove("${move.move}.json")
-            moves.add(Move(
-                moveData.accuracy,
-                moveData.maxPP,
-                moveData.maxPP,
-                moveData.power,
-                moveData.heal,
-                if(moveData.damageClass == "SPECIAL") DamageClass.SPECIAL else DamageClass.PHYSICAL,
-                Type.getType(moveData.type)!!,
-                moveData.target,
-                null,//TODO("Status")
-                moveData.ailmentChance
-            ))
+            if(moveData != null && move.level <= lvl){
+                moves.add(Move(
+                    move.move,
+                    moveData.accuracy,
+                    moveData.maxPP,
+                    moveData.maxPP,
+                    moveData.power,
+                    moveData.heal,
+                    if(moveData.damageClass == "SPECIAL") DamageClass.SPECIAL else DamageClass.PHYSICAL,
+                    Type.getType(moveData.type)!!,
+                    moveData.target,
+                    null,//TODO("Status")
+                    moveData.ailmentChance
+                ))
+            }
         }
         return moves
     }
 
-//    private fun create
+    private fun getExperience(lvl: Int) = lvl * lvl * lvl
 }

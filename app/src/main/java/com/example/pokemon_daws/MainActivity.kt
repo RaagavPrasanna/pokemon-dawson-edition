@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.pokemon_daws.utils.Json
 import com.example.pokemon_daws.databinding.ActivityMainBinding
+import com.example.pokemon_daws.pokemon.PokemonFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,11 +17,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val jsonReader = Json(this);
+        val pkFc = PokemonFactory(this)
         Log.i("Test",jsonReader.readJsonMove("bubble.json").toString())
         Log.i("Test",jsonReader.readJsonMove("ember.json").toString())
         Log.i("Test",jsonReader.readJsonMoveList("bulbasaur.json").toString())
         Log.i("Test",jsonReader.readJsonTypeRelations("fire.json").toString())
         Log.i("Test",jsonReader.readJsonPokemon("pidgey.json").toString())
+        val pk = pkFc.createPokemon(5, "bulbasaur", "bulb")
+        val pk1 = pkFc.createPokemon(5, "charmander")
+        Log.i("Test", pk.toString())
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
