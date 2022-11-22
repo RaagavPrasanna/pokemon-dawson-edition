@@ -35,6 +35,7 @@ class PokemonFactory(context: Context) {
             if(moveData != null && move.level <= lvl){
                 moves.add(Move(
                     move.move,
+                    move.level,
                     moveData.accuracy,
                     moveData.maxPP,
                     moveData.maxPP,
@@ -48,6 +49,8 @@ class PokemonFactory(context: Context) {
                 ))
             }
         }
+        moves.sortBy { it.level }
+        moves.subList(0, if(moves.size >= 4) 3 else moves.size - 1)
         return moves
     }
 

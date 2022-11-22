@@ -2,6 +2,7 @@ package com.example.pokemon_daws.pokemon
 
 class Move(
         val name: String,
+        val level: Int,
         val accuracy: Int,
         var pp: Int,
         val maxPP: Int,

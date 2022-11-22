@@ -1,7 +1,9 @@
 package com.example.pokemon_daws.pokemon
 
 enum class Type {
-    NORMAL,
+    NORMAL{
+          fun effective() = listOf<Type>(Type.FIRE)
+          },
     FIRE,
     WATER,
     ELECTRIC,

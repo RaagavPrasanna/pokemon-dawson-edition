@@ -1,4 +1,4 @@
-package com.example.pokemon_daws.pokemon.Storable
+package com.example.pokemon_daws.pokemon.storable
 
 import com.example.pokemon_daws.pokemon.Pokemon
 
