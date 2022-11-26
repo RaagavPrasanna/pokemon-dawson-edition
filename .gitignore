@@ -13,7 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
-<<<<<<< HEAD
 
 # Created by https://www.toptal.com/developers/gitignore/api/android,androidstudio,gradle,intellij,kotlin,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=android,androidstudio,gradle,intellij,kotlin,java
@@ -344,5 +343,3 @@ obj/
 
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,gradle,intellij,kotlin,java
 
-=======
->>>>>>> 12f9fabe76ecda7789ce02002f12771c45b9f18a
