@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.pokemon_daws.Controllers.Pokemon_Math
 import com.example.pokemon_daws.utils.Json
 import com.example.pokemon_daws.databinding.ActivityMainBinding
 import com.example.pokemon_daws.pokemon.PokemonFactory
