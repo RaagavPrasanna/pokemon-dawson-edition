@@ -1,4 +1,4 @@
-package com.example.pokemon_daws.pokemon.Storable
+package com.example.pokemon_daws.pokemon.storable
 
 import com.example.pokemon_daws.pokemon.Pokemon
 
@@ -22,6 +22,15 @@ class Trainer(
             pokemons.remove(pk);
         }else{
             throw IndexOutOfBoundsException("Cannot have an empty team")
+        }
+    }
+
+    fun storePK(pk:Pokemon){
+        if(this.pokemons.size > 1){
+            this.pc.addPK(pk)
+            this.pokemons.remove(pk)
+        }else{
+            throw IndexOutOfBoundsException("Cannot put last pokemon in PC")
         }
     }
 

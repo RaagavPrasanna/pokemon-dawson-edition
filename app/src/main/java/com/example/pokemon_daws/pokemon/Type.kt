@@ -1,7 +1,9 @@
 package com.example.pokemon_daws.pokemon
 
 enum class Type {
-    NORMAL,
+    NORMAL{
+          fun effective() = listOf<Type>(Type.FIRE)
+          },
     FIRE,
     WATER,
     ELECTRIC,
@@ -15,5 +17,27 @@ enum class Type {
     BUG,
     ROCK,
     GHOST,
-    DRAGON
+    DRAGON;
+    companion object {
+        fun getType(type: String): Type?{
+            return when(type){
+                "normal" -> Type.NORMAL
+                "fighting" -> Type.FIGHTING
+                "flying" -> Type.FLYING
+                "poison" -> Type.POISON
+                "ground" -> Type.GROUND
+                "rock" -> Type.ROCK
+                "bug" -> Type.BUG
+                "ghost" -> Type.GHOST
+                "fire" -> Type.FIRE
+                "water" -> Type.WATER
+                "grass" -> Type.GRASS
+                "electric" -> Type.ELECTRIC
+                "psychic" -> Type.PSYCHIC
+                "ice" -> Type.ICE
+                "dragon" -> Type.DRAGON
+                else -> null
+            }
+        }
+    }
 }

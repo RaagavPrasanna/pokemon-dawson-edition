@@ -8,14 +8,19 @@ class Pokemon(
     var baseExperienceReward: Int,
     var types: List<Type>,
     var hp: Int,
-    var maxHp: Int,
-    var attack: Int,
-    var defense: Int,
-    var specialAttack: Int,
-    var specialDefense: Int,
-    var speed: Int,
+    var baseMaxHp: Int,
+    var baseAttack: Int,
+    var baseDefense: Int,
+    var baseSpecialAttack: Int,
+    var baseSpecialDefense: Int,
+    var baseSpeed: Int,
     var moves: MutableList<Move>,
-    var status: IStatus
+    var status: IStatus?
 ) {
-
+    val maxHp: Int get() = TODO()
+    val attack: Int get() = TODO()
+    val defense: Int get() = TODO()
+    val specialAttack: Int get() = TODO()
+    val specialDefense: Int get() = TODO()
+    val speed: Int get() = TODO()
 }

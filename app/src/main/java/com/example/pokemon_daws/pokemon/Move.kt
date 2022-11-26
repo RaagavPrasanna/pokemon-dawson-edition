@@ -1,6 +1,8 @@
 package com.example.pokemon_daws.pokemon
 
 class Move(
+        val name: String,
+        val level: Int,
         val accuracy: Int,
         var pp: Int,
         val maxPP: Int,
@@ -8,8 +10,9 @@ class Move(
         val heal: Int,
         val damageClass: DamageClass,
         val type: Type,
-        val Target: Pokemon,
-        val ailment: IStatus,
+        //Make target enum ?
+        val Target: String,
+        val ailment: IStatus? = null,
         val ailmentChance: Int,
 ){
 

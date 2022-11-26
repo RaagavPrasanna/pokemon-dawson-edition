@@ -8,7 +8,7 @@ import android.widget.Toast
 import com.example.pokemon_daws.Controllers.Pokemon_Math
 import com.example.pokemon_daws.utils.Json
 import com.example.pokemon_daws.databinding.ActivityMainBinding
-import com.example.pokemon_daws.pokemon.Type
+import com.example.pokemon_daws.pokemon.PokemonFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,13 +18,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val jsonReader = Json(this);
-//        Toast.makeText(this,jsonReader.readJsonMove("bubble.json").toString(),Toast.LENGTH_LONG).show()
-        jsonReader.readJsonMove("bubble.json")
-        Toast.makeText(this, jsonReader.readJsonMoveList("bulbasaur.json").toString(), Toast.LENGTH_LONG).show()
-        Log.i("Test",jsonReader.readJsonPokemon("pidgey.json").toString())
+        val pkFc = PokemonFactory(this)
+        Log.i("Test",jsonReader.readJsonMove("bubble.json").toString())
+        Log.i("Test",jsonReader.readJsonMove("ember.json").toString())
+        Log.i("Test",jsonReader.readJsonMoveList("bulbasaur.json").toString())
         Log.i("Test",jsonReader.readJsonTypeRelations("fire.json").toString())
-        val math = Pokemon_Math();
-        Log.i("Damage", math.CalculateDamage(1.0, 5.0, 1.0, 1.0, Type.NORMAL, listOf(Type.NORMAL, Type.FIRE), listOf(Type.ICE, Type.GHOST)).toString())
+        Log.i("Test",jsonReader.readJsonPokemon("pidgey.json").toString())
+        val pk = pkFc.createPokemon(5, "bulbasaur", "bulb")
+        val pk1 = pkFc.createPokemon(5, "charmander")
+        Log.i("Test", pk.toString())
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
