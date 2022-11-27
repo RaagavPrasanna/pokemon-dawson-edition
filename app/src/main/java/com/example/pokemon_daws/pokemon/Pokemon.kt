@@ -1,26 +1,34 @@
 package com.example.pokemon_daws.pokemon
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
+import com.example.pokemon_daws.Controllers.Pokemon_Math
+
+@Entity
 class Pokemon(
-    val species: String,
-    val name: String,
-    var level: Int,
-    var experience: Int,
-    var baseExperienceReward: Int,
-    var types: List<Type>,
-    var hp: Int,
-    var baseMaxHp: Int,
-    var baseAttack: Int,
-    var baseDefense: Int,
-    var baseSpecialAttack: Int,
-    var baseSpecialDefense: Int,
-    var baseSpeed: Int,
-    var moves: MutableList<Move>,
-    var status: IStatus?
+    @ColumnInfo(name="species") val species: String,
+    @ColumnInfo(name="name") val name: String,
+    @ColumnInfo(name="experience") var experience: Int,
+    @ColumnInfo(name="base_experience_reward") var baseExperienceReward: Int,
+    @ColumnInfo(name="types") var types: List<Type>,
+    @ColumnInfo(name="hp") var hp: Int,
+    @ColumnInfo(name="base_max_hp") var baseMaxHp: Int,
+    @ColumnInfo(name="base_attack") var baseAttack: Int,
+    @ColumnInfo(name="base_defense") var baseDefense: Int,
+    @ColumnInfo(name="base_special_attack") var baseSpecialAttack: Int,
+    @ColumnInfo(name="base_special_defense") var baseSpecialDefense: Int,
+    @ColumnInfo(name="base_speed") var baseSpeed: Int,
+    @ColumnInfo(name="moves") var moves: MutableList<Move>,
+    @Ignore var status: IStatus?
 ) {
-    val maxHp: Int get() = TODO()
-    val attack: Int get() = TODO()
-    val defense: Int get() = TODO()
-    val specialAttack: Int get() = TODO()
-    val specialDefense: Int get() = TODO()
-    val speed: Int get() = TODO()
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
+    val maxHp: Int get() = Pokemon_Math.CalculateHP(baseMaxHp.toDouble(), level)
+    val attack: Int get() = Pokemon_Math.CalculateStat(baseAttack.toDouble(), level)
+    val defense: Int get() = Pokemon_Math.CalculateStat(baseDefense.toDouble(), level)
+    val specialAttack: Int get() = Pokemon_Math.CalculateStat(baseSpecialAttack.toDouble(), level)
+    val specialDefense: Int get() = Pokemon_Math.CalculateStat(baseSpecialDefense.toDouble(), level)
+    val speed: Int get() = Pokemon_Math.CalculateStat(baseSpeed.toDouble(), level)
+    val level: Int get() = Pokemon_Math.CurrentLevel(experience.toDouble())
 }

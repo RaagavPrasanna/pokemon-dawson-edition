@@ -1,9 +1,10 @@
 package com.example.pokemon_daws.pokemon
 
+import androidx.room.Entity
+
+@Entity
 enum class Type {
-    NORMAL{
-          fun effective() = listOf<Type>(Type.FIRE)
-          },
+    NORMAL,
     FIRE,
     WATER,
     ELECTRIC,

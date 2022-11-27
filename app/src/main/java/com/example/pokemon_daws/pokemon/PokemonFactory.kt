@@ -11,7 +11,6 @@ class PokemonFactory(context: Context) {
         return Pokemon(
             species,
             name?: species,
-            level,
             getExperience(level),
             pkData.baseExperienceReward,
             pkData.types.map { type -> Type.getType(type)!! },
