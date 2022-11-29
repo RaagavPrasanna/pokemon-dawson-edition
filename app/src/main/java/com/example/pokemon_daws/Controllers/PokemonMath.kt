@@ -1,17 +1,13 @@
 package com.example.pokemon_daws.Controllers
 
-import android.content.Context
 import com.example.pokemon_daws.pokemon.Type
 import kotlin.math.floor
 import kotlin.math.roundToInt
 import kotlin.random.Random
 import kotlin.math.pow
-import com.example.pokemon_daws.utils.Json
-import com.example.pokemon_daws.utils.TypeRelations
-import android.util.Log
 
 // Math formulas that affect Pokemon behaviour.
-public final class Pokemon_Math () {
+public final class PokemonMath () {
     fun CalculateDamage(attackerLevel: Double, attackerAttack: Double, defenderDefense: Double, movePower: Double, moveType: Type, attackerTypes: List<Type>
 , defenderTypes: List<Type>): Int {
         val levelContribution = ((2 * attackerLevel) / 5 + 2) / 50;
