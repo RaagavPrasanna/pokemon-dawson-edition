@@ -22,7 +22,6 @@ class PokemonFactory(context: Context) {
             pkData.baseStatSpecialDefense,
             pkData.baseStatSpeed,
             moves,
-            null
             )
     }
 
@@ -34,7 +33,6 @@ class PokemonFactory(context: Context) {
             if(moveData != null && move.level <= lvl){
                 moves.add(Move(
                     move.move,
-                    move.level,
                     moveData.accuracy,
                     moveData.maxPP,
                     moveData.maxPP,
@@ -43,12 +41,9 @@ class PokemonFactory(context: Context) {
                     if(moveData.damageClass == "SPECIAL") DamageClass.SPECIAL else DamageClass.PHYSICAL,
                     Type.getType(moveData.type)!!,
                     moveData.target,
-                    null,//TODO("Status")
-                    moveData.ailmentChance
                 ))
             }
         }
-        moves.sortBy { it.level }
         moves.subList(0, if(moves.size >= 4) 3 else moves.size - 1)
         return moves
     }

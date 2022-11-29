@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 import com.example.pokemon_daws.pokemon.Pokemon
 
 @Dao
-interface PkDao{
+interface PkDao {
 
 }
 
@@ -33,3 +33,4 @@ public abstract class PkDb: RoomDatabase(){
         }
     }
 }
+

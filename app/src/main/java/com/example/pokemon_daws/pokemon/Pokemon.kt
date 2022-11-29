@@ -9,11 +9,11 @@ import com.example.pokemon_daws.Controllers.Pokemon_Math
 @Entity
 class Pokemon(
     @ColumnInfo(name="species") val species: String,
-    @ColumnInfo(name="name") val name: String,
-    @ColumnInfo(name="experience") var experience: Int,
+    @Ignore val name: String,
+    @Ignore var experience: Int,
     @ColumnInfo(name="base_experience_reward") var baseExperienceReward: Int,
     @ColumnInfo(name="types") var types: List<Type>,
-    @ColumnInfo(name="hp") var hp: Int,
+    @Ignore var hp: Int,
     @ColumnInfo(name="base_max_hp") var baseMaxHp: Int,
     @ColumnInfo(name="base_attack") var baseAttack: Int,
     @ColumnInfo(name="base_defense") var baseDefense: Int,
@@ -21,7 +21,6 @@ class Pokemon(
     @ColumnInfo(name="base_special_defense") var baseSpecialDefense: Int,
     @ColumnInfo(name="base_speed") var baseSpeed: Int,
     @ColumnInfo(name="moves") var moves: MutableList<Move>,
-    @Ignore var status: IStatus?
 ) {
     @PrimaryKey(autoGenerate = true) var id: Int = 0
     val maxHp: Int get() = Pokemon_Math.CalculateHP(baseMaxHp.toDouble(), level)

@@ -1,13 +1,16 @@
 package com.example.pokemon_daws.pokemon.storable
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
 import com.example.pokemon_daws.pokemon.Pokemon
 
-class Trainer(
-    override val pokemons: MutableList<Pokemon>,
-    val name: String,
-    ) : IStorable{
 
-    private val pc: Collection = Collection();
+@Entity
+class Trainer(
+    @ColumnInfo(name="pokemons") override val pokemons: MutableList<Pokemon>,
+    @ColumnInfo(name="name") val name: String,
+    @ColumnInfo(name="collection") val collection: Collection
+    ) : IStorable {
 
     override fun addPK(pk: Pokemon) {
         if(this.pokemons.size < 6){
@@ -27,7 +30,7 @@ class Trainer(
 
     fun storePK(pk:Pokemon){
         if(this.pokemons.size > 1){
-            this.pc.addPK(pk)
+            this.collection.addPK(pk)
             this.pokemons.remove(pk)
         }else{
             throw IndexOutOfBoundsException("Cannot put last pokemon in PC")
