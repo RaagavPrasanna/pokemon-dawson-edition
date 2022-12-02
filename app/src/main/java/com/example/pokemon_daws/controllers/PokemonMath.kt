@@ -1,4 +1,4 @@
-package com.example.pokemon_daws.Controllers
+package com.example.pokemon_daws.controllers
 
 import com.example.pokemon_daws.pokemon.Type
 import kotlin.math.floor

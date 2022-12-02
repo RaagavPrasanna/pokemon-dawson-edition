@@ -1,7 +1,6 @@
 package com.example.pokemon_daws.utils
 import PokeApiEndpoint
 import android.util.Log
-import androidx.lifecycle.lifecycleScope
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,28 +9,37 @@ import com.google.gson.GsonBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import simplifyPokedexEntries
+import simplifyTypeRelations
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
-private val GSON: Gson = GsonBuilder().setPrettyPrinting().create()
+private val GSON: Gson = GsonBuilder().setPrettyPrinting().serializeNulls().create()
 
-suspend fun fetchAllPokemon(): String{
+suspend fun fetchAllPokemon(): List<PokedexEntry> {
     val url = URL(PokeApiEndpoint.POKEDEX.url + "/2")
-    val response = connect(url, Array<PokedexEntry>::class.java, ::simplifyPokedexEntries);
-    Log.i("TEST", response)
+    val response = connect(url, Array<PokedexEntry>::class.java, ::simplifyPokedexEntries)!!.toList();
+    Log.i("POKEDEX TEST", response.toString())
     return response
 }
 
-private suspend fun connect(url: URL, jsonClass: Class<*>, simplifier: (apiResponse:String) -> String):String {
-    var response : String? = null
-    return withContext(Dispatchers.IO) {
+suspend fun fetchTypeRelations(type: String): TypeRelation {
+    val url = URL(PokeApiEndpoint.TYPE.url + "/${type}")
+    val response = connect(url, TypeRelation::class.java, ::simplifyTypeRelations)
+    Log.i("TYPE RELATION TEST", response.toString())
+    return response!!
+
+}
+
+private suspend fun<T> connect(url: URL, jsonClass: Class<T>, simplifier: (apiResponse:String) -> String):T? {
+    var pokedex : T? = null
+    withContext(Dispatchers.IO) {
         val conn = url.openConnection() as HttpsURLConnection
         try {
             conn.requestMethod = "GET"
             conn.connect()
             if (conn.responseCode == HttpsURLConnection.HTTP_OK) {
-                response = conn.inputStream.bufferedReader().use { it.readText() }
-                return@withContext simplifier(response!!)
+                val response = conn.inputStream.bufferedReader().use { it.readText() }
+                pokedex = GSON.fromJson(simplifier(response), jsonClass)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -40,12 +48,23 @@ private suspend fun connect(url: URL, jsonClass: Class<*>, simplifier: (apiRespo
         } finally {
             conn.disconnect()
         }
-        return@withContext response!!
     }
+    return pokedex
 }
 
 @Entity(tableName = "pokedex_entry")
 data class PokedexEntry(
     @ColumnInfo(name = "number")val number: Int,
     @PrimaryKey @ColumnInfo(name = "name")val name: String
+)
+
+data class TypeRelation(
+    val fire : String,
+    val electric: String,
+    val grass: String,
+    val poison: String,
+    val flying: String,
+    val bug: String,
+    val rock: String,
+    val steel: String,
 )
