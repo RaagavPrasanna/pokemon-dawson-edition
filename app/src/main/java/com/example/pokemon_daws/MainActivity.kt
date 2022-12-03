@@ -25,9 +25,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         fetch = ApiController(lifecycleScope)
         val pokedex = fetch.getAllPokemon()
-        pokedex.forEach {
-            Log.i("PK", it.toString())
-        }
+//        Log.i("PK", pokedex.toString())
+//        pokedex.forEach {
+//            Log.i("PK", it.toString())
+//        }
+//        Log.i("TYPEsad",fetch.getTypeRelations("ground").toString())
         binding.newGameButton.setOnClickListener {
             val nsIntent = Intent(this, NameSelection::class.java)
 
