@@ -24,12 +24,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         fetch = ApiController(lifecycleScope)
-        val pokedex = fetch.getAllPokemon()
-//        Log.i("PK", pokedex.toString())
-//        pokedex.forEach {
-//            Log.i("PK", it.toString())
-//        }
-//        Log.i("TYPEsad",fetch.getTypeRelations("ground").toString())
+        lifecycleScope.launch(Dispatchers.IO){
+            fetch.getAllPokemon()
+            fetch.getTypes()
+            fetch.getPokemon("bulbasaur")
+            fetch.getPkMoves("bulbasaur")
+            fetch.getMove("tackle")
+            fetch.getTypeRelations("ground")
+        }
         binding.newGameButton.setOnClickListener {
             val nsIntent = Intent(this, NameSelection::class.java)
 
