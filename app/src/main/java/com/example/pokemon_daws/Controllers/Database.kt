@@ -1,18 +1,19 @@
 package com.example.pokemon_daws.Controllers
 
 import android.content.Context
-import androidx.room.Dao
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.example.pokemon_daws.pokemon.Pokemon
+import androidx.room.*
+import com.example.pokemon_daws.pokemon.storable.*
 
 @Dao
 interface PkDao {
+    @Query("SELECT * FROM Trainer WHERE name LIKE :name")
+    fun loadTrainer(name: String): Trainer
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertTrainer(vararg trainers: Trainer)
 }
-
-@Database(entities = [Pokemon::class], version = 1, exportSchema = false)
+@TypeConverters(value = [TrainerTypeConverter::class])
+@Database(entities = [Trainer::class], version = 1, exportSchema = false)
 public abstract class PkDb: RoomDatabase(){
     abstract fun pkDao(): PkDao
     companion object{
