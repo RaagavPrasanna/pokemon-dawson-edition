@@ -6,7 +6,7 @@ import com.example.pokemon_daws.pokemon.storable.*
 
 @Dao
 interface PkDao {
-    @Query("SELECT * FROM Trainer WHERE name LIKE :name")
+    @Query("SELECT * FROM Trainer WHERE name=:name")
     fun loadTrainer(name: String): Trainer
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

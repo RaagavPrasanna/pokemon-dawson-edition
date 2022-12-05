@@ -45,14 +45,6 @@ data class Trainer(
 }
 
 class TrainerTypeConverter {
-//    @TypeConverter
-//    fun fromTrainerToString(trainer: Trainer): String {
-//        return Gson().toJson(trainer)
-//    }
-//    @TypeConverter
-//    fun fromStringToTrainer(json: String): Trainer {
-//        return Gson().fromJson(json, Trainer::class.java)
-//    }
     @TypeConverter
     fun fromPokeListToString(pokemons: MutableList<Pokemon>): String {
         return Gson().toJson(pokemons)
