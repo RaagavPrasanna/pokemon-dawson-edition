@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO){
             val pk = pkFc.createPokemon(5, "bulbasaur", "bulb")
 
-            val pk1 = pkFc.createPokemon(5, "charmander")
+             val pk1 = pkFc.createPokemon(5, "charmander")
             Log.i("TEST", pk.toString())
         }
 

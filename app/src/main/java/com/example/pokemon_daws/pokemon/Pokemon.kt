@@ -18,6 +18,7 @@ class Pokemon(
     var baseSpecialDefense: Int,
     var baseSpeed: Int,
     var moves: MutableList<Move>,
+    val allMoves:List<Move>,
 ) {
     val maxHp: Int get() = CalculateHP(baseMaxHp.toDouble(), level)
     val attack: Int get() = CalculateStat(baseAttack.toDouble(), level)
