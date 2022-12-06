@@ -4,9 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.example.pokemon_daws.Controllers.Pokemon_Math
+import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateHP
+import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateStat
+import com.example.pokemon_daws.Controllers.Pokemon_Math.CurrentLevel
 
- class Pokemon(
+class Pokemon(
     val species: String,
     val name: String,
     var experience: Int,
@@ -21,11 +23,11 @@ import com.example.pokemon_daws.Controllers.Pokemon_Math
     var baseSpeed: Int,
     var moves: MutableList<Move>,
 ) {
-    val maxHp: Int get() = Pokemon_Math.CalculateHP(baseMaxHp.toDouble(), level)
-    val attack: Int get() = Pokemon_Math.CalculateStat(baseAttack.toDouble(), level)
-    val defense: Int get() = Pokemon_Math.CalculateStat(baseDefense.toDouble(), level)
-    val specialAttack: Int get() = Pokemon_Math.CalculateStat(baseSpecialAttack.toDouble(), level)
-    val specialDefense: Int get() = Pokemon_Math.CalculateStat(baseSpecialDefense.toDouble(), level)
-    val speed: Int get() = Pokemon_Math.CalculateStat(baseSpeed.toDouble(), level)
-    val level: Int get() = Pokemon_Math.CurrentLevel(experience.toDouble())
+    val maxHp: Int get() = CalculateHP(baseMaxHp.toDouble(), level)
+    val attack: Int get() = CalculateStat(baseAttack.toDouble(), level)
+    val defense: Int get() = CalculateStat(baseDefense.toDouble(), level)
+    val specialAttack: Int get() = CalculateStat(baseSpecialAttack.toDouble(), level)
+    val specialDefense: Int get() = CalculateStat(baseSpecialDefense.toDouble(), level)
+    val speed: Int get() = CalculateStat(baseSpeed.toDouble(), level)
+    val level: Int get() = CurrentLevel(experience.toDouble())
 }
