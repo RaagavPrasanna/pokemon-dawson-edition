@@ -7,7 +7,7 @@ import kotlin.random.Random
 import kotlin.math.pow
 
 // Math formulas that affect Pokemon behaviour.
-public final class PokemonMath () {
+object Pokemon_Math{
     fun CalculateDamage(attackerLevel: Double, attackerAttack: Double, defenderDefense: Double, movePower: Double, moveType: Type, attackerTypes: List<Type>
 , defenderTypes: List<Type>): Int {
         val levelContribution = ((2 * attackerLevel) / 5 + 2) / 50;
@@ -71,13 +71,13 @@ public final class PokemonMath () {
         return floor(experience.pow(1.0 / 3.0)).toInt();
     }
 
-    fun CalculateStat(baseValue: Double, level: Double): Int {
+    fun CalculateStat(baseValue: Double, level: Int): Int {
         val calc1 = (baseValue + 10) * level;
         val calc2 = (calc1 / 50) + 5;
         return floor(calc2).toInt();
     }
 
-    fun CalculateHP(baseValue: Double, level: Double): Int {
+    fun CalculateHP(baseValue: Double, level: Int): Int {
         val calc1 = (baseValue + 10) * level;
         val calc2 = (calc1 / 50) + level + 10;
         return floor(calc2).toInt();

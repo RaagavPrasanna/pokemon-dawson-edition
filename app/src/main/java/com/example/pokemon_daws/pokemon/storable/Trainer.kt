@@ -1,13 +1,21 @@
 package com.example.pokemon_daws.pokemon.storable
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
 import com.example.pokemon_daws.pokemon.Pokemon
+import com.google.gson.Gson
 
-class Trainer(
-    override val pokemons: MutableList<Pokemon>,
-    val name: String,
-    ) : IStorable{
 
-    private val pc: Collection = Collection();
+@Entity
+data class Trainer(
+    @ColumnInfo(name="pokemons") override val pokemons: MutableList<Pokemon>,
+    @ColumnInfo(name="name") val name: String,
+    @ColumnInfo(name="collection") val collection: Collection,
+    ) : IStorable {
+
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
 
     override fun addPK(pk: Pokemon) {
         if(this.pokemons.size < 6){
@@ -27,11 +35,33 @@ class Trainer(
 
     fun storePK(pk:Pokemon){
         if(this.pokemons.size > 1){
-            this.pc.addPK(pk)
+            this.collection.addPK(pk)
             this.pokemons.remove(pk)
         }else{
             throw IndexOutOfBoundsException("Cannot put last pokemon in PC")
         }
     }
 
+}
+
+class TrainerTypeConverter {
+    @TypeConverter
+    fun fromPokeListToString(pokemons: MutableList<Pokemon>): String {
+        return Gson().toJson(pokemons)
+    }
+
+    @TypeConverter
+    fun fromStringToPokeList(json: String): MutableList<Pokemon> {
+        return Gson().fromJson(json, Array<Pokemon>::class.java).toMutableList()
+    }
+
+    @TypeConverter
+    fun fromCollectionToString(collection: Collection) : String {
+        return Gson().toJson(collection)
+    }
+
+    @TypeConverter
+    fun fromStringToCollection(json: String): Collection {
+        return Gson().fromJson(json, Collection::class.java)
+    }
 }
