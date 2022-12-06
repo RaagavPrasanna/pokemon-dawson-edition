@@ -1,4 +1,4 @@
-package com.example.pokemon_daws.controllers
+package com.example.pokemon_daws.Controllers
 
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
@@ -65,9 +65,9 @@ class ApiController(private val lifecycleScope: LifecycleCoroutineScope) {
         return pkMoves
     }
 
-    suspend fun getMove(species: String): Move?{
+    suspend fun getMove(moveName: String): Move?{
         var move: Move? = null
-        val url = URL(PokeApiEndpoint.MOVE.url + "/${species}")
+        val url = URL(PokeApiEndpoint.MOVE.url + "/${moveName}")
         lifecycleScope.launch(Dispatchers.IO){
             move = connect(url, Move::class.java, ::simplifyMove)
         }.join()
@@ -115,14 +115,21 @@ data class PokedexEntry(
 )
 
 data class TypeRelation(
-    val fire : String,
+    val normal: String,
+    val fire: String,
+    val water: String,
     val electric: String,
     val grass: String,
+    val ice: String,
+    val fighting: String,
     val poison: String,
+    val ground: String,
     val flying: String,
+    val psychic: String,
     val bug: String,
     val rock: String,
-    val steel: String,
+    val ghost: String,
+    val dragon: String,
 )
 
 data class PokemonEntry(
@@ -155,8 +162,10 @@ data class Move(
     val maxPP: Int,
     val ailment: String,
     val ailment_chance: Int,
-    val healing: Int
+    val healing: Int,
+    val target: String,
 )
+
 data class Type(
     val type: String
 )

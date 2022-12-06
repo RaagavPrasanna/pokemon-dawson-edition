@@ -1,18 +1,8 @@
 package com.example.pokemon_daws.pokemon
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
-<<<<<<< HEAD
-import com.example.pokemon_daws.controllers.Pokemon_Math.CalculateHP
-import com.example.pokemon_daws.controllers.Pokemon_Math.CalculateStat
-import com.example.pokemon_daws.controllers.Pokemon_Math.CurrentLevel
-=======
 import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateHP
 import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateStat
 import com.example.pokemon_daws.Controllers.Pokemon_Math.CurrentLevel
->>>>>>> 1f3d85b414930f02c91ff0bb3b5d39de59765a51
 
 class Pokemon(
     val species: String,
