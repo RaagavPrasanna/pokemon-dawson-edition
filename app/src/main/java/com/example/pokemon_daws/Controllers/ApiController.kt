@@ -21,6 +21,7 @@ import simplifyPokedexEntries
 import simplifyPokemon
 import simplifyTypeRelations
 import simplifyTypes
+import java.io.BufferedReader
 
 
 class ApiController(private val lifecycleScope: LifecycleCoroutineScope) {
@@ -29,53 +30,41 @@ class ApiController(private val lifecycleScope: LifecycleCoroutineScope) {
     suspend fun getAllPokemon(): List<PokedexEntry> {
         var entries = listOf<PokedexEntry>()
         val url = URL(PokeApiEndpoint.POKEDEX.url + "/2")
-        lifecycleScope.launch(Dispatchers.IO) {
-            entries = connect(url, Array<PokedexEntry>::class.java, ::simplifyPokedexEntries)!!.toList();
-        }.join()
+        entries = connect(url, Array<PokedexEntry>::class.java, ::simplifyPokedexEntries)!!.toList();
         return entries
     }
     suspend fun getTypes(): List<String>{
         var types = listOf<String>()
         val url = URL(PokeApiEndpoint.GENERATION.url + "/generation-i")
-        lifecycleScope.launch(Dispatchers.IO) {
-            types= connect(url, Array<String>::class.java, ::simplifyTypes)!!.toList()
-        }.join()
+        types= connect(url, Array<String>::class.java, ::simplifyTypes)!!.toList()
         return types
     }
 
     suspend fun getPokemon(species:String):PokemonEntry?{
         var pk :PokemonEntry? = null
         val url = URL(PokeApiEndpoint.POKEMON.url + "/${species}")
-        lifecycleScope.launch(Dispatchers.IO) {
-            pk = connect(url, PokemonEntry::class.java, ::simplifyPokemon);
-        }.join()
+        pk = connect(url, PokemonEntry::class.java, ::simplifyPokemon);
         return pk
     }
 
     suspend fun getPkMoves(species: String): List<PkMove>{
         var pkMoves = listOf<PkMove>()
         val url = URL(PokeApiEndpoint.POKEMON.url + "/${species}")
-        lifecycleScope.launch(Dispatchers.IO){
-            pkMoves = connect(url, Array<PkMove>::class.java, ::simplifyMoves)!!.toList()
-        }.join()
+        pkMoves = connect(url, Array<PkMove>::class.java, ::simplifyMoves)!!.toList()
         return pkMoves
     }
 
     suspend fun getMove(moveName: String): MoveEntry?{
         var move: MoveEntry? = null
         val url = URL(PokeApiEndpoint.MOVE.url + "/${moveName}")
-        lifecycleScope.launch(Dispatchers.IO){
-            move = connect(url, MoveEntry::class.java, ::simplifyMove)
-        }.join()
+        move = connect(url, MoveEntry::class.java, ::simplifyMove)
         return move
     }
 
     suspend fun getTypeRelations(type: String): TypeRelation? {
         var relations: TypeRelation? = null
         val url = URL(PokeApiEndpoint.TYPE.url + "/${type}")
-        lifecycleScope.launch(Dispatchers.IO) {
-            relations = connect(url, TypeRelation::class.java, ::simplifyTypeRelations)
-        }.join()
+        relations = connect(url, TypeRelation::class.java, ::simplifyTypeRelations)
         return relations
     }
 
@@ -83,17 +72,20 @@ class ApiController(private val lifecycleScope: LifecycleCoroutineScope) {
         var result : T? = null
         withContext(Dispatchers.IO) {
             val conn = url.openConnection() as HttpsURLConnection
+            var reader: BufferedReader? = null
             try {
                 conn.requestMethod = "GET"
                 conn.connect()
                 if (conn.responseCode == HttpsURLConnection.HTTP_OK) {
-                    val response = conn.inputStream.bufferedReader().use { it.readText() }
+                    reader = conn.inputStream.bufferedReader()
+                    val response = reader.use { it.readText() }
                     result = GSON.fromJson(simplifier(response), jsonClass)
                 }else{}
             } catch (e: Exception) {
                 e.printStackTrace()
                 Log.e("NETWORK ERROR", e.toString())
             } finally {
+                reader?.close()
                 conn.disconnect()
             }
         }

@@ -8,6 +8,7 @@ import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
+import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateHP
 
 class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
     private val api = ApiController(lifecycleScope)
@@ -55,7 +56,7 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
             getExperience(level),
             pkEntry.base_exp_reward,
             pkEntry.types,
-            pkEntry.base_maxHp,
+            CalculateHP(pkEntry.base_maxHp.toDouble(), level),
             pkEntry.base_maxHp,
             pkEntry.base_attack,
             pkEntry.baseSpecialAttack,

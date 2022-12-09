@@ -47,8 +47,10 @@ object Pokemon_Math{
     }
 
     fun CalculateHP(baseValue: Double, level: Int): Int {
+        Log.i("base",baseValue.toString())
         val calc1 = (baseValue + 10) * level;
         val calc2 = (calc1 / 50) + level + 10;
+        Log.i("final",calc2.toString())
         return floor(calc2).toInt();
     }
 }
