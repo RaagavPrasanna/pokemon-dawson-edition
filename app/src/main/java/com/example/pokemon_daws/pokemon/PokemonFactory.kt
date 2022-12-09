@@ -1,11 +1,10 @@
 package com.example.pokemon_daws.pokemon
-import android.content.Context
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.pokemon_daws.Controllers.ApiController
 import java.io.IOException
 
-class PokemonFactory(context: Context, private val lifecycleScope: LifecycleCoroutineScope) {
-    val api = ApiController(lifecycleScope)
+class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
+    private val api = ApiController(lifecycleScope)
 
     suspend fun createPokemon(level: Int, species: String, name: String? = null): Pokemon{
         val pkEntry = api.getPokemon(species) ?: throw IOException("Could not connect")
@@ -17,7 +16,7 @@ class PokemonFactory(context: Context, private val lifecycleScope: LifecycleCoro
             name?: species,
             getExperience(level),
             pkEntry.base_exp_reward,
-            pkEntry.types.map { type -> Type.getType(type)!! },
+            pkEntry.types,
             pkEntry.base_maxHp,
             pkEntry.base_maxHp,
             pkEntry.base_attack,
@@ -43,7 +42,7 @@ class PokemonFactory(context: Context, private val lifecycleScope: LifecycleCoro
                 apiMoveData.power,
                 apiMoveData.healing,
                 if(apiMoveData.damage_class == "special") DamageClass.SPECIAL else DamageClass.PHYSICAL,
-                Type.getType(apiMoveData.type)!!,
+                apiMoveData.type,
                 apiMoveData.target,
             )
             if(moveData.level <= lvl){

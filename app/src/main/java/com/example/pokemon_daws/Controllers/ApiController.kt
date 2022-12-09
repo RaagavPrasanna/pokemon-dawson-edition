@@ -65,11 +65,11 @@ class ApiController(private val lifecycleScope: LifecycleCoroutineScope) {
         return pkMoves
     }
 
-    suspend fun getMove(moveName: String): Move?{
-        var move: Move? = null
+    suspend fun getMove(moveName: String): MoveEntry?{
+        var move: MoveEntry? = null
         val url = URL(PokeApiEndpoint.MOVE.url + "/${moveName}")
         lifecycleScope.launch(Dispatchers.IO){
-            move = connect(url, Move::class.java, ::simplifyMove)
+            move = connect(url, MoveEntry::class.java, ::simplifyMove)
         }.join()
         Log.i("Move TEST", move.toString())
         return move
@@ -150,7 +150,7 @@ data class PkMove(
     val level: Int
 )
 
-data class Move(
+data class MoveEntry(
     val name: String,
     val description: String,
     val category: String,
