@@ -1,9 +1,5 @@
 package com.example.pokemon_daws.pokemon
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
 import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateHP
 import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateStat
 import com.example.pokemon_daws.Controllers.Pokemon_Math.CurrentLevel
@@ -22,6 +18,7 @@ class Pokemon(
     var baseSpecialDefense: Int,
     var baseSpeed: Int,
     var moves: MutableList<Move>,
+    val allMoves:List<Move>,
 ) {
     val maxHp: Int get() = CalculateHP(baseMaxHp.toDouble(), level)
     val attack: Int get() = CalculateStat(baseAttack.toDouble(), level)

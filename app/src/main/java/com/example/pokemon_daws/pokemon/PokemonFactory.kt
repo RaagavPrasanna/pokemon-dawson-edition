@@ -1,48 +1,55 @@
 package com.example.pokemon_daws.pokemon
 import android.content.Context
-import  com.example.pokemon_daws.utils.Json
+import androidx.lifecycle.LifecycleCoroutineScope
+import com.example.pokemon_daws.Controllers.ApiController
+import java.io.IOException
 
-class PokemonFactory(context: Context) {
-    val json = Json(context)
-    fun createPokemon(level: Int, species: String, name: String? = null): Pokemon{
-        //TODO("Add check to see if species is in list")
-        val pkData = json.readJsonPokemon("$species.json")
-        val moves = createMove(species, level)
+class PokemonFactory(context: Context, private val lifecycleScope: LifecycleCoroutineScope) {
+    val api = ApiController(lifecycleScope)
+
+    suspend fun createPokemon(level: Int, species: String, name: String? = null): Pokemon{
+        val pkEntry = api.getPokemon(species) ?: throw IOException("Could not connect")
+        val allMoves = mutableListOf<Move>()
+        val moves = createMove(species, level, allMoves)
+
         return Pokemon(
             species,
             name?: species,
             getExperience(level),
-            pkData.baseExperienceReward,
-            pkData.types.map { type -> Type.getType(type)!! },
-            pkData.baseStateMaxHp,
-            pkData.baseStateMaxHp,
-            pkData.baseStateAttack,
-            pkData.baseStatSpecialAttack,
-            pkData.baseStatDefense,
-            pkData.baseStatSpecialDefense,
-            pkData.baseStatSpeed,
+            pkEntry.base_exp_reward,
+            pkEntry.types.map { type -> Type.getType(type)!! },
+            pkEntry.base_maxHp,
+            pkEntry.base_maxHp,
+            pkEntry.base_attack,
+            pkEntry.baseSpecialAttack,
+            pkEntry.base_defense,
+            pkEntry.baseSpecialDefense,
+            pkEntry.base_speed,
             moves,
+            allMoves,
             )
     }
 
-    private fun createMove(species: String, lvl: Int): MutableList<Move>{
-        val moveListData = json.readJsonMoveList("$species.json")
+    private suspend fun createMove(species: String, lvl: Int, allMoves: MutableList<Move>): MutableList<Move>{
+        val moveListData = api.getPkMoves(species)
         val moves = mutableListOf<Move>()
-        for (move in moveListData){
-            val moveData = json.readJsonMove("${move.move}.json")
-            if(moveData != null && move.level <= lvl){
-                moves.add(Move(
-                    move.move,
-                    moveData.accuracy,
-                    moveData.maxPP,
-                    moveData.maxPP,
-                    moveData.power,
-                    moveData.heal,
-                    if(moveData.damageClass == "SPECIAL") DamageClass.SPECIAL else DamageClass.PHYSICAL,
-                    Type.getType(moveData.type)!!,
-                    moveData.target,
-                ))
+        for (moveData in moveListData){
+            val apiMoveData = api.getMove(moveData.move)!!
+            val move = Move(
+                apiMoveData.name,
+                apiMoveData.accuracy,
+                apiMoveData.maxPP,
+                apiMoveData.maxPP,
+                apiMoveData.power,
+                apiMoveData.healing,
+                if(apiMoveData.damage_class == "special") DamageClass.SPECIAL else DamageClass.PHYSICAL,
+                Type.getType(apiMoveData.type)!!,
+                apiMoveData.target,
+            )
+            if(moveData.level <= lvl){
+                moves.add(move)
             }
+            allMoves.add(move)
         }
         moves.subList(0, if(moves.size >= 4) 3 else moves.size - 1)
         return moves

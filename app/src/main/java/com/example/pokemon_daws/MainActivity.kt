@@ -4,15 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
-import com.example.pokemon_daws.Controllers.Pokemon_Math
+import com.example.pokemon_daws.Controllers.ApiController
 import com.example.pokemon_daws.utils.Json
 import com.example.pokemon_daws.databinding.ActivityMainBinding
 import com.example.pokemon_daws.pokemon.PokemonFactory
 import com.example.pokemon_daws.Controllers.*
 import com.example.pokemon_daws.pokemon.Pokemon
+import com.example.pokemon_daws.pokemon.TypeSingleton
 import com.example.pokemon_daws.pokemon.storable.Collection
 import com.example.pokemon_daws.pokemon.storable.Trainer
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +20,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var fetch: ApiController
 
     private val db by lazy {PkDb.getDb(this)}
 
@@ -28,50 +28,56 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val jsonReader = Json(this);
-        val pkFc = PokemonFactory(this)
-        Log.i("Test",jsonReader.readJsonMove("bubble.json").toString())
-        Log.i("Test",jsonReader.readJsonMove("ember.json").toString())
-        Log.i("Test",jsonReader.readJsonMoveList("bulbasaur.json").toString())
-        Log.i("Test",jsonReader.readJsonTypeRelations("fire.json").toString())
-        Log.i("Test",jsonReader.readJsonPokemon("pidgey.json").toString())
-        val pk = pkFc.createPokemon(5, "bulbasaur", "bulb")
-        val pk1 = pkFc.createPokemon(5, "charmander")
+        val pkFc = PokemonFactory(this, lifecycleScope)
+//        Log.i("Test",jsonReader.readJsonMove("bubble.json").toString())
+//        Log.i("Test",jsonReader.readJsonMove("ember.json").toString())
+//        Log.i("Test",jsonReader.readJsonMoveList("bulbasaur.json").toString())
+//        Log.i("Test",jsonReader.readJsonTypeRelations("fire.json").toString())
+//        Log.i("Test",jsonReader.readJsonPokemon("pidgey.json").toString())
+        lifecycleScope.launch(Dispatchers.IO){
+            val pk = pkFc.createPokemon(5, "bulbasaur", "bulb")
 
-        val collection = Collection()
+            val pk1 = pkFc.createPokemon(5, "charmander")
+//            Log.i("TEST", pk.toString())
+        }
 
-        collection.addPK(pk)
-        collection.addPK(pk1)
+        val ts = TypeSingleton.getTypeSingleton(lifecycleScope)
 
-        val trainer = Trainer(mutableListOf<Pokemon>(), "Snowman", collection)
+//        println(ts.getEffectiveType("fire", "ground"))
 
-        trainer.addPK(pk)
-        trainer.addPK(pk1)
-
-
-//        val db = Room.databaseBuilder(
-//            applicationContext,
-//            PkDb::class.java, "pokemon-db"
-//        ).build()
+//        val collection = Collection()
 //
+//        collection.addPK(pk)
+//        collection.addPK(pk1)
 //
+//        val trainer = Trainer(mutableListOf<Pokemon>(), "Snowman", collection)
 //
-//        db.pkDao().insertTrainer(trainer)
-//
-//        println(db.pkDao().loadTrainer("Snowman"))
+//        trainer.addPK(pk)
+//        trainer.addPK(pk1)
 
-//        Log.i("Test", pk.toString())
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+//        fetch = ApiController(lifecycleScope)
+//        lifecycleScope.launch(Dispatchers.IO){
+//            fetch.getAllPokemon()
+//            fetch.getTypes()
+//            fetch.getPokemon("bulbasaur")
+//            fetch.getPkMoves("bulbasaur")
+//            fetch.getMove("tackle")
+//            fetch.getTypeRelations("ground")
+//        }
         binding.newGameButton.setOnClickListener {
-            val nsIntent = Intent(this, NameSelection::class.java)
-
-            startActivity(nsIntent)
+            if (ts != null) {
+                println(ts.getEffectiveType("ground", "flying"))
+            }
+//            val nsIntent = Intent(this, NameSelection::class.java)
+//
+//            startActivity(nsIntent)
         }
-        lifecycleScope.launch(Dispatchers.IO) {
-            db.pkDao().insertTrainer(trainer)
-
-            println(db.pkDao().loadTrainer("Snowman"))
-        }
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            db.pkDao().insertTrainer(trainer)
+//
+//            println(db.pkDao().loadTrainer("Snowman"))
+//        }
     }
 }
