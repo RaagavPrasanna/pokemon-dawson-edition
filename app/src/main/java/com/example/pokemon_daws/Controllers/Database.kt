@@ -11,6 +11,9 @@ interface PkDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTrainer(vararg trainers: Trainer)
+
+    @Query("SELECT * FROM Trainer ORDER BY id DESC LIMIT 1;")
+    fun getRecentTrainer(): Trainer
 }
 
 @TypeConverters(value = [TrainerTypeConverter::class])

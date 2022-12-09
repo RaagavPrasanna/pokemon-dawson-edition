@@ -20,8 +20,10 @@ class Pokemon(
     var baseSpeed: Int,
     var moves: MutableList<Move>,
     val allMoves:List<Move>,
-    val frontImage: Bitmap,
-    val backImage: Bitmap
+    var frontImage: Bitmap,
+    var backImage: Bitmap,
+    var frontUrl: String,
+    var backUrl: String
 ) {
     val maxHp: Int get() = CalculateHP(baseMaxHp.toDouble(), level)
     val attack: Int get() = CalculateStat(baseAttack.toDouble(), level)
