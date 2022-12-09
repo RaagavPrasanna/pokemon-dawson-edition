@@ -10,7 +10,7 @@
         android:id="@+id/battle_screen"
         android:name="com.example.pokemon_daws.fragments.BattleScreen"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="325dp"
         app:layout_constraintBottom_toTopOf="@+id/battle_message"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_battle_screen"
@@ -22,8 +22,10 @@
         android:id="@+id/battle_message"
         android:name="com.example.pokemon_daws.fragments.BattleText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
         app:layout_constraintBottom_toTopOf="@+id/battle_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/battle_screen"
         tools:layout="@layout/fragment_battle_text" />
 
@@ -31,10 +33,11 @@
         android:id="@+id/battle_menu"
         android:name="com.example.pokemon_daws.fragments.BattleMenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="325dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/battle_message"
-        tools:layout="@layout/fragment_battle_menu"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout="@layout/fragment_battle_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
