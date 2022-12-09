@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             Log.i("power", pk1.moves[2].power.toString())
             Log.i("attack", pk1.specialAttack.toString())
             Log.i("defence", pk.specialDefense.toString())
-            Log.i("effect",Pokemon_Math.CalculateDamage(pk1, pk, pk1.moves[2]).toString())
+//            Log.i("effect",Pokemon_Math.CalculateDamage(pk1, pk, pk1.moves[2]).toString())
         }
 
 

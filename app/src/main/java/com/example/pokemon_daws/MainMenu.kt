@@ -1,5 +1,6 @@
 package com.example.pokemon_daws
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.pokemon_daws.databinding.ActivityMainMenuBinding
@@ -12,5 +13,10 @@ class MainMenu : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.wildEncounterButton.setOnClickListener{
+            val wildBattleIntent = Intent(this, WildBattle::class.java)
+            startActivity(wildBattleIntent)
+        }
     }
 }
