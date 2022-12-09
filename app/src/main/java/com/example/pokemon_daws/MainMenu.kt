@@ -3,6 +3,7 @@ package com.example.pokemon_daws
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.pokemon_daws.databinding.ActivityMainMenuBinding
 
 class MainMenu : AppCompatActivity() {
@@ -17,6 +18,12 @@ class MainMenu : AppCompatActivity() {
         binding.wildEncounterButton.setOnClickListener{
             val wildBattleIntent = Intent(this, WildBattle::class.java)
             startActivity(wildBattleIntent)
+        }
+
+        binding.pokecenterButton.setOnClickListener{
+            MainActivity.trainer.pokemons.forEach{
+                it.hp = it.maxHp;
+            }
         }
     }
 }

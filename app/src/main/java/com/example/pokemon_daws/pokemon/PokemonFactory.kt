@@ -3,6 +3,7 @@ import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.pokemon_daws.Controllers.ApiController
 import java.io.IOException
+import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateHP
 
 class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
     private val api = ApiController(lifecycleScope)
@@ -19,7 +20,7 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
             getExperience(level),
             pkEntry.base_exp_reward,
             pkEntry.types,
-            pkEntry.base_maxHp,
+            CalculateHP(pkEntry.base_maxHp.toDouble(), level),
             pkEntry.base_maxHp,
             pkEntry.base_attack,
             pkEntry.baseSpecialAttack,
