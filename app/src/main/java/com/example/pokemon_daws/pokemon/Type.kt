@@ -97,7 +97,7 @@ class TypeSingleton(
     }
 }
 
-enum class TypeEffectiveness(damageRate: Double) {
+enum class TypeEffectiveness(val damageRate: Double) {
     SUPER_EFFECTIVE(2.0),
     NOT_VERY_EFFECTIVE(0.5),
     NEUTRAL(1.0),

@@ -1,4 +1,5 @@
 package com.example.pokemon_daws.pokemon
+import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.pokemon_daws.Controllers.ApiController
 import java.io.IOException
@@ -7,6 +8,7 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
     private val api = ApiController(lifecycleScope)
 
     suspend fun createPokemon(level: Int, species: String, name: String? = null): Pokemon{
+
         val pkEntry = api.getPokemon(species) ?: throw IOException("Could not connect")
         val allMoves = mutableListOf<Move>()
         val moves = createMove(species, level, allMoves)
@@ -47,6 +49,7 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
                 apiMoveData.description
             )
             if(moveData.level <= lvl){
+                Log.i("move",move.name)
                 moves.add(move)
             }
             allMoves.add(move)

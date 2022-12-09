@@ -1,9 +1,8 @@
 package com.example.pokemon_daws.Controllers
 
-import com.example.pokemon_daws.pokemon.DamageClass
-import com.example.pokemon_daws.pokemon.Move
-import com.example.pokemon_daws.pokemon.Pokemon
-import com.example.pokemon_daws.pokemon.Type
+import android.util.Log
+import com.example.pokemon_daws.MainActivity
+import com.example.pokemon_daws.pokemon.*
 import kotlin.math.floor
 import kotlin.math.roundToInt
 import kotlin.random.Random
@@ -12,16 +11,19 @@ import kotlin.math.pow
 // Math formulas that affect Pokemon behaviour.
 object Pokemon_Math{
     fun CalculateDamage(attackerPk: Pokemon, defenderPk: Pokemon, move: Move): Int {
-        val levelContribution = ((2 * attackerPk.level) / 5 + 2) / 50;
+        val levelContribution = ((2 * attackerPk.level)*1.0 / 5 + 2) / 50;
         val attDefRatio = if(move.damageClass == DamageClass.PHYSICAL){
-            attackerPk.attack / defenderPk.defense;
+            attackerPk.attack*1.0 / defenderPk.defense;
         }else{
-            attackerPk.specialAttack / defenderPk.specialDefense;
+            attackerPk.specialAttack*1.0 / defenderPk.specialDefense;
         }
         val damage = (levelContribution * move.power * attDefRatio + 2);
-        var finalDamage = (if(move.type in attackerPk.types) damage * 1.5 else damage * 1.0).toInt()
-        var effectiveness =
-        return finalDamage;
+        val finalDamage = if(move.type in attackerPk.types) damage * 1.5 else damage * 1.0
+        var effectiveness = 1.0
+        for (type in defenderPk.types){
+             effectiveness *= MainActivity.ts.getEffectiveType(move.type, type)!!.damageRate
+        }
+        return if((finalDamage * effectiveness).toInt() < 1) 1 else (finalDamage * effectiveness).toInt()
     }
 
     fun AttemptCapture(enemyHP: Double, enemyHPMax: Double): Boolean {
