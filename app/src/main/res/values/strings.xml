@@ -8,13 +8,14 @@
     <string name="next_string">NEXT</string>
     <string name="trainer_name_hint">Ash Ketchum</string>
     <string name="starter_selection_string">Choose your starter Pokemon!</string>
-    <string name="bulbasaur">Bulbasaur</string>
-    <string name="charmander">Charmander</string>
-    <string name="squirtle">Squirtle</string>
+    <string name="bulbasaur">bulbasaur</string>
+    <string name="charmander">charmander</string>
+    <string name="squirtle">squirtle</string>
     <string name="main_menu_header_string">What would you like to do?</string>
     <string name="wild_encounter_button_string">ENCOUNTER WILD POKEMON</string>
     <string name="trainer_battle_button_string">BATTLE TRAINER</string>
     <string name="pokecenter_button_string">HEAL POKEMON</string>
     <string name="change_team_button_string">CHANGE TEAM</string>
     <string name="save_button_string">SAVE GAME</string>
+    <string name="enter_name_toast">Trainer please select a name</string>
 </resources>
