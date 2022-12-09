@@ -1,8 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
 
+    <TextView
+        android:id="@+id/pokemon_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bulbasaur"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/pokemon_level" />
+
+    <TextView
+        android:id="@+id/pokemon_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/pokemon_name"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/pokemon_hp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12/20"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/pokemon_sprite"
+        app:layout_constraintBottom_toTopOf="@id/swap_button"/>
+
+    <ImageView
+        android:id="@+id/pokemon_sprite"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/trainer_sprite"
+        app:layout_constraintTop_toTopOf="@id/pokemon_name"
+        app:layout_constraintRight_toLeftOf="@id/pokemon_hp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/stats_button"
+        android:paddingTop="20dp"/>
+
+    <Button
+        android:id="@+id/stats_button"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:text="stats"
+        app:layout_constraintTop_toBottomOf="@id/pokemon_sprite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/swap_button"/>
+    <Button
+        android:id="@+id/swap_button"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:text="swap"
+        app:layout_constraintLeft_toRightOf="@id/stats_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
