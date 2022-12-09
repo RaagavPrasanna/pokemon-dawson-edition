@@ -6,13 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.example.pokemon_daws.Controllers.ApiController
-import com.example.pokemon_daws.utils.Json
 import com.example.pokemon_daws.databinding.ActivityMainBinding
 import com.example.pokemon_daws.pokemon.PokemonFactory
 import com.example.pokemon_daws.Controllers.*
-import com.example.pokemon_daws.pokemon.Pokemon
 import com.example.pokemon_daws.pokemon.TypeSingleton
-import com.example.pokemon_daws.pokemon.storable.Collection
 import com.example.pokemon_daws.pokemon.storable.Trainer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         lateinit var ts: TypeSingleton
         lateinit var trainer: Trainer
-        lateinit var pokemonFactory: PokemonFactory
+        lateinit var pkFactory: PokemonFactory
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -32,15 +29,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val jsonReader = Json(this);
-        pokemonFactory = PokemonFactory(this, lifecycleScope)
-//        lifecycleScope.launch(Dispatchers.IO){
-//            val pk = pkFc.createPokemon(5, "bulbasaur", "bulb")
-//
-//            val pk1 = pkFc.createPokemon(5, "charmander")
-//        }
-
         ts = TypeSingleton.getTypeSingleton(lifecycleScope)!!
+        pkFactory = PokemonFactory(lifecycleScope)
+        lifecycleScope.launch(Dispatchers.IO){
+            val pk = pkFactory.createPokemon(5, "bulbasaur", "bulb")
+            val pk1 = pkFactory.createPokemon(10, "charmander")
+            Log.i("power", pk1.moves[2].power.toString())
+            Log.i("attack", pk1.specialAttack.toString())
+            Log.i("defence", pk.specialDefense.toString())
+            Log.i("effect",Pokemon_Math.CalculateDamage(pk1, pk, pk1.moves[2]).toString())
+        }
+
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -50,5 +49,7 @@ class MainActivity : AppCompatActivity() {
 
             startActivity(nsIntent)
         }
+
+
     }
 }

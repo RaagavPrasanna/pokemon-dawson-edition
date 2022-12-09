@@ -68,7 +68,7 @@ class StarterSelection : AppCompatActivity() {
         binding.nextButtonStarterSelection.setOnClickListener {
 
             lifecycleScope.launch(Dispatchers.IO) {
-                val pk = MainActivity.pokemonFactory.createPokemon(5, selectedPokemon)
+                val pk = MainActivity.pkFactory.createPokemon(5, selectedPokemon)
 
                 MainActivity.trainer.addPK(pk)
             }
