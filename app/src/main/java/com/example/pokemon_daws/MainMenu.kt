@@ -15,6 +15,11 @@ class MainMenu : AppCompatActivity() {
         binding = ActivityMainMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.changeTeamButton.setOnClickListener{
+            val ctIntent = Intent(this, ChangeTeam::class.java)
+
+            startActivity(ctIntent)
+        }
         binding.wildEncounterButton.setOnClickListener{
             val wildBattleIntent = Intent(this, WildBattle::class.java)
             startActivity(wildBattleIntent)

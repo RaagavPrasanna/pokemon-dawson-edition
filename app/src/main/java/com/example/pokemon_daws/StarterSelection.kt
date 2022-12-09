@@ -70,9 +70,18 @@ class StarterSelection : AppCompatActivity() {
 
             lifecycleScope.launch(Dispatchers.IO) {
                 val pk = MainActivity.pkFactory.createPokemon(5, selectedPokemon)
-                Log.i("new pokemon", pk.name)
+                val pk2 = MainActivity.pkFactory.createPokemon(25, "mewtwo")
+                val pk3 = MainActivity.pkFactory.createPokemon(25, "mew")
+                val pk4 = MainActivity.pkFactory.createPokemon(36, "zapdos")
+                val pk5 = MainActivity.pkFactory.createPokemon(36, "weepinbell")
+                val pk6 = MainActivity.pkFactory.createPokemon(36, "hitmonchan")
 
                 MainActivity.trainer.addPK(pk)
+                MainActivity.trainer.addPK(pk2)
+                MainActivity.trainer.addPK(pk3)
+                MainActivity.trainer.addPK(pk4)
+                MainActivity.trainer.addPK(pk5)
+                MainActivity.trainer.addPK(pk6)
             }
 
             val mmIntent = Intent(this, MainMenu::class.java)

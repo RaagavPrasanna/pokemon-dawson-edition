@@ -1,5 +1,6 @@
 package com.example.pokemon_daws.pokemon
 
+import android.graphics.Bitmap
 import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateHP
 import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateStat
 import com.example.pokemon_daws.Controllers.Pokemon_Math.CurrentLevel
@@ -19,6 +20,8 @@ class Pokemon(
     var baseSpeed: Int,
     var moves: MutableList<Move>,
     val allMoves:List<Move>,
+    val frontImage: Bitmap,
+    val backImage: Bitmap
 ) {
     val maxHp: Int get() = CalculateHP(baseMaxHp.toDouble(), level)
     val attack: Int get() = CalculateStat(baseAttack.toDouble(), level)

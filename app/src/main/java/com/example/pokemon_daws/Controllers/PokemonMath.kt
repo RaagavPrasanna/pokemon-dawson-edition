@@ -37,9 +37,7 @@ object Pokemon_Math{
     }
 
     fun CurrentLevel(experience: Double): Int {
-        val level = floor(experience.pow(1.0 / 3.0)).toInt();
-        Log.i("level", "$level with exp: $experience")
-        return level;
+        return experience.pow(1.0 / 3.0).roundToInt();
     }
 
     fun CalculateStat(baseValue: Double, level: Int): Int {
