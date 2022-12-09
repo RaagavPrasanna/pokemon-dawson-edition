@@ -8,4 +8,7 @@ import android.view.ViewGroup
 import com.example.pokemon_daws.R
 
 class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
 }

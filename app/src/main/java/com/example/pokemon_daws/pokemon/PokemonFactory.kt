@@ -54,7 +54,7 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
             }
             allMoves.add(move)
         }
-        moves.subList(0, if(moves.size >= 4) 3 else moves.size - 1)
+         moves.subList(0, if(moves.size >= 4) 3 else (moves.size - 1))
         return moves
     }
 

@@ -10,13 +10,11 @@
         android:id="@+id/battle_screen"
         android:name="com.example.pokemon_daws.fragments.BattleScreen"
         android:layout_width="match_parent"
-        android:layout_height="325dp"
+        android:layout_height="225dp"
         app:layout_constraintBottom_toTopOf="@+id/battle_message"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_battle_screen"
-        tools:layout_editor_absoluteX="0dp">
-
-    </androidx.fragment.app.FragmentContainerView>
+        tools:layout_editor_absoluteX="0dp" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/battle_message"
