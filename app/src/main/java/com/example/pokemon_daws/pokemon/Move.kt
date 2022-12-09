@@ -16,6 +16,7 @@ class Move(
         val damageClass: DamageClass,
         val type: String,
         val target: String,
+        val description: String,
 ){
 
 }

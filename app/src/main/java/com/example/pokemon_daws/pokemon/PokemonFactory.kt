@@ -44,6 +44,7 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
                 if(apiMoveData.damage_class == "special") DamageClass.SPECIAL else DamageClass.PHYSICAL,
                 apiMoveData.type,
                 apiMoveData.target,
+                apiMoveData.description
             )
             if(moveData.level <= lvl){
                 moves.add(move)
