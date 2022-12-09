@@ -9,7 +9,7 @@ class Pokemon(
     val name: String,
     var experience: Int,
     var baseExperienceReward: Int,
-    var types: List<Type>,
+    var types: List<String>,
     var hp: Int,
     var baseMaxHp: Int,
     var baseAttack: Int,

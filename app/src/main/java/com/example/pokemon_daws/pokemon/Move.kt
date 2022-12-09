@@ -14,8 +14,9 @@ class Move(
         val power: Int,
         val heal: Int,
         val damageClass: DamageClass,
-        val type: Type,
+        val type: String,
         val target: String,
+        val description: String,
 ){
 
 }

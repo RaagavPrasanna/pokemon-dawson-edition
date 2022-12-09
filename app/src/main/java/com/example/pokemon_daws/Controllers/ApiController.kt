@@ -32,7 +32,6 @@ class ApiController(private val lifecycleScope: LifecycleCoroutineScope) {
         lifecycleScope.launch(Dispatchers.IO) {
             entries = connect(url, Array<PokedexEntry>::class.java, ::simplifyPokedexEntries)!!.toList();
         }.join()
-        Log.i("POKEDEX TEST", entries.toString())
         return entries
     }
     suspend fun getTypes(): List<String>{
@@ -41,7 +40,6 @@ class ApiController(private val lifecycleScope: LifecycleCoroutineScope) {
         lifecycleScope.launch(Dispatchers.IO) {
             types= connect(url, Array<String>::class.java, ::simplifyTypes)!!.toList()
         }.join()
-        Log.i("TYPES TEST", types.toString())
         return types
     }
 
@@ -51,7 +49,6 @@ class ApiController(private val lifecycleScope: LifecycleCoroutineScope) {
         lifecycleScope.launch(Dispatchers.IO) {
             pk = connect(url, PokemonEntry::class.java, ::simplifyPokemon);
         }.join()
-        Log.i("Pokemon TEST", pk.toString())
         return pk
     }
 
@@ -61,17 +58,15 @@ class ApiController(private val lifecycleScope: LifecycleCoroutineScope) {
         lifecycleScope.launch(Dispatchers.IO){
             pkMoves = connect(url, Array<PkMove>::class.java, ::simplifyMoves)!!.toList()
         }.join()
-        Log.i("Pokemon Moves TEST", pkMoves.toString())
         return pkMoves
     }
 
-    suspend fun getMove(moveName: String): Move?{
-        var move: Move? = null
+    suspend fun getMove(moveName: String): MoveEntry?{
+        var move: MoveEntry? = null
         val url = URL(PokeApiEndpoint.MOVE.url + "/${moveName}")
         lifecycleScope.launch(Dispatchers.IO){
-            move = connect(url, Move::class.java, ::simplifyMove)
+            move = connect(url, MoveEntry::class.java, ::simplifyMove)
         }.join()
-        Log.i("Move TEST", move.toString())
         return move
     }
 
@@ -81,7 +76,6 @@ class ApiController(private val lifecycleScope: LifecycleCoroutineScope) {
         lifecycleScope.launch(Dispatchers.IO) {
             relations = connect(url, TypeRelation::class.java, ::simplifyTypeRelations)
         }.join()
-        Log.i("TYPE RELATION TEST", relations.toString())
         return relations
     }
 
@@ -150,7 +144,7 @@ data class PkMove(
     val level: Int
 )
 
-data class Move(
+data class MoveEntry(
     val name: String,
     val description: String,
     val category: String,
