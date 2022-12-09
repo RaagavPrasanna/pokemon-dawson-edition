@@ -1,8 +1,13 @@
 package com.example.pokemon_daws.pokemon
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.pokemon_daws.Controllers.ApiController
 import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
     private val api = ApiController(lifecycleScope)
@@ -12,6 +17,37 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
         val pkEntry = api.getPokemon(species) ?: throw IOException("Could not connect")
         val allMoves = mutableListOf<Move>()
         val moves = createMove(species, level, allMoves)
+        var frontImage: Bitmap
+        var backImage: Bitmap
+
+
+        var url = URL(pkEntry.front_sprite)
+        var conn = url.openConnection() as HttpURLConnection
+        conn.requestMethod = "GET"
+        conn.connect()
+        if(conn.responseCode == HttpsURLConnection.HTTP_OK) {
+            val inputStream = conn.inputStream
+            frontImage = BitmapFactory.decodeStream(inputStream)
+            inputStream.close()
+        } else {
+            throw java.lang.IllegalArgumentException("fetch did not work for front sprite")
+        }
+
+        conn.disconnect()
+
+        url = URL(pkEntry.back_sprite)
+        conn = url.openConnection() as HttpURLConnection
+        conn.requestMethod = "GET"
+        conn.connect()
+        if(conn.responseCode == HttpsURLConnection.HTTP_OK) {
+            val inputStream = conn.inputStream
+            backImage = BitmapFactory.decodeStream(inputStream)
+            inputStream.close()
+        } else {
+            throw java.lang.IllegalArgumentException("fetch did not work for back sprite")
+        }
+
+        conn.disconnect()
 
         return Pokemon(
             species,
@@ -28,7 +64,8 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
             pkEntry.base_speed,
             moves,
             allMoves,
-            )
+            frontImage,
+            backImage)
     }
 
     private suspend fun createMove(species: String, lvl: Int, allMoves: MutableList<Move>): MutableList<Move>{
