@@ -1,20 +1,17 @@
 package com.example.pokemon_daws.pokemon
 import android.content.Context
 import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.lifecycle.lifecycleScope
 import com.example.pokemon_daws.Controllers.ApiController
-import com.example.pokemon_daws.Controllers.PokemonEntry
-import  com.example.pokemon_daws.utils.Json
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import java.io.IOException
 
 class PokemonFactory(context: Context, private val lifecycleScope: LifecycleCoroutineScope) {
     val api = ApiController(lifecycleScope)
 
     suspend fun createPokemon(level: Int, species: String, name: String? = null): Pokemon{
-        val pkEntry = api.getPokemon(species)!!
+        val pkEntry = api.getPokemon(species) ?: throw IOException("Could not connect")
+        val allMoves = mutableListOf<Move>()
+        val moves = createMove(species, level, allMoves)
 
-        val moves = createMove(species, level)
         return Pokemon(
             species,
             name?: species,
@@ -29,27 +26,30 @@ class PokemonFactory(context: Context, private val lifecycleScope: LifecycleCoro
             pkEntry.baseSpecialDefense,
             pkEntry.base_speed,
             moves,
+            allMoves,
             )
     }
 
-    private suspend fun createMove(species: String, lvl: Int): MutableList<Move>{
+    private suspend fun createMove(species: String, lvl: Int, allMoves: MutableList<Move>): MutableList<Move>{
         val moveListData = api.getPkMoves(species)
         val moves = mutableListOf<Move>()
         for (moveData in moveListData){
-            var move = api.getMove(moveData.move)!!
+            val apiMoveData = api.getMove(moveData.move)!!
+            val move = Move(
+                apiMoveData.name,
+                apiMoveData.accuracy,
+                apiMoveData.maxPP,
+                apiMoveData.maxPP,
+                apiMoveData.power,
+                apiMoveData.healing,
+                if(apiMoveData.damage_class == "special") DamageClass.SPECIAL else DamageClass.PHYSICAL,
+                Type.getType(apiMoveData.type)!!,
+                apiMoveData.target,
+            )
             if(moveData.level <= lvl){
-                moves.add(Move(
-                    move.name,
-                    move.accuracy,
-                    move.maxPP,
-                    move.maxPP,
-                    move.power,
-                    move.healing,
-                    if(move.damage_class == "special") DamageClass.SPECIAL else DamageClass.PHYSICAL,
-                    Type.getType(move.type)!!,
-                    move.target,
-                ))
+                moves.add(move)
             }
+            allMoves.add(move)
         }
         moves.subList(0, if(moves.size >= 4) 3 else moves.size - 1)
         return moves

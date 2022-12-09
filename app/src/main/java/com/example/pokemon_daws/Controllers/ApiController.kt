@@ -95,11 +95,10 @@ class ApiController(private val lifecycleScope: LifecycleCoroutineScope) {
                 if (conn.responseCode == HttpsURLConnection.HTTP_OK) {
                     val response = conn.inputStream.bufferedReader().use { it.readText() }
                     result = GSON.fromJson(simplifier(response), jsonClass)
-                }
+                }else{}
             } catch (e: Exception) {
                 e.printStackTrace()
                 Log.e("NETWORK ERROR", e.toString())
-                throw e
             } finally {
                 conn.disconnect()
             }
