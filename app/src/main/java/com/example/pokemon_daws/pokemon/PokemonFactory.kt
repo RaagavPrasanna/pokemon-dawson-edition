@@ -76,7 +76,9 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
             moves,
             allMoves,
             frontImage!!,
-            backImage!!)
+            backImage!!,
+            pkEntry.front_sprite,
+            pkEntry.back_sprite)
     }
 
     private suspend fun createMove(species: String, lvl: Int, allMoves: MutableList<Move>): MutableList<Move>{
