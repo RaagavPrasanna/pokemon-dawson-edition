@@ -29,4 +29,6 @@
     <string name="trainer_message_default">trainer_message</string>
     <string name="opponent_message_default">opponent_message</string>
     <string name="move_name_default">Move Name</string>
+    <string name="trainer_sprite_desc">Trainer Sprite</string>
+    <string name="opponent_sprite_desc">Opponent Sprite</string>
 </resources>

@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var ts: TypeSingleton
         lateinit var trainer: Trainer
         lateinit var pkFactory: PokemonFactory
+        lateinit var allPk: List<PokedexEntry>
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -31,7 +32,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         ts = TypeSingleton.getTypeSingleton(lifecycleScope)!!
         pkFactory = PokemonFactory(lifecycleScope)
+        fetch = ApiController(lifecycleScope)
         lifecycleScope.launch(Dispatchers.IO){
+            allPk = fetch.getAllPokemon()
             val pk = pkFactory.createPokemon(5, "bulbasaur", "bulb")
             val pk1 = pkFactory.createPokemon(10, "charmander")
             Log.i("power", pk1.moves[2].power.toString())

@@ -24,7 +24,7 @@ import simplifyTypes
 import java.io.BufferedReader
 
 
-class ApiController(private val lifecycleScope: LifecycleCoroutineScope) {
+class ApiController() {
     private val GSON: Gson = GsonBuilder().setPrettyPrinting().serializeNulls().create()
 
     suspend fun getAllPokemon(): List<PokedexEntry> {
