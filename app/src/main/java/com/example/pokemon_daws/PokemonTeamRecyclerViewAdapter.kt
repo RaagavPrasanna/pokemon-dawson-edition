@@ -21,7 +21,7 @@ class PokemonTeamRecyclerViewAdapter(private val inpPokemon: List<Pokemon>):
                 val pokemon: Pokemon = inpPokemon[position]
 
                 binding.pokemonName.text = pokemon.name
-                binding.pokemonLevel.text = pokemon.level.toString()
+                binding.pokemonLevel.text = "Lvl " +pokemon.level.toString()
                 binding.pokemonHp.text = pokemon.hp.toString() +"/" +pokemon.baseMaxHp.toString()
                 binding.pokemonSprite.setImageBitmap(pokemon.frontImage)
             }
