@@ -13,8 +13,8 @@ import com.example.pokemon_daws.databinding.FragmentItemsMenuBinding
 
 class BattleMenu : Fragment(R.layout.fragment_battle_menu) {
     private lateinit var binding: FragmentBattleMenuBinding
-    val moveMenu = MoveMenu()
-    val itemMenu = ItemsMenu()
+    private val moveMenu = MoveMenu()
+    private val itemMenu = ItemsMenu()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +40,7 @@ class BattleMenu : Fragment(R.layout.fragment_battle_menu) {
         val fragManager = requireActivity().supportFragmentManager
         val transac = fragManager.beginTransaction()
         transac.replace(R.id.battle_menu, fragment)
-            .addToBackStack("Battle Menu")
+            .addToBackStack("Battle Menu Fragment")
             .commit()
     }
 }

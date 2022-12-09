@@ -7,26 +7,26 @@
     tools:context=".fragments.BattleText">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/trainer_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:gravity="center"
+        android:text="@string/trainer_message_default"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/opponent_message"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/opponent_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:gravity="center"
+        android:text="@string/opponent_message_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/trainer_message"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
