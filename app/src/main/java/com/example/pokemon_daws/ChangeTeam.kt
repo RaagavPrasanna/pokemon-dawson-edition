@@ -14,8 +14,15 @@ class ChangeTeam : AppCompatActivity() {
         binding = ActivityChangeTeamBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = PokemonTeamRecyclerViewAdapter(MainActivity.trainer.pokemons.toList())
+        adapter = PokemonTeamRecyclerViewAdapter(MainActivity.trainer.pokemons)
         binding.changeTeamRecyclerView.adapter = adapter
         binding.changeTeamRecyclerView.layoutManager = GridLayoutManager(this, 2)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        println("on resume is called")
+        adapter.notifyDataSetChanged()
     }
 }

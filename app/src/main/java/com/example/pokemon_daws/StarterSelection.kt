@@ -76,12 +76,28 @@ class StarterSelection : AppCompatActivity() {
                 val pk5 = MainActivity.pkFactory.createPokemon(36, "weepinbell")
                 val pk6 = MainActivity.pkFactory.createPokemon(36, "hitmonchan")
 
+                val pk7 = MainActivity.pkFactory.createPokemon(50, "snorlax")
+
                 MainActivity.trainer.addPK(pk)
                 MainActivity.trainer.addPK(pk2)
                 MainActivity.trainer.addPK(pk3)
                 MainActivity.trainer.addPK(pk4)
                 MainActivity.trainer.addPK(pk5)
                 MainActivity.trainer.addPK(pk6)
+
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
             }
 
             val mmIntent = Intent(this, MainMenu::class.java)
