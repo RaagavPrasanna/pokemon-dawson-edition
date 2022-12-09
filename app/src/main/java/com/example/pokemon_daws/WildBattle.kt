@@ -1,4 +1,4 @@
-package com.example.pokemon_daws.fragments
+package com.example.pokemon_daws
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -15,7 +15,7 @@
         android:theme="@style/Theme.PokemonDaws"
         tools:targetApi="31">
         <activity
-            android:name=".fragments.WildBattle"
+            android:name=".WildBattle"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

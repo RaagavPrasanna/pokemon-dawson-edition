@@ -7,11 +7,5 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.pokemon_daws.R
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BattleMessage.newInstance] factory method to
- * create an instance of this fragment.
- */
-class BattleMessage : Fragment(R.layout.fragment_battle_message) {
-
+class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
 }

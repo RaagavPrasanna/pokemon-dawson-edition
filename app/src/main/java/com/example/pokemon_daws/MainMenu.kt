@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.pokemon_daws.databinding.ActivityMainMenuBinding
-import com.example.pokemon_daws.fragments.WildBattle
 
 class MainMenu : AppCompatActivity() {
 
