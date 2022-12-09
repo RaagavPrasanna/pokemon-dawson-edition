@@ -18,34 +18,44 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
         val pkEntry = api.getPokemon(species) ?: throw IOException("Could not connect")
         val allMoves = mutableListOf<Move>()
         val moves = createMove(species, level, allMoves)
-        var frontImage: Bitmap
-        var backImage: Bitmap
+        var frontImage: Bitmap? = null
+        var backImage: Bitmap? = null
 
 
         var url = URL(pkEntry.front_sprite)
         var conn = url.openConnection() as HttpURLConnection
-        conn.requestMethod = "GET"
-        conn.connect()
-        if(conn.responseCode == HttpsURLConnection.HTTP_OK) {
-            val inputStream = conn.inputStream
-            frontImage = BitmapFactory.decodeStream(inputStream)
-            inputStream.close()
-        } else {
-            throw java.lang.IllegalArgumentException("fetch did not work for front sprite")
+        try {
+            conn.requestMethod = "GET"
+            conn.connect()
+            if (conn.responseCode == HttpsURLConnection.HTTP_OK) {
+                val inputStream = conn.inputStream
+                frontImage = BitmapFactory.decodeStream(inputStream)
+                inputStream.close()
+            } else {
+                throw java.lang.IllegalArgumentException("fetch did not work for front sprite")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e("NETWORK ERROR", e.toString())
         }
 
         conn.disconnect()
 
         url = URL(pkEntry.back_sprite)
         conn = url.openConnection() as HttpURLConnection
-        conn.requestMethod = "GET"
-        conn.connect()
-        if(conn.responseCode == HttpsURLConnection.HTTP_OK) {
-            val inputStream = conn.inputStream
-            backImage = BitmapFactory.decodeStream(inputStream)
-            inputStream.close()
-        } else {
-            throw java.lang.IllegalArgumentException("fetch did not work for back sprite")
+        try {
+            conn.requestMethod = "GET"
+            conn.connect()
+            if (conn.responseCode == HttpsURLConnection.HTTP_OK) {
+                val inputStream = conn.inputStream
+                backImage = BitmapFactory.decodeStream(inputStream)
+                inputStream.close()
+            } else {
+                throw java.lang.IllegalArgumentException("fetch did not work for back sprite")
+            }
+        } catch(e: Exception) {
+            e.printStackTrace()
+            Log.e("NETWORK ERROR", e.toString())
         }
 
         conn.disconnect()
@@ -65,8 +75,8 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
             pkEntry.base_speed,
             moves,
             allMoves,
-            frontImage,
-            backImage)
+            frontImage!!,
+            backImage!!)
     }
 
     private suspend fun createMove(species: String, lvl: Int, allMoves: MutableList<Move>): MutableList<Move>{
