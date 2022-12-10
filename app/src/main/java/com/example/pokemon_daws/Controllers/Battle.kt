@@ -1,9 +1,8 @@
-package com.example.pokemon_daws
+package com.example.pokemon_daws.Controllers
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LifecycleCoroutineScope
+import com.example.pokemon_daws.MainActivity
 import com.example.pokemon_daws.fragments.BattleScreen
 import com.example.pokemon_daws.pokemon.Pokemon
 import kotlinx.coroutines.Dispatchers
@@ -11,11 +10,20 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
-class Battle(lifecycleScope: LifecycleCoroutineScope, screen: BattleScreen) {
+class Battle(val lifecycleScope: LifecycleCoroutineScope,val screen: BattleScreen) {
     lateinit var opponentPk: Pokemon
     lateinit var trainerPk: Pokemon
 
-    init {
+    public fun getStartingTrainerPk(): Pokemon? {
+        for(pk in MainActivity.trainer.pokemons){
+            if(pk.hp != 0){
+                return pk
+            }
+        }
+        return null
+    }
+
+    fun initBattle(){
         val pk = getStartingTrainerPk()
         if(pk == null){
             Log.i("Empty trainer", "Failed")
@@ -31,15 +39,6 @@ class Battle(lifecycleScope: LifecycleCoroutineScope, screen: BattleScreen) {
             }
             screen.updateScreen(opponentPk)
         }
-    }
-
-    public fun getStartingTrainerPk(): Pokemon? {
-        for(pk in MainActivity.trainer.pokemons){
-            if(pk.hp != 0){
-                return pk
-            }
-        }
-        return null
     }
 
     private fun getMaxLvl(): Int{

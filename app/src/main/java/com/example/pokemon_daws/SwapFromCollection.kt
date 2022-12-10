@@ -3,6 +3,7 @@ package com.example.pokemon_daws
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.pokemon_daws.adapters.CollectionRecyclerViewAdapter
 import com.example.pokemon_daws.databinding.ActivitySwapFromCollectionBinding
 
 class SwapFromCollection : AppCompatActivity() {

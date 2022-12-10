@@ -56,6 +56,8 @@ class PokemonFactory() {
         } catch(e: Exception) {
             e.printStackTrace()
             Log.e("NETWORK ERROR", e.toString())
+        }finally {
+
         }
 
         conn.disconnect()
@@ -83,7 +85,7 @@ class PokemonFactory() {
 
     private suspend fun createMove(species: String, lvl: Int, allMoves: MutableList<Move>): MutableList<Move>{
         val moveListData = api.getPkMoves(species)
-        val moves = mutableListOf<Move>()
+        var moves = mutableListOf<Move>()
         for (moveData in moveListData){
             val apiMoveData = api.getMove(moveData.move)!!
             val move = Move(
@@ -104,7 +106,7 @@ class PokemonFactory() {
             }
             allMoves.add(move)
         }
-         moves.subList(0, if(moves.size >= 4) 3 else (moves.size - 1))
+         moves = moves.subList(0, if(moves.size >= 4) 3 else (moves.size - 1))
         return moves
     }
 

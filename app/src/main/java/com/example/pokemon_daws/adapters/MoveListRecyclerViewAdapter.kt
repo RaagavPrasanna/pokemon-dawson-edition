@@ -20,10 +20,10 @@ class MoveListRecyclerViewAdapter(private var moves:MutableList<Move>, private v
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val binding = holder.binding
         val move = moves[position]
-//        binding.foodItem.text = food
-//        binding.removeBtn.setOnClickListener {
-//            removeItem(binding)
-//        }
+        binding.movePp.setText("PP:${move.pp}/${move.maxPP}")
+        binding.moveName.setText(move.name.uppercase())
+        binding.moveType.setText(move.type.uppercase())
+        binding
     }
 
     override fun getItemCount(): Int = moves.size
