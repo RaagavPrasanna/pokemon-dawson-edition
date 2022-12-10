@@ -63,13 +63,12 @@ class Battle(val lifecycleScope: LifecycleCoroutineScope,val screen: BattleScree
         screen.updateScreen(opponentPk)
     }
 
-    fun usePokeBall() {
+    fun usePokeBall(): Boolean  {
         val success = Pokemon_Math.AttemptCapture(opponentPk.hp.toDouble(), opponentPk.maxHp.toDouble())
 
         if (success) {
             MainActivity.trainer.collectPK(opponentPk)
-            opponentPk.hp = 0;
         }
-        screen.updateScreen(opponentPk)
+        return success
     }
 }

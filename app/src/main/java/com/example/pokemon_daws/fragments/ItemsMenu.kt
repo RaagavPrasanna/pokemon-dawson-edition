@@ -21,7 +21,9 @@ class ItemsMenu() : Fragment(R.layout.fragment_items_menu) {
             battle.usePotion()
         }
         binding.pkballBtn.setOnClickListener {
-            battle.usePokeBall()
+            if (battle.usePokeBall()) {
+                activity?.finish()
+            }
         }
     }
 
