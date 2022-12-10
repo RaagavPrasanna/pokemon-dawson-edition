@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var trainer: Trainer
         lateinit var pkFactory: PokemonFactory
         lateinit var db: PkDb
+        var isInit: Int? = null
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -67,6 +68,7 @@ class MainActivity : AppCompatActivity() {
                     elem.backImage = getImage(elem.backUrl)!!
                 }
                 println("images done loading")
+                isInit = 0
             }
 
             val mmIntent = Intent(this, MainMenu::class.java)
@@ -74,6 +76,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(mmIntent)
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isInit = null
     }
 
     private suspend fun getImage(urlStr: String): Bitmap? {

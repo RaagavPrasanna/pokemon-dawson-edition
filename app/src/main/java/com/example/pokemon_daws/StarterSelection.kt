@@ -98,11 +98,17 @@ class StarterSelection : AppCompatActivity() {
                 MainActivity.trainer.collection.addPK(pk7)
                 MainActivity.trainer.collection.addPK(pk7)
                 MainActivity.trainer.collection.addPK(pk7)
+
+                MainActivity.isInit = 0
             }
 
             val mmIntent = Intent(this, MainMenu::class.java)
 
             startActivity(mmIntent)
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        MainActivity.isInit = null
     }
 }
