@@ -18,12 +18,12 @@ class WildBattle : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wild_battle)
         screenFrag = BattleScreen.newInstance(this)
-        battle = Battle(lifecycleScope, screenFrag)
         supportFragmentManager.beginTransaction().apply {
             this.add(R.id.battle_menu, menuFrag)
             this.add(R.id.battle_screen, screenFrag)
             this.add(R.id.battle_message, textFrag)
             commit()
         }
+        battle = Battle(lifecycleScope, screenFrag)
     }
 }

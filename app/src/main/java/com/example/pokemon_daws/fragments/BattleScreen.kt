@@ -1,5 +1,6 @@
 package com.example.pokemon_daws.fragments
 
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -27,11 +28,11 @@ class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
     }
 
     public fun updateScreen(opponentPk: Pokemon){
-//        binding.opponentSprite.setImageDrawable(opponentPk.)
-
+        binding.opponentSprite.setImageDrawable(BitmapDrawable(opponentPk.frontImage))
         binding.opponentInfo.setText("${opponentPk.species.uppercase()}\nLVL ${opponentPk.level}")
         binding.opponentHp.setText("HP: ${opponentPk.hp}/${opponentPk.maxHp}")
 
+        binding.trainerSprite.setImageDrawable(BitmapDrawable(wildBattle.battle.trainerPk.backImage))
         binding.trainerInfo.setText("${wildBattle.battle.trainerPk.species.uppercase()}\nLVL ${wildBattle.battle.trainerPk.level}")
         binding.trainerHp.setText("HP: ${wildBattle.battle.trainerPk.hp}/${wildBattle.battle.trainerPk.maxHp}")
     }

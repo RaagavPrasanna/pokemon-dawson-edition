@@ -14,7 +14,7 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/battle_screen"
         android:layout_width="match_parent"
-        android:layout_height="225dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/battle_message"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_battle_screen"

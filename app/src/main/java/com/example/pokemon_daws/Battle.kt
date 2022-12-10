@@ -1,6 +1,7 @@
 package com.example.pokemon_daws
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.pokemon_daws.fragments.BattleScreen
@@ -17,7 +18,8 @@ class Battle(lifecycleScope: LifecycleCoroutineScope, screen: BattleScreen) {
     init {
         val pk = getStartingTrainerPk()
         if(pk == null){
-            Toast.makeText(screen.context,"Can't fight when whole team fainted", Toast.LENGTH_SHORT)
+            Log.i("Empty trainer", "Failed")
+//            Toast.makeText(screen.context,"Can't fight when whole team fainted", Toast.LENGTH_SHORT)
             screen.requireActivity().finish()
         }else{
             trainerPk = pk
@@ -52,5 +54,4 @@ class Battle(lifecycleScope: LifecycleCoroutineScope, screen: BattleScreen) {
         val pk = MainActivity.allPk[Random.nextInt(MainActivity.allPk.size)]
         return MainActivity.pkFactory.createPokemon(getMaxLvl(), pk.name)
     }
-//    private val opponentPk = LiveData<Pokemon>()
 }
