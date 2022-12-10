@@ -16,6 +16,7 @@ import com.example.pokemon_daws.databinding.FragmentItemsMenuBinding
 class BattleMenu : Fragment(R.layout.fragment_battle_menu) {
     private lateinit var binding: FragmentBattleMenuBinding
     private lateinit var moveMenu: MoveMenu
+    private lateinit var pokemonMenu: PokemonMenu
     private lateinit var battle: Battle
     private val itemMenu = ItemsMenu()
 
@@ -24,6 +25,7 @@ class BattleMenu : Fragment(R.layout.fragment_battle_menu) {
         binding = FragmentBattleMenuBinding.bind(view)
         battle.initBattle()
         moveMenu = MoveMenu.newInstance(battle)
+        pokemonMenu = PokemonMenu.newInstance()
 
         binding.fightBtn.setOnClickListener{
             switchFragment(moveMenu)
@@ -38,6 +40,9 @@ class BattleMenu : Fragment(R.layout.fragment_battle_menu) {
         }
 
         //TODO add Pokemon team picking
+        binding.pokemonBtn.setOnClickListener {
+            switchFragment(pokemonMenu)
+        }
     }
 
     private fun switchFragment(fragment:Fragment){
