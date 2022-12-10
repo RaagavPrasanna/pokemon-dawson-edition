@@ -24,17 +24,28 @@
         app:layout_constraintTop_toBottomOf="@id/starter_sprite"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/starter_name_edit_text"
         android:paddingTop="50dp"/>
+
+    <EditText
+        android:id="@+id/starter_name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/starter_selection_text"
+        app:layout_constraintBottom_toTopOf="@id/starter_selection_text"
+        android:hint="Enter a nickname (optional)"/>
 
     <LinearLayout
         android:id="@+id/starter_selection_selector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/starter_selection_text"
+        app:layout_constraintTop_toBottomOf="@id/starter_name_edit_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:paddingTop="100dp">
+        app:layout_constraintBottom_toTopOf="@id/next_button_starter_selection">
 
         <ImageView
             android:id="@+id/select_bulbasaur"
