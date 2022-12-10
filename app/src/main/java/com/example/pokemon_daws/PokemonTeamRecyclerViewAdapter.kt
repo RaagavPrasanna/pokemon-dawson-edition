@@ -25,7 +25,7 @@ class PokemonTeamRecyclerViewAdapter(private val inpPokemon: MutableList<Pokemon
 
                 binding.pokemonName.text = pokemon.name
                 binding.pokemonLevel.text = "Lvl " +pokemon.level.toString()
-                binding.pokemonHp.text = pokemon.hp.toString() +"/" +pokemon.baseMaxHp.toString()
+                binding.pokemonHp.text = pokemon.hp.toString() +"/" +pokemon.maxHp.toString()
                 binding.pokemonSprite.setImageBitmap(pokemon.frontImage)
 
                 binding.swapButton.setOnClickListener{
