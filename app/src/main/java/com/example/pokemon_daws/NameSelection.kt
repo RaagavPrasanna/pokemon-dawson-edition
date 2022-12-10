@@ -35,4 +35,8 @@ class NameSelection : AppCompatActivity() {
 
         }
     }
+    override fun onResume() {
+        super.onResume()
+        MainActivity.isInit = null
+    }
 }

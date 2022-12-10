@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.pokemon_daws.Controllers.ApiController
 import com.example.pokemon_daws.databinding.ActivityMainBinding
@@ -15,6 +16,8 @@ import com.example.pokemon_daws.pokemon.TypeSingleton
 import com.example.pokemon_daws.pokemon.storable.Trainer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
@@ -27,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var allPk: List<PokedexEntry>
         var fetch = ApiController()
         lateinit var db: PkDb
+        var isInit: Int? = null
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -60,24 +64,47 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.loadGameButton.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
-                trainer = db.pkDao().getRecentTrainer()
-                trainer.pokemons.forEachIndexed{index, elem ->
-                    elem.frontImage = getImage(elem.frontUrl)!!
-                    elem.backImage = getImage(elem.backUrl)!!
-                }
-                trainer.collection.pokemons.forEachIndexed{index, elem ->
-                    elem.frontImage = getImage(elem.frontUrl)!!
-                    elem.backImage = getImage(elem.backUrl)!!
-                }
-                println("images done loading")
+            var passed = false
+            val toastContext = this
+//            try {
+            runBlocking {
+                lifecycleScope.launch(Dispatchers.IO){
+                    try {
+                        trainer = db.pkDao().getRecentTrainer()
+                        trainer.pokemons.forEachIndexed { index, elem ->
+                            elem.frontImage = getImage(elem.frontUrl)!!
+                            elem.backImage = getImage(elem.backUrl)!!
+                        }
+                        trainer.collection.pokemons.forEachIndexed { index, elem ->
+                            elem.frontImage = getImage(elem.frontUrl)!!
+                            elem.backImage = getImage(elem.backUrl)!!
+                        }
+                        println("images done loading")
+                        isInit = 0
+                        passed = true
+                    } catch(e: Exception) {
+
+                    }
+                }.join()
             }
+            if(passed) {
+                val mmIntent = Intent(this, MainMenu::class.java)
 
-            val mmIntent = Intent(this, MainMenu::class.java)
-
-            startActivity(mmIntent)
+                startActivity(mmIntent)
+            }
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//                val duration = Toast.LENGTH_SHORT
+//                val toast = Toast.makeText(applicationContext, "Cannot load game, no save file found", duration)
+//                toast.show()
+//            }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isInit = null
     }
 
     private suspend fun getImage(urlStr: String): Bitmap? {
