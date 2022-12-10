@@ -11,7 +11,7 @@ import javax.net.ssl.HttpsURLConnection
 import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateHP
 
 class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
-    private val api = ApiController(lifecycleScope)
+    private val api = ApiController()
 
     suspend fun createPokemon(level: Int, species: String, name: String? = null): Pokemon{
 
