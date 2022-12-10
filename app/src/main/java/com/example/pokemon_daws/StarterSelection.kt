@@ -3,6 +3,7 @@ package com.example.pokemon_daws
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -69,8 +70,34 @@ class StarterSelection : AppCompatActivity() {
 
             lifecycleScope.launch(Dispatchers.IO) {
                 val pk = MainActivity.pkFactory.createPokemon(5, selectedPokemon)
+                val pk2 = MainActivity.pkFactory.createPokemon(25, "mewtwo")
+                val pk3 = MainActivity.pkFactory.createPokemon(25, "mew")
+                val pk4 = MainActivity.pkFactory.createPokemon(36, "zapdos")
+                val pk5 = MainActivity.pkFactory.createPokemon(36, "weepinbell")
+                val pk6 = MainActivity.pkFactory.createPokemon(36, "hitmonchan")
+
+                val pk7 = MainActivity.pkFactory.createPokemon(50, "snorlax")
 
                 MainActivity.trainer.addPK(pk)
+                MainActivity.trainer.addPK(pk2)
+                MainActivity.trainer.addPK(pk3)
+                MainActivity.trainer.addPK(pk4)
+                MainActivity.trainer.addPK(pk5)
+                MainActivity.trainer.addPK(pk6)
+
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
+                MainActivity.trainer.collection.addPK(pk7)
             }
 
             val mmIntent = Intent(this, MainMenu::class.java)

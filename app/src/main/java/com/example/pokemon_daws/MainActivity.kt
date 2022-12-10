@@ -1,6 +1,8 @@
 package com.example.pokemon_daws
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +15,9 @@ import com.example.pokemon_daws.pokemon.TypeSingleton
 import com.example.pokemon_daws.pokemon.storable.Trainer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.net.HttpURLConnection
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -21,12 +26,12 @@ class MainActivity : AppCompatActivity() {
         lateinit var pkFactory: PokemonFactory
         lateinit var allPk: List<PokedexEntry>
         var fetch = ApiController()
+        lateinit var db: PkDb
     }
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var fetch: ApiController
 
-    private val db by lazy {PkDb.getDb(this)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 //            Log.i("effect",Pokemon_Math.CalculateDamage(pk1, pk, pk1.moves[2]).toString())
         }
 
-
+        db = PkDb.getDb(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -54,6 +59,45 @@ class MainActivity : AppCompatActivity() {
             startActivity(nsIntent)
         }
 
+        binding.loadGameButton.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                trainer = db.pkDao().getRecentTrainer()
+                trainer.pokemons.forEachIndexed{index, elem ->
+                    elem.frontImage = getImage(elem.frontUrl)!!
+                    elem.backImage = getImage(elem.backUrl)!!
+                }
+                trainer.collection.pokemons.forEachIndexed{index, elem ->
+                    elem.frontImage = getImage(elem.frontUrl)!!
+                    elem.backImage = getImage(elem.backUrl)!!
+                }
+                println("images done loading")
+            }
 
+            val mmIntent = Intent(this, MainMenu::class.java)
+
+            startActivity(mmIntent)
+        }
+
+    }
+
+    private suspend fun getImage(urlStr: String): Bitmap? {
+        var retVal: Bitmap? = null
+        val url = URL(urlStr)
+        val conn = url.openConnection() as HttpURLConnection
+        try {
+            conn.requestMethod = "GET"
+            conn.connect()
+            if (conn.responseCode == HttpsURLConnection.HTTP_OK) {
+                val inputStream = conn.inputStream
+                retVal = BitmapFactory.decodeStream(inputStream)
+                inputStream.close()
+            } else {
+                throw java.lang.IllegalArgumentException("fetch did not work for front sprite")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e("NETWORK ERROR", e.toString())
+        }
+        return retVal
     }
 }
