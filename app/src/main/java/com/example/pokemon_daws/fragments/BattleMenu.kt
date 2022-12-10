@@ -23,6 +23,7 @@ class BattleMenu : Fragment(R.layout.fragment_battle_menu) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBattleMenuBinding.bind(view)
         battle.initBattle()
+        itemMenu.setBattle(battle)
         moveMenu = MoveMenu.newInstance(battle)
 
         binding.fightBtn.setOnClickListener{

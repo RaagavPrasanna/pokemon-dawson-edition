@@ -28,7 +28,6 @@ class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
         binding.trainerHp.setText("HP: ${wildBattle.battle.trainerPk.hp}/${wildBattle.battle.trainerPk.maxHp}")
     }
 
-
     companion object{
         fun newInstance(act: WildBattle):BattleScreen{
             val fragment = BattleScreen()
