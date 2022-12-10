@@ -17,24 +17,11 @@ class ExampleUnitTest {
 
 }
 class PokemonMathTests {
-    //@Test fun calculateDamageTest() {
-    //    var pk1: Pokemon
-    //    var pk2: Pokemon
-    //    MainActivity.pkFactory = PokemonFactory()
-    //    runBlocking {
-    //        launch {
-    //            runBlocking {
-    //                launch(newSingleThreadContext("testThread")) {
-    //                    pk1 = MainActivity.pkFactory.createPokemon(5, "bulbasoar")
-    //                    pk2 = MainActivity.pkFactory.createPokemon(5, "charmander")
-    //                }
-    //            }.join()
-    //        }
-    //    }
-    //    //val damage = Pokemon_Math.CalculateDamage(pk1, pk2, pk1.allMoves[0])
-    //    //Log.i("damage", damage.toString())
-    //    assertEquals(4, 2 + 2)
-    //}
+    @Test fun calculateDamageTest() {
+        //var pk1: Pokemon = Pokemon("species1", "pokemon1", 125, 5, listOf(), )
+        var pk2: Pokemon
+        assertEquals(4, 2 + 2)
+    }
 
     @Test
     fun AttemptCapture_fail() {

@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         ts = TypeSingleton.getTypeSingleton(lifecycleScope)!!
         pkFactory = PokemonFactory(lifecycleScope)
-        fetch = ApiController(lifecycleScope)
+        fetch = ApiController()
         lifecycleScope.launch(Dispatchers.IO){
             allPk = fetch.getAllPokemon()
             val pk = pkFactory.createPokemon(5, "bulbasaur", "bulb")
