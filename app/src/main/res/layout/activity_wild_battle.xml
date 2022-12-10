@@ -6,9 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".WildBattle">
 
+    <TextView
+        android:id="@+id/trainer_team"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/battle_screen"
-        android:name="com.example.pokemon_daws.fragments.BattleScreen"
         android:layout_width="match_parent"
         android:layout_height="225dp"
         app:layout_constraintBottom_toTopOf="@+id/battle_message"
@@ -18,7 +22,6 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/battle_message"
-        android:name="com.example.pokemon_daws.fragments.BattleText"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         app:layout_constraintBottom_toTopOf="@+id/battle_menu"
@@ -29,7 +32,6 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/battle_menu"
-        android:name="com.example.pokemon_daws.fragments.BattleMenu"
         android:layout_width="match_parent"
         android:layout_height="325dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -4,8 +4,8 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.pokemon_daws.Controllers.ApiController
 import java.io.IOException
 
-class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
-    private val api = ApiController(lifecycleScope)
+class PokemonFactory() {
+    private val api = ApiController()
 
     suspend fun createPokemon(level: Int, species: String, name: String? = null): Pokemon{
 

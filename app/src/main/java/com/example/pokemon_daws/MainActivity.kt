@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var trainer: Trainer
         lateinit var pkFactory: PokemonFactory
         lateinit var allPk: List<PokedexEntry>
+        var fetch = ApiController()
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -31,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ts = TypeSingleton.getTypeSingleton(lifecycleScope)!!
-        pkFactory = PokemonFactory(lifecycleScope)
-        fetch = ApiController(lifecycleScope)
+        pkFactory = PokemonFactory()
+        fetch = ApiController()
         lifecycleScope.launch(Dispatchers.IO){
             allPk = fetch.getAllPokemon()
             val pk = pkFactory.createPokemon(5, "bulbasaur", "bulb")

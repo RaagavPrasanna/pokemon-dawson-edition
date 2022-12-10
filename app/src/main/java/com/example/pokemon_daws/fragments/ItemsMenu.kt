@@ -16,5 +16,4 @@ class ItemsMenu : Fragment(R.layout.fragment_items_menu) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentItemsMenuBinding.bind(view)
     }
-
 }

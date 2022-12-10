@@ -2,35 +2,28 @@ package com.example.pokemon_daws
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
-import com.example.pokemon_daws.R
-import com.example.pokemon_daws.pokemon.Pokemon
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.random.Random
+import com.example.pokemon_daws.fragments.BattleMenu
+import com.example.pokemon_daws.fragments.BattleScreen
+import com.example.pokemon_daws.fragments.BattleText
+import com.example.pokemon_daws.fragments.MoveMenu
 
 class WildBattle : AppCompatActivity() {
-    var opponentPk: Pokemon? = null
+    private lateinit var screenFrag : BattleScreen
+    val textFrag = BattleText()
+    val menuFrag = BattleMenu()
+    public lateinit var battle: Battle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wild_battle)
-        lifecycleScope.launch(Dispatchers.IO){
-            opponentPk = getRandomPk()
+        screenFrag = BattleScreen.newInstance(this)
+        battle = Battle(lifecycleScope, screenFrag)
+        supportFragmentManager.beginTransaction().apply {
+            this.add(R.id.battle_menu, menuFrag)
+            this.add(R.id.battle_screen, screenFrag)
+            this.add(R.id.battle_message, textFrag)
+            commit()
         }
-    }
-
-    private fun getMaxLvl(): Int{
-        var maxLvl = 0
-        for (pk in MainActivity.trainer.pokemons){
-            maxLvl = if(pk.level > maxLvl) pk.level else maxLvl
-        }
-        return maxLvl
-    }
-
-    private suspend fun getRandomPk(): Pokemon{
-        val pk = MainActivity.allPk[Random.nextInt(MainActivity.allPk.size)]
-        return MainActivity.pkFactory.createPokemon(getMaxLvl(), pk.name)
     }
 }
