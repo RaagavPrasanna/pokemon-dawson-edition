@@ -39,6 +39,7 @@ class BattleMenu : Fragment(R.layout.fragment_battle_menu) {
         }
 
         binding.itemBtn.setOnClickListener{
+            itemMenu.setBattle(battle)
             switchFragment(itemMenu)
         }
 

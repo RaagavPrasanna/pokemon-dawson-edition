@@ -60,4 +60,27 @@ class Battle(val lifecycleScope: LifecycleCoroutineScope,var screen: BattleScree
         val pk = MainActivity.allPk[Random.nextInt(MainActivity.allPk.size)]
         return MainActivity.pkFactory.createPokemon(getMaxLvl(), pk.name)
     }
+
+    // Increase the trainer's pokemon's hp by up to 20
+    fun usePotion() {
+        trainerPk.hp += 20
+        if (trainerPk.hp > trainerPk.maxHp) {
+            trainerPk.hp = trainerPk.maxHp
+        }
+        screen.updateScreen(opponentPk)
+    }
+
+    fun usePokeBall(): Boolean  {
+        val success = Pokemon_Math.AttemptCapture(opponentPk.hp.toDouble(), opponentPk.maxHp.toDouble())
+
+        if (success) {
+            if (MainActivity.trainer.pokemons.size < 6) {
+                MainActivity.trainer.addPK(opponentPk)
+            }
+            else {
+                MainActivity.trainer.collectPK(opponentPk)
+            }
+        }
+        return success
+    }
 }
