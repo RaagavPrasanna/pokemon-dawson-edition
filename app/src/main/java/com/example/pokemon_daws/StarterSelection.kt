@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.pokemon_daws.databinding.ActivityStarterSelectionBinding;
+import com.example.pokemon_daws.pokemon.Pokemon
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -68,8 +69,15 @@ class StarterSelection : AppCompatActivity() {
 
         binding.nextButtonStarterSelection.setOnClickListener {
 
+            val nickname = binding.starterNameEditText.text.toString()
+
             lifecycleScope.launch(Dispatchers.IO) {
-                val pk = MainActivity.pkFactory.createPokemon(5, selectedPokemon)
+                var pk: Pokemon
+                if(nickname.isEmpty()) {
+                    pk = MainActivity.pkFactory.createPokemon(5, selectedPokemon)
+                } else {
+                    pk = MainActivity.pkFactory.createPokemon(5, selectedPokemon, nickname)
+                }
                 val pk2 = MainActivity.pkFactory.createPokemon(25, "mewtwo")
                 val pk3 = MainActivity.pkFactory.createPokemon(25, "mew")
                 val pk4 = MainActivity.pkFactory.createPokemon(36, "zapdos")
