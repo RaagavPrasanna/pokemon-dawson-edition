@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         var fetch = ApiController()
         lateinit var db: PkDb
         var isInit: Int? = null
+        var contacts: ArrayList<String> = arrayListOf()
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -161,7 +162,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 contactsCursor.close()
             }
-            println(contactsList)
+            contacts = contactsList
+            println(contacts)
         }
     }
 }
