@@ -32,7 +32,7 @@ class WildBattle : AppCompatActivity() {
         binding.loadBar.visibility = View.VISIBLE
 
         screenFrag = BattleScreen.newInstance(this)
-        battle = Battle(lifecycleScope/*, screenFrag*/)
+        battle = Battle(lifecycleScope, screenFrag)
 
         lifecycleScope.launch(Dispatchers.IO) {
             battle.initBattle()

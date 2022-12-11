@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
-class Battle(val lifecycleScope: LifecycleCoroutineScope,/*val screen: BattleScreen*/) {
+class Battle(val lifecycleScope: LifecycleCoroutineScope,var screen: BattleScreen) {
     lateinit var opponentPk: Pokemon
     lateinit var trainerPk: Pokemon
     var gotPk = false
