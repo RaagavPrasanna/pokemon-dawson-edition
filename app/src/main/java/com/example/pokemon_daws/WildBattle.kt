@@ -21,6 +21,7 @@ class WildBattle : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().apply {
             this.add(R.id.battle_screen, screenFrag)
+            this.addToBackStack("Screen")
             commit()
         }
 
@@ -28,7 +29,9 @@ class WildBattle : AppCompatActivity() {
         menuFrag = BattleMenu.newInstance(this, battle)
         supportFragmentManager.beginTransaction().apply {
             this.add(R.id.battle_menu, menuFrag)
+            this.addToBackStack("Menu")
             this.add(R.id.battle_message, textFrag)
+            this.addToBackStack("Message")
             commit()
         }
 

@@ -1,15 +1,21 @@
 package com.example.pokemon_daws.adapters
 
-import android.content.res.Resources
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pokemon_daws.MainActivity
+import com.example.pokemon_daws.R
 import com.example.pokemon_daws.databinding.PokemonTeamItemBinding
+import com.example.pokemon_daws.fragments.BattleMenu
+import com.example.pokemon_daws.fragments.PokemonMenu
 import com.example.pokemon_daws.pokemon.Pokemon
 
-class PokemonBattleSwapRecyclerViewAdapter():
+class PokemonBattleSwapRecyclerViewAdapter(
+        private val inpPokemons: MutableList<Pokemon>,
+        private val supportFragmentManager: FragmentManager,
+        private val pokemonMenu: PokemonMenu,
+        private val battleMenu: BattleMenu
+):
         RecyclerView.Adapter<PokemonBattleSwapRecyclerViewAdapter.ViewHolder>() {
                 class ViewHolder(val binding: PokemonTeamItemBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -20,34 +26,33 @@ class PokemonBattleSwapRecyclerViewAdapter():
 
                 override fun onBindViewHolder(holder: ViewHolder, position: Int) {
                         val binding = holder.binding
-                        val pokemon: Pokemon = MainActivity.trainer.pokemons[position]
 
                         if(position == 0) {
                                 binding.swapButton.isEnabled = false
                                 binding.swapButton.text = "ACTIVE"
-                        } else if(MainActivity.trainer.pokemons[position].hp == 0) {
+                        } else if(inpPokemons[position].hp == 0) {
                                 println("hp changed")
                                 binding.swapButton.isEnabled = false
                                 binding.swapButton.text = "FAINTED"
                         }
 
 
-                        binding.pokemonName.text = pokemon.name
-                        binding.pokemonLevel.text = "Lvl " +pokemon.level.toString()
-                        binding.pokemonHp.text = pokemon.hp.toString() +"/" +pokemon.maxHp.toString()
-                        binding.pokemonSprite.setImageBitmap(pokemon.frontImage)
+                        binding.pokemonName.text = inpPokemons[position].name
+                        binding.pokemonLevel.text = "Lvl " +inpPokemons[position].level.toString()
+                        binding.pokemonHp.text = inpPokemons[position].hp.toString() +"/" +inpPokemons[position].maxHp.toString()
+                        binding.pokemonSprite.setImageBitmap(inpPokemons[position].frontImage)
 
                         binding.swapButton.setOnClickListener {
-                                val tempPokemon = MainActivity.trainer.pokemons[0]
-                                println("bring to first: " +MainActivity.trainer.pokemons[position].name +" position: " +position)
-                                println("Bring to " +position +" " +MainActivity.trainer.pokemons[0].name)
+                                val tempPokemon = inpPokemons[0]
+//                                println("bring to first: " +MainActivity.trainer.pokemons[position].name +" position: " +position)
+//                                println("Bring to " +position +" " +MainActivity.trainer.pokemons[0].name)
 
-                                MainActivity.trainer.pokemons[0] = MainActivity.trainer.pokemons[position]
-                                MainActivity.trainer.pokemons[position] = tempPokemon
+                                inpPokemons[0] = inpPokemons[position]
+                                inpPokemons[position] = tempPokemon
 
-                                for (pk in MainActivity.trainer.pokemons) {
-                                        println(pk.name +" : " +pk.hp)
-                                }
+//                                for (pk in MainActivity.trainer.pokemons) {
+//                                        println(pk.name +" : " +pk.hp)
+//                                }
 
 //                                if(MainActivity.trainer.pokemons[position].hp == 0) {
 //                                        binding.swapButton.isEnabled = false
@@ -57,7 +62,11 @@ class PokemonBattleSwapRecyclerViewAdapter():
 //                                        binding.swapButton.text = "SWAP"
 //                                }
 
-                                notifyDataSetChanged()
+                                supportFragmentManager.beginTransaction().apply {
+                                        this.remove(pokemonMenu)
+                                        this.replace(R.id.battle_menu, battleMenu)
+                                        this.commit()
+                                }
 
                         }
 
@@ -67,5 +76,5 @@ class PokemonBattleSwapRecyclerViewAdapter():
 //                                        .toInt()
                 }
 
-                override fun getItemCount(): Int = MainActivity.trainer.pokemons.size
+                override fun getItemCount(): Int = inpPokemons.size
         }
