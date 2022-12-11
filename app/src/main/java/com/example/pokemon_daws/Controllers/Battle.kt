@@ -10,9 +10,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
-class Battle(val lifecycleScope: LifecycleCoroutineScope,val screen: BattleScreen) {
+class Battle(val lifecycleScope: LifecycleCoroutineScope,var screen: BattleScreen) {
     lateinit var opponentPk: Pokemon
     lateinit var trainerPk: Pokemon
+    var gotPk = false
+
 
     public fun getStartingTrainerPk(): Pokemon? {
         for(pk in MainActivity.trainer.pokemons){
@@ -24,20 +26,25 @@ class Battle(val lifecycleScope: LifecycleCoroutineScope,val screen: BattleScree
     }
 
     fun initBattle(){
+        println("call init battle")
+        gotPk = false
         val pk = getStartingTrainerPk()
         if(pk == null){
             Log.i("Empty trainer", "Failed")
 //            Toast.makeText(screen.context,"Can't fight when whole team fainted", Toast.LENGTH_SHORT)
-            screen.requireActivity().finish()
+//            screen.requireActivity().finish()
         }else{
             trainerPk = pk
         }
 
-        lifecycleScope.launch(Dispatchers.Main){
-            withContext(Dispatchers.IO){
+        lifecycleScope.launch(Dispatchers.IO/*Dispatchers.Main*/){
+//            withContext(Dispatchers.IO){
+                println("starting to get random")
                 opponentPk = getRandomPk()
-            }
-            screen.updateScreen(opponentPk)
+                println("got random")
+                gotPk = true
+//            }
+//            screen.updateScreen(opponentPk)
         }
     }
 

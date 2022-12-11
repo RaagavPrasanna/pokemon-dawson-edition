@@ -1,30 +1,38 @@
 package com.example.pokemon_daws.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
 import com.example.pokemon_daws.Controllers.Battle
 import com.example.pokemon_daws.R
 import com.example.pokemon_daws.WildBattle
 import com.example.pokemon_daws.databinding.FragmentBattleMenuBinding
-import com.example.pokemon_daws.databinding.FragmentItemsMenuBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BattleMenu : Fragment(R.layout.fragment_battle_menu) {
     private lateinit var binding: FragmentBattleMenuBinding
     private lateinit var moveMenu: MoveMenu
+    private lateinit var pokemonMenu: PokemonMenu
     private lateinit var battle: Battle
     private val itemMenu = ItemsMenu()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBattleMenuBinding.bind(view)
-        battle.initBattle()
-        itemMenu.setBattle(battle)
+        lifecycleScope.launch(Dispatchers.Main) {
+            battle.initBattle()
+            while(!battle.gotPk) {
+                println("hasnt got")
+            }
+            withContext(Dispatchers.Main) {
+                battle.screen.updateScreen(battle.opponentPk)
+            }
+        }
         moveMenu = MoveMenu.newInstance(battle)
+//        pokemonMenu = PokemonMenu.newInstance()
 
         binding.fightBtn.setOnClickListener{
             switchFragment(moveMenu)
@@ -39,6 +47,9 @@ class BattleMenu : Fragment(R.layout.fragment_battle_menu) {
         }
 
         //TODO add Pokemon team picking
+        binding.pokemonBtn.setOnClickListener {
+            switchFragment(PokemonMenu.newInstance(this))
+        }
     }
 
     private fun switchFragment(fragment:Fragment){
