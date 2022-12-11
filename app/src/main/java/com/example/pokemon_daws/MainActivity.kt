@@ -1,8 +1,13 @@
 package com.example.pokemon_daws
 
+import android.Manifest.permission
+import android.content.ContentResolver
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +26,9 @@ import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
+import android.provider.ContactsContract
+import java.security.Permission
+import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -48,9 +56,11 @@ class MainActivity : AppCompatActivity() {
             val pk = pkFactory.createPokemon(5, "bulbasaur", "bulb")
             val pk1 = pkFactory.createPokemon(10, "charmander")
 //            Log.i("power", pk1.moves[2].power.toString())
-            Log.i("attack", pk1.specialAttack.toString())
-            Log.i("defence", pk.specialDefense.toString())
+//            Log.i("attack", pk1.specialAttack.toString())
+//            Log.i("defence", pk.specialDefense.toString())
 //            Log.i("effect",Pokemon_Math.CalculateDamage(pk1, pk, pk1.moves[2]).toString())
+
+            getContact()
         }
 
         db = PkDb.getDb(this)
@@ -127,5 +137,31 @@ class MainActivity : AppCompatActivity() {
             Log.e("NETWORK ERROR", e.toString())
         }
         return retVal
+    }
+
+    suspend fun getContact() {
+        val contactsList = ArrayList<String>()
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            val arr = Array<String>(1){permission.READ_CONTACTS}
+            requestPermissions(arr, 100)
+        } else {
+            val contactsCursor = application.contentResolver.query(
+                ContactsContract.Contacts.CONTENT_URI,
+                null,
+                null,
+                null,
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC")
+            if(contactsCursor != null && contactsCursor.count > 0) {
+                val nameIndex = contactsCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
+                while(contactsCursor.moveToNext()) {
+                    val name = contactsCursor.getString(nameIndex)
+                    if(name != null) {
+                        contactsList.add(name)
+                    }
+                }
+                contactsCursor.close()
+            }
+            println(contactsList)
+        }
     }
 }
