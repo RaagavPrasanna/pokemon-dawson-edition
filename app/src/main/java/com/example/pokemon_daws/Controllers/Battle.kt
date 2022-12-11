@@ -74,7 +74,12 @@ class Battle(val lifecycleScope: LifecycleCoroutineScope,var screen: BattleScree
         val success = Pokemon_Math.AttemptCapture(opponentPk.hp.toDouble(), opponentPk.maxHp.toDouble())
 
         if (success) {
-            MainActivity.trainer.collectPK(opponentPk)
+            if (MainActivity.trainer.pokemons.size < 6) {
+                MainActivity.trainer.addPK(opponentPk)
+            }
+            else {
+                MainActivity.trainer.collectPK(opponentPk)
+            }
         }
         return success
     }
