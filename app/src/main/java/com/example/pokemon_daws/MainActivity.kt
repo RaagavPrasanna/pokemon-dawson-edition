@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                 lifecycleScope.launch(Dispatchers.IO){
                     try {
                         trainer = db.pkDao().getRecentTrainer()
+                        trainer.pokemons[1].hp = 0
                         trainer.pokemons.forEachIndexed { index, elem ->
                             elem.frontImage = getImage(elem.frontUrl)!!
                             elem.backImage = getImage(elem.backUrl)!!
