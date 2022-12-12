@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.pokemon_daws.R
+import com.example.pokemon_daws.WildBattle
 import com.example.pokemon_daws.databinding.FragmentBattleMenuBinding
 import com.example.pokemon_daws.databinding.FragmentBattleTextBinding
 import com.example.pokemon_daws.databinding.FragmentItemsMenuBinding

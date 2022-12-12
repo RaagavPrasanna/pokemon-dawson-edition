@@ -46,6 +46,11 @@ class MainMenu : AppCompatActivity() {
             startActivity(wildBattleIntent)
         }
 
+        binding.trainerBattleButton.setOnClickListener {
+            val tbi = Intent(this, TrainerBattle::class.java)
+            startActivity(tbi)
+        }
+
         binding.pokecenterButton.setOnClickListener{
             MainActivity.trainer.pokemons.forEach{
                 it.hp = it.maxHp;

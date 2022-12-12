@@ -19,6 +19,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="trainer"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/opponent_screen"
+            app:layout_constraintLeft_toLeftOf="@id/opponent_screen"
+            app:layout_constraintBottom_toTopOf="@id/opponent_info_layout"/>
+
         <ImageView
             android:id="@+id/opponent_sprite"
             android:layout_width="125dp"
@@ -33,6 +42,7 @@
             android:contentDescription="@string/opponent_sprite_desc" />
 
         <LinearLayout
+            android:id="@+id/opponent_info_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
