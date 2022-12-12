@@ -198,7 +198,8 @@ class BattleViewModel : ViewModel() {
             } else {
                 MainActivity.trainer.collectPK(getOpponentPk())
             }
-            getBattleScreen().passPkDialogMsg("Congrats! You caught " +getOpponentPk().name)
+//            getBattleScreen().passPkDialogMsg("Congrats! You caught " +getOpponentPk().name)
+            getBattleScreen().catchPkDialogMsg("Congrats! You caught " +getOpponentPk().name, getOpponentPk())
         }else{
             getBattleText().setTrainerText("Threw Pokeball: Missed")
             opponentExecuteMove()
