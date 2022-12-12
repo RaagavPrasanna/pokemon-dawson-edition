@@ -66,6 +66,7 @@ class WildBattle : AppCompatActivity() {
         sharedViewModel.setBattleText(textFrag)
     }
 
+
     private suspend fun getOpponentPk(): Pokemon {
         var pk: Pokemon? = null
         lifecycleScope.launch(Dispatchers.IO){

@@ -17,9 +17,12 @@ import com.example.pokemon_daws.fragments.BattleText
 import com.example.pokemon_daws.fragments.BattleViewModel
 import com.example.pokemon_daws.pokemon.Move
 import com.example.pokemon_daws.pokemon.Pokemon
+import com.example.pokemon_daws.pokemon.storable.Collection
+import com.example.pokemon_daws.pokemon.storable.Trainer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.util.Random
 
 class TrainerBattle : AppCompatActivity() {
     private lateinit var screenFrag : BattleScreen
@@ -45,7 +48,28 @@ class TrainerBattle : AppCompatActivity() {
         menuFrag = BattleMenu()
 
         runBlocking {
-            sharedViewModel.setOpponentPk(getOpponentPk())
+            sharedViewModel.battleType = "trainer"
+            sharedViewModel.OpponentTrainer = Trainer(mutableListOf(), "Blue", Collection())
+            if(sharedViewModel.OpponentTrainer.name == "Simon") {
+                for (i in 0..java.util.Random().nextInt(6)) {
+                    val pk = getOpponentPk()
+                    sharedViewModel.OpponentTrainer.pokemons.add(pk)
+                    println(sharedViewModel.OpponentTrainer.pokemons[i].name)
+                }
+                sharedViewModel.setOpponentPk(sharedViewModel.OpponentTrainer.pokemons[0])
+            } else {
+                var seed = 0
+                for (i in 0..sharedViewModel.OpponentTrainer.name.length-1) {
+                    seed += sharedViewModel.OpponentTrainer.name[i].code
+                }
+                val rand = java.util.Random(seed.toLong())
+                for (i in 0.. rand.nextInt(6)) {
+                    val pk = getOpponentPk(rand)
+                    sharedViewModel.OpponentTrainer.pokemons.add(pk)
+                    println(sharedViewModel.OpponentTrainer.pokemons[i].name)
+                }
+                sharedViewModel.setOpponentPk(sharedViewModel.OpponentTrainer.pokemons[0])
+            }
         }
 
         binding.loadBar.visibility = View.GONE
@@ -63,6 +87,15 @@ class TrainerBattle : AppCompatActivity() {
         sharedViewModel.setBattleScreen(screenFrag)
         sharedViewModel.setBattleText(textFrag)
     }
+
+    private suspend fun getOpponentPk(rand: Random): Pokemon {
+        var pk: Pokemon? = null
+        lifecycleScope.launch(Dispatchers.IO){
+            pk = sharedViewModel.getRandomPk(rand)
+        }.join()
+        return pk!!
+    }
+
     private suspend fun getOpponentPk(): Pokemon {
         var pk: Pokemon? = null
         lifecycleScope.launch(Dispatchers.IO){
