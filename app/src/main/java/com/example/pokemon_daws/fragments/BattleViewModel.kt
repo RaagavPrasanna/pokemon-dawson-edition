@@ -97,10 +97,11 @@ class BattleViewModel : ViewModel() {
             getBattleText().setOpponentText("Opponent used ${move.name}")
             move.executeMove(getOpponentPk(), getTrainerPk())
             if (getTrainerPk().hp <= 0) {
-
-//                Toast.makeText(getBattleScreen().context, "You Lose", Toast.LENGTH_SHORT)
-                getBattleScreen().passPkDialogMsg(getTrainerPk().name +" has fainted. You lose")
-//                getBattleScreen().requireActivity().finish()
+                if(MainActivity.trainer.isTrainerDead()){
+                    getBattleScreen().passPkDialogMsg(getTrainerPk().name +" has fainted. You lose")
+                }else{
+                    setTrainerPk(getStartingTrainerPk()!!)
+                }
             }
             getBattleScreen().updateScreen()
         }else{

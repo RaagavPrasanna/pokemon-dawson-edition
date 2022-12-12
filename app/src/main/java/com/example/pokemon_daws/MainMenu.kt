@@ -42,8 +42,12 @@ class MainMenu : AppCompatActivity() {
             startActivity(ctIntent)
         }
         binding.wildEncounterButton.setOnClickListener{
-            val wildBattleIntent = Intent(this, WildBattle::class.java)
-            startActivity(wildBattleIntent)
+            if(MainActivity.trainer.isTrainerDead()){
+                Toast.makeText(this, "Team is dead", Toast.LENGTH_SHORT).show()
+            }else{
+                val wildBattleIntent = Intent(this, WildBattle::class.java)
+                startActivity(wildBattleIntent)
+            }
         }
 
         binding.pokecenterButton.setOnClickListener{
