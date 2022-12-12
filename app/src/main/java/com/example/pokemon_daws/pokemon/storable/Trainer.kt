@@ -1,5 +1,6 @@
 package com.example.pokemon_daws.pokemon.storable
 
+import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -33,6 +34,10 @@ data class Trainer(
         }
     }
 
+    fun collectPK(pk:Pokemon) {
+        this.collection.addPK(pk)
+    }
+
     fun storePK(pk:Pokemon){
         if(this.pokemons.size > 1){
             this.collection.addPK(pk)
@@ -40,6 +45,16 @@ data class Trainer(
         }else{
             throw IndexOutOfBoundsException("Cannot put last pokemon in PC")
         }
+    }
+
+    fun isTrainerDead():Boolean{
+        var isDead = true
+        for (pk in pokemons){
+            if (pk.hp > 0){
+                 isDead = false
+            }
+        }
+        return isDead
     }
 
 }

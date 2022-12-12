@@ -22,7 +22,11 @@ object Pokemon_Math{
         val finalDamage = if(move.type in attackerPk.types) damage * 1.5 else damage * 1.0
         var effectiveness = 1.0
         for (type in defenderPk.types){
-             effectiveness *= MainActivity.ts.getEffectiveType(move.type, type)!!.damageRate
+            var rate = 1.0
+            if(MainActivity.ts.getEffectiveType(move.type, type) != null){
+                rate = MainActivity.ts.getEffectiveType(move.type, type)!!.damageRate
+            }
+             effectiveness *= rate
         }
         return if((finalDamage * effectiveness).toInt() < 1) 1 else (finalDamage * effectiveness).toInt()
     }
