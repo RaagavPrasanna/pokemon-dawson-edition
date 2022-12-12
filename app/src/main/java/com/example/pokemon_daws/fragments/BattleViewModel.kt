@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.pokemon_daws.Controllers.Pokemon_Math
 import com.example.pokemon_daws.MainActivity
 import com.example.pokemon_daws.pokemon.Move
 import com.example.pokemon_daws.pokemon.Pokemon
@@ -50,13 +51,34 @@ class BattleViewModel: ViewModel() {
     }
 
     fun executeMove(move: Move){
-        Log.i("attack", "here")
         move.executeMove(getTrainerPk(), getOpponentPk())
         if(getOpponentPk().hp <= 0){
             Toast.makeText(getBattleScreen().context, "You won", Toast.LENGTH_SHORT)
             getBattleScreen().requireActivity().finish()
         }
         getBattleScreen().updateScreen()
+    }
+
+    fun usePotion(){
+        getTrainerPk().hp += 20
+        if(getTrainerPk().hp > getTrainerPk().maxHp){
+            getTrainerPk().hp = getTrainerPk().maxHp
+        }
+        getBattleScreen().updateScreen()
+    }
+
+    fun  usePokeball(){
+        val success = Pokemon_Math.AttemptCapture(getOpponentPk().hp.toDouble(), getOpponentPk().maxHp.toDouble())
+
+        if (success) {
+//            Todo dialog box to name
+            if (MainActivity.trainer.pokemons.size < 6) {
+                MainActivity.trainer.addPK(getOpponentPk())
+            }
+            else {
+                MainActivity.trainer.collectPK(getOpponentPk())
+            }
+        }
     }
 
     fun getStartingTrainerPk(): Pokemon? {

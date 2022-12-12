@@ -18,12 +18,10 @@ class ItemsMenu() : Fragment(R.layout.fragment_items_menu) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentItemsMenuBinding.bind(view)
         binding.potnBtn.setOnClickListener {
-//            battle.usePotion()
+            sharedViewModel.usePotion()
         }
         binding.pkballBtn.setOnClickListener {
-//            if (battle.usePokeBall()) {
-//                activity?.finish()
-//            }
+            sharedViewModel.usePokeball()
         }
     }
 }
