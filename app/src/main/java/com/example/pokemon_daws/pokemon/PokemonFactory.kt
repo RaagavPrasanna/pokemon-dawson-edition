@@ -98,7 +98,8 @@ class PokemonFactory() {
                 if(apiMoveData.damage_class == "special") DamageClass.SPECIAL else DamageClass.PHYSICAL,
                 apiMoveData.type,
                 apiMoveData.target,
-                apiMoveData.description
+                apiMoveData.description,
+                moveData.level
             )
             if(moveData.level <= lvl){
                 moves.add(move)

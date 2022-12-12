@@ -52,9 +52,44 @@ class BattleViewModel: ViewModel() {
     fun executeMove(move: Move){
         Log.i("attack", "here")
         move.executeMove(getTrainerPk(), getOpponentPk())
+        val prevLevel = getTrainerPk().level
         if(getOpponentPk().hp <= 0){
-            Toast.makeText(getBattleScreen().context, "You won", Toast.LENGTH_SHORT)
-            getBattleScreen().requireActivity().finish()
+            getTrainerPk().experience += (0.3 * getOpponentPk().baseExperienceReward * getOpponentPk().level).toInt()
+            if(getTrainerPk().level > prevLevel) {
+                var firstVal = true
+                for(i in prevLevel + 1 .. getTrainerPk().level) {
+                    for(m in getTrainerPk().allMoves) {
+                        if(m.level == i) {
+                            if(getTrainerPk().moves.size == 4) {
+                                if(firstVal) {
+                                    getBattleScreen().passDialogMsg(getTrainerPk().name +" levelled up to level: " +i, getTrainerPk(), firstVal, m)
+                                    firstVal = false
+                                }  else {
+                                    getBattleScreen().passDialogMsg(getTrainerPk().name +" levelled up to level: " +i, getTrainerPk(), firstVal, m)
+                                }
+                            } else {
+                                getTrainerPk().moves.add(m)
+                            }
+                        }
+                    }
+                }
+//                for (i in prevLevel + 1 .. getTrainerPk().level) {
+//                    if(i == prevLevel + 1) {
+//                        getBattleScreen().passDialogMsg(getTrainerPk().name +" levelled up to level: " +i, getTrainerPk(), true)
+//                    } else {
+//                        getBattleScreen().passDialogMsg(getTrainerPk().name +" levelled up to level: " +i, getTrainerPk(), false)
+//                    }
+//                }
+                println("levelled up")
+//                getBattleScreen().requireActivity().finish()
+                if(firstVal) {
+                    getBattleScreen().requireActivity().finish()
+                }
+
+            } else {
+//            Toast.makeText(getBattleScreen().context, "You won", Toast.LENGTH_SHORT)
+                getBattleScreen().requireActivity().finish()
+            }
         }
         getBattleScreen().updateScreen()
     }

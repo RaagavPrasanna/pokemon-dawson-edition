@@ -18,6 +18,7 @@ class Move(
     val type: String,
     val target: String,
     val description: String,
+    val level: Int
 ){
 
     fun executeMove(currentPk: Pokemon, oppositePk: Pokemon){
