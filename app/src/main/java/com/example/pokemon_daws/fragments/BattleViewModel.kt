@@ -1,6 +1,5 @@
 package com.example.pokemon_daws.fragments
 
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,9 +8,6 @@ import com.example.pokemon_daws.Controllers.Pokemon_Math
 import com.example.pokemon_daws.MainActivity
 import com.example.pokemon_daws.pokemon.Move
 import com.example.pokemon_daws.pokemon.Pokemon
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class BattleViewModel : ViewModel() {
@@ -51,7 +47,7 @@ class BattleViewModel : ViewModel() {
         _battleScreen.value = battleScreen
     }
 
-    fun getBattleText(): BattleText {
+    private fun getBattleText(): BattleText {
         return _battleText.value!!
     }
 
@@ -87,10 +83,12 @@ class BattleViewModel : ViewModel() {
         } else{
             getBattleText().setTrainerText("${getTrainerPk().name} missed")
         }
-        opponentExecuteMove()
+        if(getOpponentPk().hp !=0){
+            opponentExecuteMove()
+        }
     }
 
-    fun opponentExecuteMove() {
+    private fun opponentExecuteMove() {
         val moveIndex = java.util.Random().nextInt(getOpponentPk().moves.size)
         val move = getOpponentPk().moves[moveIndex]
         val hit = java.util.Random().nextInt(101)
@@ -108,11 +106,13 @@ class BattleViewModel : ViewModel() {
     }
 
     fun usePotion() {
+        getBattleText().setTrainerText("Used Potion: Healed 20 hp")
         getTrainerPk().hp += 20
         if (getTrainerPk().hp > getTrainerPk().maxHp) {
             getTrainerPk().hp = getTrainerPk().maxHp
         }
         getBattleScreen().updateScreen()
+        opponentExecuteMove()
     }
 
     fun usePokeball() {
@@ -123,11 +123,15 @@ class BattleViewModel : ViewModel() {
 
         if (success) {
 //            Todo dialog box to name
+            getBattleText().setTrainerText("Threw Pokeball: Caugth Wild Pk")
             if (MainActivity.trainer.pokemons.size < 6) {
                 MainActivity.trainer.addPK(getOpponentPk())
             } else {
                 MainActivity.trainer.collectPK(getOpponentPk())
             }
+        }else{
+            getBattleText().setTrainerText("Threw Pokeball: Missed")
+            opponentExecuteMove()
         }
     }
 

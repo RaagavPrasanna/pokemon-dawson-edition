@@ -1,10 +1,8 @@
 package com.example.pokemon_daws.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemon_daws.R
 import com.example.pokemon_daws.databinding.PokemonTeamItemBinding
@@ -47,25 +45,22 @@ class PokemonBattleSwapRecyclerViewAdapter(
 
         binding.pokemonName.text = inpPokemons[position].name
         binding.pokemonLevel.text = "Lvl " + inpPokemons[position].level.toString()
-        binding.pokemonHp.text =
-            inpPokemons[position].hp.toString() + "/" + inpPokemons[position].maxHp.toString()
+        binding.pokemonHp.text = inpPokemons[position].hp.toString() + "/" + inpPokemons[position].maxHp.toString()
         binding.pokemonSprite.setImageBitmap(inpPokemons[position].frontImage)
 
         binding.swapButton.setOnClickListener {
             val tempPokemon = inpPokemons[0]
             inpPokemons[0] = inpPokemons[position]
             inpPokemons[position] = tempPokemon
-            sharedViewModel.setTrainerPk(inpPokemons[position])
-            sharedViewModel.getBattleScreen().updateScreen()
+            sharedViewModel.setTrainerPk(inpPokemons[0])
 
             supportFragmentManager.beginTransaction().apply {
                 this.remove(pokemonMenu)
                 this.replace(R.id.battle_menu, battleMenu)
-                val newBattleScreen = BattleScreen()
-                this.replace(R.id.battle_screen, newBattleScreen)
-                sharedViewModel.setBattleScreen(newBattleScreen)
                 this.commit()
             }
+
+            sharedViewModel.getBattleScreen().updateScreen()
         }
     }
 

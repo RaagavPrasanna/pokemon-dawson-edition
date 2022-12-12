@@ -16,9 +16,17 @@ class ItemsMenu() : Fragment(R.layout.fragment_items_menu) {
         binding = FragmentItemsMenuBinding.bind(view)
         binding.potnBtn.setOnClickListener {
             sharedViewModel.usePotion()
+            requireActivity().supportFragmentManager.beginTransaction().apply {
+                this.replace(R.id.battle_menu, BattleMenu())
+                commit()
+            }
         }
         binding.pkballBtn.setOnClickListener {
             sharedViewModel.usePokeball()
+            requireActivity().supportFragmentManager.beginTransaction().apply {
+                this.replace(R.id.battle_menu, BattleMenu())
+                commit()
+            }
         }
     }
 }
