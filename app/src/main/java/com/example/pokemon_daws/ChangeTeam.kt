@@ -3,6 +3,7 @@ package com.example.pokemon_daws
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.pokemon_daws.adapters.PokemonTeamRecyclerViewAdapter
 import com.example.pokemon_daws.databinding.ActivityChangeTeamBinding
 class ChangeTeam : AppCompatActivity() {
 
@@ -22,7 +23,6 @@ class ChangeTeam : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        println("on resume is called")
         adapter.notifyDataSetChanged()
     }
 }

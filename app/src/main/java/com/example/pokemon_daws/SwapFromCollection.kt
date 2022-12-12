@@ -3,6 +3,7 @@ package com.example.pokemon_daws
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.pokemon_daws.adapters.CollectionRecyclerViewAdapter
 import com.example.pokemon_daws.databinding.ActivitySwapFromCollectionBinding
 
 class SwapFromCollection : AppCompatActivity() {
@@ -21,7 +22,6 @@ class SwapFromCollection : AppCompatActivity() {
             passInd = it.getInt("pokemon")
         }
 
-        println("opened activity")
 
         adapter = CollectionRecyclerViewAdapter(MainActivity.trainer.collection.pokemons, passInd)
         binding.swapCollectionRecyclerView.adapter = adapter

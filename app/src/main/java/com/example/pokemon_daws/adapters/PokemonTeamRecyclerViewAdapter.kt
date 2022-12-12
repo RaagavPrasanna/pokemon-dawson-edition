@@ -1,11 +1,11 @@
-package com.example.pokemon_daws
+package com.example.pokemon_daws.adapters
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.pokemon_daws.SwapFromCollection
 import com.example.pokemon_daws.databinding.PokemonTeamItemBinding
 import com.example.pokemon_daws.pokemon.Pokemon
 

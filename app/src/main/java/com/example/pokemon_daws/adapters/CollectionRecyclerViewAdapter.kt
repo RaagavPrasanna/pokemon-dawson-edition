@@ -1,9 +1,10 @@
-package com.example.pokemon_daws
+package com.example.pokemon_daws.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.pokemon_daws.MainActivity
 import com.example.pokemon_daws.databinding.PokemonTeamItemBinding
 import com.example.pokemon_daws.pokemon.Pokemon
 
@@ -19,8 +20,6 @@ class CollectionRecyclerViewAdapter(private val inpPokemon: MutableList<Pokemon>
         override fun onBindViewHolder(holder: CollectionTeamViewHolder, position: Int) {
             val binding = holder.binding
             val pokemon: Pokemon = inpPokemon[position]
-
-            println(swapInd)
 
             binding.swapButton.text = "GET"
             binding.pokemonName.text = pokemon.name

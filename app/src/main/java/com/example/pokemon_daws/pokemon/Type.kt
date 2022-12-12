@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 class TypeSingleton(
     val lifecycleScope: LifecycleCoroutineScope
 ){
-    private var api = ApiController(lifecycleScope)
+    private var api = ApiController()
     private var ls = lifecycleScope
     private lateinit var allTypeRelations: MutableMap<String, TypeRelation>
     private lateinit var types: List<String>

@@ -21,7 +21,11 @@ object Pokemon_Math{
         val finalDamage = if(move.type in attackerPk.types) damage * 1.5 else damage * 1.0
         var effectiveness = 1.0
         for (type in defenderPk.types){
-             effectiveness *= MainActivity.ts.getEffectiveType(move.type, type)!!.damageRate
+            var rate = 1.0
+            if(MainActivity.ts.getEffectiveType(move.type, type) != null){
+                rate = MainActivity.ts.getEffectiveType(move.type, type)!!.damageRate
+            }
+             effectiveness *= rate
         }
         return if((finalDamage * effectiveness).toInt() < 1) 1 else (finalDamage * effectiveness).toInt()
     }
@@ -47,10 +51,8 @@ object Pokemon_Math{
     }
 
     fun CalculateHP(baseValue: Double, level: Int): Int {
-        Log.i("base",baseValue.toString())
         val calc1 = (baseValue + 10) * level;
         val calc2 = (calc1 / 50) + level + 10;
-        Log.i("final",calc2.toString())
         return floor(calc2).toInt();
     }
 }

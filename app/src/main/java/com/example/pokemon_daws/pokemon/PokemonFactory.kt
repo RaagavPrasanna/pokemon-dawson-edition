@@ -10,8 +10,8 @@ import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateHP
 
-class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
-    private val api = ApiController(lifecycleScope)
+class PokemonFactory() {
+    private val api = ApiController()
 
     suspend fun createPokemon(level: Int, species: String, name: String? = null): Pokemon{
 
@@ -56,6 +56,8 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
         } catch(e: Exception) {
             e.printStackTrace()
             Log.e("NETWORK ERROR", e.toString())
+        }finally {
+
         }
 
         conn.disconnect()
@@ -83,7 +85,7 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
 
     private suspend fun createMove(species: String, lvl: Int, allMoves: MutableList<Move>): MutableList<Move>{
         val moveListData = api.getPkMoves(species)
-        val moves = mutableListOf<Move>()
+        var moves = mutableListOf<Move>()
         for (moveData in moveListData){
             val apiMoveData = api.getMove(moveData.move)!!
             val move = Move(
@@ -99,12 +101,11 @@ class PokemonFactory(private val lifecycleScope: LifecycleCoroutineScope) {
                 apiMoveData.description
             )
             if(moveData.level <= lvl){
-                Log.i("move",move.name)
                 moves.add(move)
             }
             allMoves.add(move)
         }
-        moves.subList(0, if(moves.size >= 4) 3 else moves.size - 1)
+         moves = moves.subList(0, if(moves.size >= 4) 3 else (moves.size - 1))
         return moves
     }
 
