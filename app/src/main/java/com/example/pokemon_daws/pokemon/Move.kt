@@ -25,10 +25,19 @@ class Move(
             return
         }else if(this.heal > 0){
             currentPk.hp= if(currentPk.hp + this.heal > currentPk.maxHp) currentPk.maxHp else currentPk.hp + this.heal
-            pp -= 1
+            if(pp == 1) {
+                pp = 0
+            } else{
+                pp -= 1
+            }
         }else{
             oppositePk.hp -= Pokemon_Math.CalculateDamage(currentPk, oppositePk, this)
-            pp -= 1
+            if(oppositePk.hp < 0 ) oppositePk.hp = 0
+            if(pp == 1) {
+                pp = 0
+            } else{
+                pp -= 1
+            }
         }
     }
 }

@@ -56,6 +56,7 @@ class PokemonBattleSwapRecyclerViewAdapter(
             inpPokemons[0] = inpPokemons[position]
             inpPokemons[position] = tempPokemon
             sharedViewModel.setTrainerPk(inpPokemons[position])
+            sharedViewModel.getBattleScreen().updateScreen()
 
             supportFragmentManager.beginTransaction().apply {
                 this.remove(pokemonMenu)

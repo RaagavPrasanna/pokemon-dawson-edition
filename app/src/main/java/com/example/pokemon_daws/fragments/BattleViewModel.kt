@@ -60,8 +60,12 @@ class BattleViewModel : ViewModel() {
     }
 
     init {
-//        TODO add nullcheck
-        this.setTrainerPk(getStartingTrainerPk()!!)
+        val pk = getStartingTrainerPk()
+        if(pk == null){
+//        TODO call dialog here
+        }else{
+            this.setTrainerPk(getStartingTrainerPk()!!)
+        }
 
     }
     fun startBattle(){

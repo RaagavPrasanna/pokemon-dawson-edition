@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.pokemon_daws.databinding.ActivityMainMenuBinding
 import kotlinx.coroutines.Dispatchers
@@ -48,7 +49,11 @@ class MainMenu : AppCompatActivity() {
         binding.pokecenterButton.setOnClickListener{
             MainActivity.trainer.pokemons.forEach{
                 it.hp = it.maxHp;
+                it.moves.forEach{
+                    it.pp = it.maxPP
+                }
             }
+            Toast.makeText(this, "Healed all pokemon in team", Toast.LENGTH_SHORT).show()
         }
 
 
