@@ -18,7 +18,7 @@ import kotlinx.coroutines.runBlocking
 class WildBattle : AppCompatActivity() {
     private lateinit var screenFrag : BattleScreen
     private lateinit var menuFrag: BattleMenu
-    val textFrag = BattleText()
+    private lateinit var textFrag : BattleText
     private lateinit var binding: ActivityWildBattleBinding
     private val sharedViewModel: BattleViewModel by viewModels()
 
@@ -34,13 +34,14 @@ class WildBattle : AppCompatActivity() {
         binding.battleMessage.visibility = View.GONE
         binding.loadBar.visibility = View.VISIBLE
 
+        textFrag = BattleText()
         screenFrag = BattleScreen()
+        menuFrag = BattleMenu()
 
         runBlocking {
             sharedViewModel.setOpponentPk(getOpponentPk())
         }
-//             battle.update()
-//                screenFrag.updateScreen(battle.opponentPk)
+
         binding.loadBar.visibility = View.GONE
         binding.battleScreen.visibility = View.VISIBLE
         binding.battleMenu.visibility = View.VISIBLE
@@ -48,20 +49,13 @@ class WildBattle : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().apply {
             this.add(R.id.battle_screen, screenFrag)
-//            this.addToBackStack("Screen")
-            commit()
-        }
-
-        menuFrag = BattleMenu()
-        supportFragmentManager.beginTransaction().apply {
             this.add(R.id.battle_menu, menuFrag)
-//            this.addToBackStack("Menu")
             this.add(R.id.battle_message, textFrag)
-//            this.addToBackStack("Message")
             commit()
         }
 
         sharedViewModel.setBattleScreen(screenFrag)
+        sharedViewModel.setBattleText(textFrag)
     }
 
     private suspend fun getOpponentPk(): Pokemon {

@@ -9,6 +9,9 @@ import com.example.pokemon_daws.Controllers.Pokemon_Math
 import com.example.pokemon_daws.MainActivity
 import com.example.pokemon_daws.pokemon.Move
 import com.example.pokemon_daws.pokemon.Pokemon
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class BattleViewModel : ViewModel() {
@@ -20,6 +23,9 @@ class BattleViewModel : ViewModel() {
 
     private val _battleScreen = MutableLiveData<BattleScreen>()
     val battleScreen = _battleScreen
+
+    private val _battleText = MutableLiveData<BattleText>()
+    val battleText = _battleText
 
     fun getOpponentPk(): Pokemon {
         return _opponentPk.value!!
@@ -45,6 +51,14 @@ class BattleViewModel : ViewModel() {
         _battleScreen.value = battleScreen
     }
 
+    fun getBattleText(): BattleText {
+        return _battleText.value!!
+    }
+
+    fun setBattleText(battleText: BattleText) {
+        _battleText.value = battleText
+    }
+
     init {
 //        TODO add nullcheck
         this.setTrainerPk(getStartingTrainerPk()!!)
@@ -52,12 +66,14 @@ class BattleViewModel : ViewModel() {
     }
     fun startBattle(){
         if (getTrainerPk().speed < getOpponentPk().speed) {
+            getBattleText().setOpponentText("Opponent went first")
             opponentExecuteMove()
         }
     }
     fun executeMove(move: Move) {
         val hit = java.util.Random().nextInt(101)
         if (hit <= move.accuracy) {
+            getBattleText().setTrainerText("${getTrainerPk().name} used ${move.name}")
             move.executeMove(getTrainerPk(), getOpponentPk())
             if (getOpponentPk().hp <= 0) {
                 Toast.makeText(getBattleScreen().context, "You won", Toast.LENGTH_SHORT)
@@ -65,22 +81,25 @@ class BattleViewModel : ViewModel() {
             }
             getBattleScreen().updateScreen()
         } else{
-            opponentExecuteMove()
+            getBattleText().setTrainerText("${getTrainerPk().name} missed")
         }
+        opponentExecuteMove()
     }
 
     fun opponentExecuteMove() {
-        Log.i("first", "opponent went first")
         val moveIndex = java.util.Random().nextInt(getOpponentPk().moves.size)
         val move = getOpponentPk().moves[moveIndex]
         val hit = java.util.Random().nextInt(101)
         if (hit <= move.accuracy) {
+            getBattleText().setOpponentText("Opponent used ${move.name}")
             move.executeMove(getOpponentPk(), getTrainerPk())
             if (getTrainerPk().hp <= 0) {
 //                Toast.makeText(getBattleScreen().context, "You Lose", Toast.LENGTH_SHORT)
                 getBattleScreen().requireActivity().finish()
             }
             getBattleScreen().updateScreen()
+        }else{
+            getBattleText().setOpponentText("Opponent missed")
         }
     }
 

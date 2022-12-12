@@ -3,15 +3,20 @@ package com.example.pokemon_daws.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pokemon_daws.R
 import com.example.pokemon_daws.databinding.MoveListAdapterItemBinding
+import com.example.pokemon_daws.fragments.BattleMenu
 import com.example.pokemon_daws.fragments.BattleViewModel
 import com.example.pokemon_daws.pokemon.Move
 
 class MoveListRecyclerViewAdapter(
     private var moves: MutableList<Move>,
     private val context: Context,
-    private val sharedViewModel: BattleViewModel
+    private val sharedViewModel: BattleViewModel,
+    private val supportFragmentManager: FragmentManager
 ):
     RecyclerView.Adapter<MoveListRecyclerViewAdapter.ViewHolder>() {
 
@@ -29,7 +34,15 @@ class MoveListRecyclerViewAdapter(
         binding.moveName.setText(move.name.uppercase())
         binding.moveType.setText(move.type.uppercase())
         holder.itemView.setOnClickListener{
-            sharedViewModel.executeMove(move)
+            if(move.pp > 0){
+                sharedViewModel.executeMove(move)
+                supportFragmentManager.beginTransaction().apply {
+                    this.replace(R.id.battle_menu, BattleMenu())
+                    commit()
+                }
+            }else{
+                Toast.makeText(context, "No pp", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

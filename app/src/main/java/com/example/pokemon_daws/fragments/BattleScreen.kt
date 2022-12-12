@@ -18,7 +18,6 @@ class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBattleScreenBinding.bind(view)
         updateScreen()
-        sharedViewModel.startBattle()
     }
 
     public fun updateScreen(){

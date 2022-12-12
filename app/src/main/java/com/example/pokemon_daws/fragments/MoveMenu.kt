@@ -23,7 +23,7 @@ class MoveMenu : Fragment(R.layout.fragment_move_menu) {
         binding = FragmentMoveMenuBinding.bind(view)
 
         moves = sharedViewModel.getTrainerPk().moves
-        adapter = MoveListRecyclerViewAdapter(moves, requireContext(), sharedViewModel)
+        adapter = MoveListRecyclerViewAdapter(moves, requireContext(), sharedViewModel, requireActivity().supportFragmentManager)
         binding.moveListRecycler.adapter = adapter
         binding.moveListRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
     }
