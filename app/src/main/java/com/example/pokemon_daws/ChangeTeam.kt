@@ -23,7 +23,6 @@ class ChangeTeam : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        println("on resume is called")
         adapter.notifyDataSetChanged()
     }
 }

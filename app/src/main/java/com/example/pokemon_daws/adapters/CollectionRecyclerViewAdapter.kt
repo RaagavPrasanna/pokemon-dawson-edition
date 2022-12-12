@@ -21,8 +21,6 @@ class CollectionRecyclerViewAdapter(private val inpPokemon: MutableList<Pokemon>
             val binding = holder.binding
             val pokemon: Pokemon = inpPokemon[position]
 
-            println(swapInd)
-
             binding.swapButton.text = "GET"
             binding.pokemonName.text = pokemon.name
             binding.pokemonLevel.text = "Lvl " +pokemon.level.toString()

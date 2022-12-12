@@ -91,7 +91,6 @@ class MainActivity : AppCompatActivity() {
                             elem.frontImage = getImage(elem.frontUrl)!!
                             elem.backImage = getImage(elem.backUrl)!!
                         }
-                        println("images done loading")
                         isInit = 0
                         passed = true
                     } catch(e: Exception) {

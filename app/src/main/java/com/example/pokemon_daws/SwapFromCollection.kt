@@ -22,7 +22,6 @@ class SwapFromCollection : AppCompatActivity() {
             passInd = it.getInt("pokemon")
         }
 
-        println("opened activity")
 
         adapter = CollectionRecyclerViewAdapter(MainActivity.trainer.collection.pokemons, passInd)
         binding.swapCollectionRecyclerView.adapter = adapter
