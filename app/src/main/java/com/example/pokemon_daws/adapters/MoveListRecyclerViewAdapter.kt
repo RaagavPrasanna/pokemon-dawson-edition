@@ -23,7 +23,8 @@ class MoveListRecyclerViewAdapter(private var moves:MutableList<Move>, private v
         binding.movePp.setText("PP:${move.pp}/${move.maxPP}")
         binding.moveName.setText(move.name.uppercase())
         binding.moveType.setText(move.type.uppercase())
-        binding
+        holder.itemView.setOnClickListener{
+        }
     }
 
     override fun getItemCount(): Int = moves.size
