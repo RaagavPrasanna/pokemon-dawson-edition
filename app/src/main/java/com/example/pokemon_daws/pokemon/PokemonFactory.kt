@@ -101,7 +101,6 @@ class PokemonFactory() {
                 apiMoveData.description
             )
             if(moveData.level <= lvl){
-                Log.i("move",move.name)
                 moves.add(move)
             }
             allMoves.add(move)

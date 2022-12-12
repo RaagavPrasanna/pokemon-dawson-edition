@@ -1,9 +1,11 @@
 package com.example.pokemon_daws.fragments
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokemon_daws.MainActivity
+import com.example.pokemon_daws.pokemon.Move
 import com.example.pokemon_daws.pokemon.Pokemon
 import kotlin.random.Random
 
@@ -13,6 +15,9 @@ class BattleViewModel: ViewModel() {
 
     private val _trainerPk = MutableLiveData<Pokemon>()
     val trainerPk: LiveData<Pokemon> = _trainerPk
+
+    private val _battleScreen = MutableLiveData<BattleScreen>()
+    val battleScreen = _battleScreen
 
     fun getOpponentPk(): Pokemon {
         return _opponentPk.value!!
@@ -30,9 +35,23 @@ class BattleViewModel: ViewModel() {
         _trainerPk.value = trainerPk
     }
 
+    fun getBattleScreen(): BattleScreen {
+        return _battleScreen.value!!
+    }
+
+    fun setBattleScreen(battleScreen: BattleScreen){
+        _battleScreen.value = battleScreen
+    }
+
     init {
 //        TODO add nullcheck
         this.setTrainerPk(getStartingTrainerPk()!!)
+    }
+
+    fun executeMove(move: Move){
+        Log.i("attack", "here")
+        move.executeMove(getTrainerPk(), getOpponentPk())
+        getBattleScreen().updateScreen()
     }
 
     fun getStartingTrainerPk(): Pokemon? {

@@ -61,6 +61,7 @@ class WildBattle : AppCompatActivity() {
             commit()
         }
 
+        sharedViewModel.setBattleScreen(screenFrag)
     }
 
     private suspend fun getOpponentPk(): Pokemon {

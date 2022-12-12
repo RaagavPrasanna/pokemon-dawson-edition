@@ -17,7 +17,7 @@ class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBattleScreenBinding.bind(view)
-
+        updateScreen()
     }
 
     public fun updateScreen(){

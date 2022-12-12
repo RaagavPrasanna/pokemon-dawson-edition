@@ -5,9 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemon_daws.databinding.MoveListAdapterItemBinding
+import com.example.pokemon_daws.fragments.BattleViewModel
 import com.example.pokemon_daws.pokemon.Move
 
-class MoveListRecyclerViewAdapter(private var moves:MutableList<Move>, private val context: Context):
+class MoveListRecyclerViewAdapter(
+    private var moves: MutableList<Move>,
+    private val context: Context,
+    private val sharedViewModel: BattleViewModel
+):
     RecyclerView.Adapter<MoveListRecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: MoveListAdapterItemBinding) :RecyclerView.ViewHolder(binding.root)
@@ -24,6 +29,7 @@ class MoveListRecyclerViewAdapter(private var moves:MutableList<Move>, private v
         binding.moveName.setText(move.name.uppercase())
         binding.moveType.setText(move.type.uppercase())
         holder.itemView.setOnClickListener{
+            sharedViewModel.executeMove(move)
         }
     }
 
