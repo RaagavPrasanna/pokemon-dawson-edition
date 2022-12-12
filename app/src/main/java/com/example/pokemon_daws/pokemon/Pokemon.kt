@@ -7,7 +7,7 @@ import com.example.pokemon_daws.Controllers.Pokemon_Math.CurrentLevel
 
 class Pokemon(
     val species: String,
-    val name: String,
+    var name: String,
     var experience: Int,
     var baseExperienceReward: Int,
     var types: List<String>,

@@ -45,6 +45,10 @@ class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
         wildBattle.openPkDialogBox(s)
     }
 
+    fun catchPkDialogMsg(s: String, inpPokemon: Pokemon) {
+        wildBattle.openCaughtDialogBox(s, inpPokemon)
+    }
+
     fun displayToast(s: String) {
         println("displaying toast")
         Toast.makeText(wildBattle.applicationContext, s, Toast.LENGTH_SHORT).show()

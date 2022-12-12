@@ -3,6 +3,7 @@ package com.example.pokemon_daws
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
@@ -123,6 +124,25 @@ class WildBattle : AppCompatActivity() {
                 finish()
             }
 
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    fun openCaughtDialogBox(msg: String, inpPokemon: Pokemon) {
+        val cn = layoutInflater.inflate(R.layout.caught_name, null)
+
+        val et = cn.findViewById<EditText>(R.id.caught_name_edit_text)
+
+        builder = AlertDialog.Builder(this)
+            .setTitle(msg)
+            .setView(cn)
+            .setCancelable(false)
+            .setPositiveButton("Confirm"){di, it ->
+                if(et.text.toString().isNotEmpty()) {
+                    inpPokemon.name = et.text.toString()
+                }
+                finish()
+            }
         val alertDialog = builder.create()
         alertDialog.show()
     }
