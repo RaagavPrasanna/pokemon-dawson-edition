@@ -1,5 +1,6 @@
 package com.example.pokemon_daws.fragments
 
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -70,23 +71,23 @@ class BattleViewModel : ViewModel() {
             opponentExecuteMove()
         }
     }
-    fun executeMove(move: Move) {
-        val hit = java.util.Random().nextInt(101)
-        if (hit <= move.accuracy) {
-            getBattleText().setTrainerText("${getTrainerPk().name} used ${move.name}")
-            move.executeMove(getTrainerPk(), getOpponentPk())
-            if (getOpponentPk().hp <= 0) {
-                Toast.makeText(getBattleScreen().context, "You won", Toast.LENGTH_SHORT)
-                getBattleScreen().requireActivity().finish()
-            }
-            getBattleScreen().updateScreen()
-        } else{
-            getBattleText().setTrainerText("${getTrainerPk().name} missed")
-        }
-        if(getOpponentPk().hp !=0){
-            opponentExecuteMove()
-        }
-    }
+//    fun executeMove(move: Move) {
+//        val hit = java.util.Random().nextInt(101)
+//        if (hit <= move.accuracy) {
+//            getBattleText().setTrainerText("${getTrainerPk().name} used ${move.name}")
+//            move.executeMove(getTrainerPk(), getOpponentPk())
+//            if (getOpponentPk().hp <= 0) {
+//                Toast.makeText(getBattleScreen().context, "You won", Toast.LENGTH_SHORT)
+//                getBattleScreen().requireActivity().finish()
+//            }
+//            getBattleScreen().updateScreen()
+//        } else{
+//            getBattleText().setTrainerText("${getTrainerPk().name} missed")
+//        }
+//        if(getOpponentPk().hp !=0){
+//            opponentExecuteMove()
+//        }
+//    }
 
     fun opponentExecuteMove() {
         val moveIndex = java.util.Random().nextInt(getOpponentPk().moves.size)
@@ -96,14 +97,17 @@ class BattleViewModel : ViewModel() {
             getBattleText().setOpponentText("Opponent used ${move.name}")
             move.executeMove(getOpponentPk(), getTrainerPk())
             if (getTrainerPk().hp <= 0) {
+
 //                Toast.makeText(getBattleScreen().context, "You Lose", Toast.LENGTH_SHORT)
-                getBattleScreen().requireActivity().finish()
+                getBattleScreen().passPkDialogMsg(getTrainerPk().name +" has fainted. You lose")
+//                getBattleScreen().requireActivity().finish()
             }
             getBattleScreen().updateScreen()
         }else{
             getBattleText().setOpponentText("Opponent missed")
         }
     }
+
 
     fun usePotion() {
         getBattleText().setTrainerText("Used Potion: Healed 20 hp")
@@ -115,6 +119,70 @@ class BattleViewModel : ViewModel() {
         opponentExecuteMove()
     }
 
+    fun executeMove(move: Move){
+        Log.i("attack", "here")
+
+        val hit = java.util.Random().nextInt(101)
+
+        if (hit <= move.accuracy) {
+            getBattleText().setTrainerText("${getTrainerPk().name} used ${move.name}")
+            move.executeMove(getTrainerPk(), getOpponentPk())
+            if (getOpponentPk().hp <= 0) {
+                Toast.makeText(getBattleScreen().context, "You won", Toast.LENGTH_SHORT)
+
+            }
+            getBattleScreen().updateScreen()
+        } else{
+            getBattleText().setTrainerText("${getTrainerPk().name} missed")
+        }
+
+
+        val prevLevel = getTrainerPk().level
+        if(getOpponentPk().hp <= 0){
+            getTrainerPk().experience += (0.3 * getOpponentPk().baseExperienceReward * getOpponentPk().level).toInt()
+            if(getTrainerPk().level > prevLevel) {
+                var firstVal = true
+                for(i in prevLevel + 1 .. getTrainerPk().level) {
+                    for(m in getTrainerPk().allMoves) {
+                        if(m.level == i) {
+                            if(getTrainerPk().moves.size == 4) {
+                                if(firstVal) {
+                                    getBattleScreen().passDialogMsg(getTrainerPk().name +" levelled up to level: " +i, getTrainerPk(), firstVal, m)
+                                    firstVal = false
+                                }  else {
+                                    getBattleScreen().passDialogMsg(getTrainerPk().name +" levelled up to level: " +i, getTrainerPk(), firstVal, m)
+                                }
+                            } else {
+                                getTrainerPk().moves.add(m)
+                                getBattleScreen().displayToast(getTrainerPk().name +" learned " +m.name)
+                            }
+                        }
+                    }
+                }
+//                for (i in prevLevel + 1 .. getTrainerPk().level) {
+//                    if(i == prevLevel + 1) {
+//                        getBattleScreen().passDialogMsg(getTrainerPk().name +" levelled up to level: " +i, getTrainerPk(), true)
+//                    } else {
+//                        getBattleScreen().passDialogMsg(getTrainerPk().name +" levelled up to level: " +i, getTrainerPk(), false)
+//                    }
+//                }
+                println("levelled up")
+//                getBattleScreen().requireActivity().finish()
+                if(firstVal) {
+                    getBattleScreen().passPkDialogMsg(getOpponentPk().name +" has fainted. You win")
+                }
+
+            } else {
+//            Toast.makeText(getBattleScreen().context, "You won", Toast.LENGTH_SHORT)
+                getBattleScreen().passPkDialogMsg(getOpponentPk().name +" has fainted. You win")
+            }
+        }
+        if(getOpponentPk().hp != 0) {
+            opponentExecuteMove()
+        }
+        getBattleScreen().updateScreen()
+    }
+
     fun usePokeball() {
         val success = Pokemon_Math.AttemptCapture(
             getOpponentPk().hp.toDouble(),
@@ -124,11 +192,13 @@ class BattleViewModel : ViewModel() {
         if (success) {
 //            Todo dialog box to name
             getBattleText().setTrainerText("Threw Pokeball: Caugth Wild Pk")
+
             if (MainActivity.trainer.pokemons.size < 6) {
                 MainActivity.trainer.addPK(getOpponentPk())
             } else {
                 MainActivity.trainer.collectPK(getOpponentPk())
             }
+            getBattleScreen().passPkDialogMsg("Congrats! You caught " +getOpponentPk().name)
         }else{
             getBattleText().setTrainerText("Threw Pokeball: Missed")
             opponentExecuteMove()

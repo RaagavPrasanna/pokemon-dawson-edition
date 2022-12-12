@@ -56,10 +56,6 @@ class MainActivity : AppCompatActivity() {
             allPk = fetch.getAllPokemon()
             val pk = pkFactory.createPokemon(5, "bulbasaur", "bulb")
             val pk1 = pkFactory.createPokemon(10, "charmander")
-//            Log.i("power", pk1.moves[2].power.toString())
-//            Log.i("attack", pk1.specialAttack.toString())
-//            Log.i("defence", pk.specialDefense.toString())
-//            Log.i("effect",Pokemon_Math.CalculateDamage(pk1, pk, pk1.moves[2]).toString())
 
             getContact()
         }
@@ -82,7 +78,6 @@ class MainActivity : AppCompatActivity() {
                 lifecycleScope.launch(Dispatchers.IO){
                     try {
                         trainer = db.pkDao().getRecentTrainer()
-                        trainer.pokemons[1].hp = 0
                         trainer.pokemons.forEachIndexed { index, elem ->
                             elem.frontImage = getImage(elem.frontUrl)!!
                             elem.backImage = getImage(elem.backUrl)!!
@@ -93,6 +88,8 @@ class MainActivity : AppCompatActivity() {
                         }
                         isInit = 0
                         passed = true
+
+                        trainer.pokemons[0].moves.add(trainer.pokemons[0].allMoves[5])
                     } catch(e: Exception) {
 
                     }
@@ -103,12 +100,6 @@ class MainActivity : AppCompatActivity() {
 
                 startActivity(mmIntent)
             }
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//                val duration = Toast.LENGTH_SHORT
-//                val toast = Toast.makeText(applicationContext, "Cannot load game, no save file found", duration)
-//                toast.show()
-//            }
         }
 
     }

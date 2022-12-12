@@ -4,19 +4,26 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import com.example.pokemon_daws.R
 import com.example.pokemon_daws.WildBattle
 import com.example.pokemon_daws.databinding.FragmentBattleScreenBinding
+import com.example.pokemon_daws.pokemon.Move
+import com.example.pokemon_daws.pokemon.Pokemon
 
 class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
     private lateinit var wildBattle: WildBattle
     private lateinit var binding: FragmentBattleScreenBinding
     private val sharedViewModel: BattleViewModel by activityViewModels()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBattleScreenBinding.bind(view)
+        wildBattle = (activity as WildBattle)
+
         updateScreen()
     }
 
@@ -28,5 +35,18 @@ class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
         binding.trainerSprite.setImageDrawable(BitmapDrawable(sharedViewModel.getTrainerPk().backImage))
         binding.trainerInfo.setText("${sharedViewModel.getTrainerPk().species.uppercase()}\nLVL ${sharedViewModel.getTrainerPk().level}")
         binding.trainerHp.setText("HP: ${sharedViewModel.getTrainerPk().hp}/${sharedViewModel.getTrainerPk().maxHp}")
+    }
+
+    fun passDialogMsg(s: String, inpPokemon: Pokemon, isLastBox: Boolean, newMove: Move) {
+        wildBattle.openDialogBox(s, inpPokemon, isLastBox, newMove)
+    }
+
+    fun passPkDialogMsg(s: String) {
+        wildBattle.openPkDialogBox(s)
+    }
+
+    fun displayToast(s: String) {
+        println("displaying toast")
+        Toast.makeText(wildBattle.applicationContext, s, Toast.LENGTH_SHORT).show()
     }
 }
