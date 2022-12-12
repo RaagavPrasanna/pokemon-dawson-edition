@@ -1,5 +1,6 @@
 package com.example.pokemon_daws.Controllers
 
+import android.util.DebugUtils
 import android.util.Log
 import com.example.pokemon_daws.MainActivity
 import com.example.pokemon_daws.pokemon.*
