@@ -1,6 +1,7 @@
 package com.example.pokemon_daws.fragments
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -51,6 +52,10 @@ class BattleViewModel: ViewModel() {
     fun executeMove(move: Move){
         Log.i("attack", "here")
         move.executeMove(getTrainerPk(), getOpponentPk())
+        if(getOpponentPk().hp <= 0){
+            Toast.makeText(getBattleScreen().context, "You won", Toast.LENGTH_SHORT)
+            getBattleScreen().requireActivity().finish()
+        }
         getBattleScreen().updateScreen()
     }
 
