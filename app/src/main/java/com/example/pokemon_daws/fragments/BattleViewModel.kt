@@ -88,7 +88,7 @@ class BattleViewModel : ViewModel() {
         }
     }
 
-    private fun opponentExecuteMove() {
+    fun opponentExecuteMove() {
         val moveIndex = java.util.Random().nextInt(getOpponentPk().moves.size)
         val move = getOpponentPk().moves[moveIndex]
         val hit = java.util.Random().nextInt(101)

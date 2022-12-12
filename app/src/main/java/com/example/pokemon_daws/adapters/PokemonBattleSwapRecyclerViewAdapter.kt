@@ -61,6 +61,7 @@ class PokemonBattleSwapRecyclerViewAdapter(
             }
 
             sharedViewModel.getBattleScreen().updateScreen()
+            sharedViewModel.opponentExecuteMove()
         }
     }
 
