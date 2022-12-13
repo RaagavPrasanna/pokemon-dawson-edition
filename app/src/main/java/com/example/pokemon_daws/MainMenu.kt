@@ -50,8 +50,13 @@ class MainMenu : AppCompatActivity() {
         }
 
         binding.trainerBattleButton.setOnClickListener {
-            val tbi = Intent(this, TrainerBattle::class.java)
-            startActivity(tbi)
+            if(MainActivity.trainer.isTrainerDead()){
+                Toast.makeText(this, "Team is dead", Toast.LENGTH_SHORT).show()
+            }else{
+                val tbi = Intent(this, TrainerBattle::class.java)
+                startActivity(tbi)
+            }
+
         }
 
         binding.pokecenterButton.setOnClickListener{
