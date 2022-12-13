@@ -8,12 +8,12 @@ import org.junit.Test
 import org.junit.Assert.*
 
 class ApiTest {
-    val api = ApiController()
+    private val api = ApiController()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun testFetchAllPk()= runTest{
-        var pkEntries = api.getAllPokemon()
+        val pkEntries = api.getAllPokemon()
         assertTrue(pkEntries.size == 151)
     }
 
@@ -78,7 +78,7 @@ class ApiTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun testMove()= runTest{
-        var move = api.getMove("tackle")
+        val move = api.getMove("tackle")
         assertEquals(move!!.name, "tackle")
         assertEquals(move.description, "A full-body charge attack.")
         assertEquals(move.category, "damage")
@@ -96,7 +96,7 @@ class ApiTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun testPkMoves()= runTest{
-        var pkMoves = api.getPkMoves("bulbasaur")
+        val pkMoves = api.getPkMoves("bulbasaur")
         assertEquals(pkMoves[0].level, 13)
         assertEquals(pkMoves[0].move, "vine-whip")
         assertEquals(pkMoves[8].level, 41)
