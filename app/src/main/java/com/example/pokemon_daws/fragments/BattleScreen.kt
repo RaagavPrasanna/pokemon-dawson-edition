@@ -44,7 +44,8 @@ class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
             binding.trainerInfo.setText("${sharedViewModel.getTrainerPk().species.uppercase()}\nLVL ${sharedViewModel.getTrainerPk().level}")
             binding.trainerHp.setText("HP: ${sharedViewModel.getTrainerPk().hp}/${sharedViewModel.getTrainerPk().maxHp}")
         } else if (this::trainerBattle.isInitialized) {
-
+            binding.trainerName.text = "TRAINER: " +trainerBattle.sharedViewModel.OpponentTrainer.name +" " +trainerBattle.sharedViewModel.OpponentTrainer.alivePokeCount() +"/" +trainerBattle.sharedViewModel.OpponentTrainer.pokemons.size
+            binding.trainerName.visibility = View.VISIBLE
             binding.opponentSprite.setImageDrawable(BitmapDrawable(sharedViewModel.getOpponentPk().frontImage))
             binding.opponentInfo.setText("${sharedViewModel.getOpponentPk().species.uppercase()}\nLVL ${sharedViewModel.getOpponentPk().level}")
             binding.opponentHp.setText("HP: ${sharedViewModel.getOpponentPk().hp}/${sharedViewModel.getOpponentPk().maxHp}")
@@ -71,6 +72,10 @@ class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
         }
     }
 
+    fun passBattleDoneMsg(s: String) {
+        trainerBattle.openBattleDoneDialogBox(s)
+    }
+
     fun catchPkDialogMsg(s: String, inpPokemon: Pokemon) {
         if(this::wildBattle.isInitialized) {
             wildBattle.openCaughtDialogBox(s, inpPokemon)
@@ -78,6 +83,7 @@ class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
             trainerBattle.openCaughtDialogBox(s, inpPokemon)
         }
     }
+
 
     fun displayToast(s: String) {
         println("displaying toast")

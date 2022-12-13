@@ -44,7 +44,7 @@ class NewMoveRecyclerAdapter(
                         battle.notifyALlAdapters()
                     }
                     alertDialog.dismiss()
-                    if(isLastBox) {
+                    if(isLastBox && battle is WildBattle) {
                         battle.finish()
                     }
                 }

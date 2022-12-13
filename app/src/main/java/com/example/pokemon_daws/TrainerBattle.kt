@@ -29,7 +29,7 @@ class TrainerBattle : AppCompatActivity() {
     private lateinit var menuFrag: BattleMenu
     private lateinit var textFrag : BattleText
     private lateinit var binding: ActivityWildBattleBinding
-    private val sharedViewModel: BattleViewModel by viewModels()
+    val sharedViewModel: BattleViewModel by viewModels()
     private lateinit var builder: AlertDialog.Builder
     private var allAdapters: MutableList<NewMoveRecyclerAdapter> = mutableListOf()
 
@@ -50,7 +50,7 @@ class TrainerBattle : AppCompatActivity() {
         runBlocking {
             sharedViewModel.battleType = "trainer"
             sharedViewModel.OpponentTrainer = Trainer(mutableListOf(), "Blue", Collection())
-            if(sharedViewModel.OpponentTrainer.name == "Simon") {
+            if(sharedViewModel.OpponentTrainer.name == "Blue") {
                 for (i in 0..java.util.Random().nextInt(6)) {
                     val pk = getOpponentPk()
                     sharedViewModel.OpponentTrainer.pokemons.add(pk)
@@ -121,7 +121,7 @@ class TrainerBattle : AppCompatActivity() {
             .setCancelable(false)
             .setPositiveButton("DON'T LEARN"){di, it ->
                 if(isLastBox) {
-                    finish()
+//                    finish()
                 }
             }
 
@@ -140,6 +140,18 @@ class TrainerBattle : AppCompatActivity() {
     }
 
     fun openPkDialogBox(msg: String) {
+        builder = AlertDialog.Builder(this)
+            .setTitle(msg)
+            .setCancelable(false)
+            .setPositiveButton("Close prompt"){di, it ->
+//                finish()
+            }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    fun openBattleDoneDialogBox(msg: String) {
         builder = AlertDialog.Builder(this)
             .setTitle(msg)
             .setCancelable(false)

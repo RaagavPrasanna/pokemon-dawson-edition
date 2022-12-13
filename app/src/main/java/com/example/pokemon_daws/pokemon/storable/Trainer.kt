@@ -47,6 +47,28 @@ data class Trainer(
         }
     }
 
+    fun isTrainerDead():Boolean{
+        var isDead = true
+        for (pk in pokemons){
+            if (pk.hp > 0){
+                isDead = false
+            }
+        }
+        return isDead
+    }
+
+    fun alivePokeCount(): Int{
+        var count = 0
+
+        for (pk in pokemons){
+            if (pk.hp > 0){
+                count += 1
+            }
+        }
+        return count
+    }
+
+
 }
 
 class TrainerTypeConverter {
