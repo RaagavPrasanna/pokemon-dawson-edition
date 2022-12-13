@@ -87,7 +87,11 @@ class BattleViewModel : ViewModel() {
                 move.executeMove(getOpponentPk(), getTrainerPk())
                 if (getTrainerPk().hp <= 0) {
                     if(MainActivity.trainer.isTrainerDead()) {
-                        getBattleScreen().passPkDialogMsg(getTrainerPk().name + " has fainted.")
+                        if(battleType == "pokemon") {
+                            getBattleScreen().passPkDialogMsg(getTrainerPk().name + " has fainted. You lost")
+                        } else {
+                            getBattleScreen().passBattleDoneMsg(getTrainerPk().name + " has fainted. You lost")
+                        }
                     }else{
                         setTrainerPk(getStartingTrainerPk()!!)
                     }
