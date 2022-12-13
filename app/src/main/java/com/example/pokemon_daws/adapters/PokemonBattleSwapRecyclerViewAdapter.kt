@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemon_daws.R
 import com.example.pokemon_daws.databinding.PokemonTeamItemBinding
 import com.example.pokemon_daws.fragments.BattleMenu
-import com.example.pokemon_daws.fragments.BattleScreen
 import com.example.pokemon_daws.fragments.BattleViewModel
 import com.example.pokemon_daws.fragments.PokemonMenu
 import com.example.pokemon_daws.pokemon.Pokemon

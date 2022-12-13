@@ -1,9 +1,9 @@
 package com.example.pokemon_daws.pokemon
 
 import android.graphics.Bitmap
-import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateHP
-import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateStat
-import com.example.pokemon_daws.Controllers.Pokemon_Math.CurrentLevel
+import com.example.pokemon_daws.Controllers.PokemonMath.calculateHP
+import com.example.pokemon_daws.Controllers.PokemonMath.calculateStat
+import com.example.pokemon_daws.Controllers.PokemonMath.currentLevel
 
 class Pokemon(
     val species: String,
@@ -12,12 +12,12 @@ class Pokemon(
     var baseExperienceReward: Int,
     var types: List<String>,
     var hp: Int,
-    var baseMaxHp: Int,
-    var baseAttack: Int,
-    var baseDefense: Int,
-    var baseSpecialAttack: Int,
-    var baseSpecialDefense: Int,
-    var baseSpeed: Int,
+    private var baseMaxHp: Int,
+    private var baseAttack: Int,
+    private var baseDefense: Int,
+    private var baseSpecialAttack: Int,
+    private var baseSpecialDefense: Int,
+    private var baseSpeed: Int,
     var moves: MutableList<Move>,
     val allMoves:List<Move>,
     var frontImage: Bitmap,
@@ -25,11 +25,11 @@ class Pokemon(
     var frontUrl: String,
     var backUrl: String
 ) {
-    val maxHp: Int get() = CalculateHP(baseMaxHp.toDouble(), level)
-    val attack: Int get() = CalculateStat(baseAttack.toDouble(), level)
-    val defense: Int get() = CalculateStat(baseDefense.toDouble(), level)
-    val specialAttack: Int get() = CalculateStat(baseSpecialAttack.toDouble(), level)
-    val specialDefense: Int get() = CalculateStat(baseSpecialDefense.toDouble(), level)
-    val speed: Int get() = CalculateStat(baseSpeed.toDouble(), level)
-    val level: Int get() = CurrentLevel(experience.toDouble())
+    val maxHp: Int get() = calculateHP(baseMaxHp.toDouble(), level)
+    val attack: Int get() = calculateStat(baseAttack.toDouble(), level)
+    val defense: Int get() = calculateStat(baseDefense.toDouble(), level)
+    val specialAttack: Int get() = calculateStat(baseSpecialAttack.toDouble(), level)
+    val specialDefense: Int get() = calculateStat(baseSpecialDefense.toDouble(), level)
+    val speed: Int get() = calculateStat(baseSpeed.toDouble(), level)
+    val level: Int get() = currentLevel(experience.toDouble())
 }

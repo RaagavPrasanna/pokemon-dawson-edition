@@ -1,34 +1,29 @@
 package com.example.pokemon_daws
 
 import android.Manifest.permission
-import android.content.ContentResolver
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.pokemon_daws.Controllers.ApiController
+import com.example.pokemon_daws.Controllers.PkDb
+import com.example.pokemon_daws.Controllers.PokedexEntry
 import com.example.pokemon_daws.databinding.ActivityMainBinding
 import com.example.pokemon_daws.pokemon.PokemonFactory
-import com.example.pokemon_daws.Controllers.*
 import com.example.pokemon_daws.pokemon.TypeSingleton
 import com.example.pokemon_daws.pokemon.storable.Trainer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
-import android.provider.ContactsContract
-import java.security.Permission
-import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -36,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         lateinit var trainer: Trainer
         lateinit var pkFactory: PokemonFactory
         lateinit var allPk: List<PokedexEntry>
-        var fetch = ApiController()
         lateinit var db: PkDb
         var isInit: Int? = null
         var contacts: ArrayList<String> = arrayListOf()
@@ -70,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         binding.loadGameButton.setOnClickListener {
             var passed = false
             val toastContext = this
-//            try {
             runBlocking {
                 lifecycleScope.launch(Dispatchers.IO){
                     try {
@@ -106,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         isInit = null
     }
 
-    private suspend fun getImage(urlStr: String): Bitmap? {
+    private fun getImage(urlStr: String): Bitmap? {
         var retVal: Bitmap? = null
         val url = URL(urlStr)
         val conn = url.openConnection() as HttpURLConnection

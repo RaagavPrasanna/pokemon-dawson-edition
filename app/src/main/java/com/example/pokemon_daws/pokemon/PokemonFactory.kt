@@ -2,15 +2,14 @@ package com.example.pokemon_daws.pokemon
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
-import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.pokemon_daws.Controllers.ApiController
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
-import com.example.pokemon_daws.Controllers.Pokemon_Math.CalculateHP
+import com.example.pokemon_daws.Controllers.PokemonMath.calculateHP
 
-class PokemonFactory() {
+class PokemonFactory {
     private val api = ApiController()
 
     suspend fun createPokemon(level: Int, species: String, name: String? = null): Pokemon{
@@ -68,7 +67,7 @@ class PokemonFactory() {
             getExperience(level),
             pkEntry.base_exp_reward,
             pkEntry.types,
-            CalculateHP(pkEntry.base_maxHp.toDouble(), level),
+            calculateHP(pkEntry.base_maxHp.toDouble(), level),
             pkEntry.base_maxHp,
             pkEntry.base_attack,
             pkEntry.baseSpecialAttack,

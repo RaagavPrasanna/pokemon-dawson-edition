@@ -1,6 +1,5 @@
 package com.example.pokemon_daws.pokemon.storable
 
-import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -20,7 +19,7 @@ data class Trainer(
 
     override fun addPK(pk: Pokemon) {
         if(this.pokemons.size < 6){
-            pokemons.add(pk);
+            pokemons.add(pk)
         }else{
             throw IndexOutOfBoundsException("Cannot have more than 6 pokemon in team")
         }
@@ -28,7 +27,7 @@ data class Trainer(
 
     override fun removePK(pk: Pokemon) {
         if(this.pokemons.size > 1){
-            pokemons.remove(pk);
+            pokemons.remove(pk)
         }else{
             throw IndexOutOfBoundsException("Cannot have an empty team")
         }
@@ -37,16 +36,7 @@ data class Trainer(
     fun collectPK(pk:Pokemon) {
         this.collection.addPK(pk)
     }
-
-    fun storePK(pk:Pokemon){
-        if(this.pokemons.size > 1){
-            this.collection.addPK(pk)
-            this.pokemons.remove(pk)
-        }else{
-            throw IndexOutOfBoundsException("Cannot put last pokemon in PC")
-        }
-    }
-
+    
     fun isTrainerDead():Boolean{
         var isDead = true
         for (pk in pokemons){

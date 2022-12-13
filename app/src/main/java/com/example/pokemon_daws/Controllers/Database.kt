@@ -18,7 +18,7 @@ interface PkDao {
 
 @TypeConverters(value = [TrainerTypeConverter::class])
 @Database(entities = [Trainer::class], version = 1, exportSchema = false)
-public abstract class PkDb: RoomDatabase(){
+abstract class PkDb: RoomDatabase(){
     abstract fun pkDao(): PkDao
     companion object{
         @Volatile

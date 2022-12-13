@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.pokemon_daws.Controllers.Pokemon_Math
+import com.example.pokemon_daws.Controllers.PokemonMath
 import com.example.pokemon_daws.MainActivity
 import com.example.pokemon_daws.pokemon.Move
 import com.example.pokemon_daws.pokemon.Pokemon
@@ -88,7 +88,6 @@ class BattleViewModel : ViewModel() {
                 move.executeMove(getOpponentPk(), getTrainerPk())
                 if (getTrainerPk().hp <= 0) {
                     if(MainActivity.trainer.isTrainerDead()) {
-//                        getBattleScreen().passPkDialogMsg(getTrainerPk().name + " has fainted.")
                         getBattleScreen().passPkDialogMsg(getTrainerPk().name + " has fainted.")
                     }else{
                         setTrainerPk(getStartingTrainerPk()!!)
@@ -200,7 +199,6 @@ class BattleViewModel : ViewModel() {
                 } else {
                     MainActivity.trainer.collectPK(getOpponentPk())
                 }
-    //            getBattleScreen().passPkDialogMsg("Congrats! You caught " +getOpponentPk().name)
                 getBattleScreen().catchPkDialogMsg("Congrats! You caught " +getOpponentPk().name, getOpponentPk())
             }else{
                 getBattleText().setTrainerText("Threw Pokeball: Missed")
@@ -250,13 +248,11 @@ class BattleViewModel : ViewModel() {
         if(OpponentTrainer.name == "Blue") {
             withContext(Dispatchers.Main) {
                 for (i in 0..java.util.Random().nextInt(6)) {
-//                println(pk.name)
                     val pk = MainActivity.allPk[java.util.Random().nextInt(MainActivity.allPk.size)]
                     val genPk = MainActivity.pkFactory.createPokemon(
                         (getMinLvl()..getMaxLvl()).random(),
                         pk.name
                     )
-//                    println(genPk.name)
                     OpponentTrainer.addPK(genPk)
                     for (i in OpponentTrainer.pokemons) {
                         println(i.name)
