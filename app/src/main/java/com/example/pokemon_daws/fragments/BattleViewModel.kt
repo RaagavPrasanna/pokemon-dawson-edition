@@ -1,6 +1,5 @@
 package com.example.pokemon_daws.fragments
 
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -115,8 +114,6 @@ class BattleViewModel : ViewModel() {
     }
 
     fun executeMove(move: Move){
-        Log.i("attack", "here")
-
         val hit = java.util.Random().nextInt(101)
 
         if (hit <= move.accuracy) {
@@ -154,7 +151,6 @@ class BattleViewModel : ViewModel() {
                         }
                     }
                 }
-                println("levelled up")
                 if(firstVal) {
                     getBattleScreen().passPkDialogMsg(getOpponentPk().name +" has fainted")
                 }
@@ -209,7 +205,7 @@ class BattleViewModel : ViewModel() {
         }
     }
 
-    fun getStartingTrainerPk(): Pokemon? {
+    private fun getStartingTrainerPk(): Pokemon? {
         for (pk in MainActivity.trainer.pokemons) {
             if (pk.hp != 0) {
                 return pk
@@ -242,34 +238,5 @@ class BattleViewModel : ViewModel() {
     suspend fun getRandomPk(rand: Random): Pokemon {
         val pk = MainActivity.allPk[rand.nextInt(MainActivity.allPk.size)]
         return MainActivity.pkFactory.createPokemon((getMinLvl()..getMaxLvl()).random(), pk.name)
-    }
-
-    suspend fun setTrainersPokemon() {
-        if(OpponentTrainer.name == "Blue") {
-            withContext(Dispatchers.Main) {
-                for (i in 0..java.util.Random().nextInt(6)) {
-                    val pk = MainActivity.allPk[java.util.Random().nextInt(MainActivity.allPk.size)]
-                    val genPk = MainActivity.pkFactory.createPokemon(
-                        (getMinLvl()..getMaxLvl()).random(),
-                        pk.name
-                    )
-                    OpponentTrainer.addPK(genPk)
-                    for (i in OpponentTrainer.pokemons) {
-                        println(i.name)
-                    }
-                }
-            }
-            setOpponentPk(OpponentTrainer.pokemons[0])
-        } else {
-            var seed = 0
-            for (i in 0..OpponentTrainer.name.length-1) {
-                seed += OpponentTrainer.name[i].code
-            }
-            val rand = java.util.Random(seed.toLong())
-            for(i in 0 .. rand.nextInt(6)) {
-                val pk = MainActivity.allPk[rand.nextInt(MainActivity.allPk.size)]
-                OpponentTrainer.addPK(MainActivity.pkFactory.createPokemon((getMinLvl()..getMaxLvl()).random(), pk.name))
-            }
-        }
     }
 }

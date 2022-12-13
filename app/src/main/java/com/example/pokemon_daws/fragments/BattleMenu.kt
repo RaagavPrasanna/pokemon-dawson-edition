@@ -30,7 +30,6 @@ class BattleMenu : Fragment(R.layout.fragment_battle_menu) {
             activity?.finish()
         }
 
-        //TODO add Pokemon team picking
         binding.pokemonBtn.setOnClickListener {
             switchFragment(PokemonMenu.newInstance(this))
         }

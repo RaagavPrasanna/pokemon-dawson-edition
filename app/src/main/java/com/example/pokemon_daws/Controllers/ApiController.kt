@@ -148,7 +148,3 @@ data class MoveEntry(
     val healing: Int,
     val target: String,
 )
-//
-//data class Type(
-//    val type: String
-//)

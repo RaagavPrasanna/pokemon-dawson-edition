@@ -148,7 +148,6 @@ class MainActivity : AppCompatActivity() {
                 contactsCursor.close()
             }
             contacts = contactsList
-            println(contacts)
             if(contacts.size == 0) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(

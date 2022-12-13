@@ -13,7 +13,6 @@ class ExampleUnitTest {
 }
 class PokemonMathTests {
     @Test fun calculateDamageTest() {
-        //var pk1: Pokemon = Pokemon("species1", "pokemon1", 125, 5, listOf(), )
         var pk2: Pokemon
         assertEquals(4, 2 + 2)
     }

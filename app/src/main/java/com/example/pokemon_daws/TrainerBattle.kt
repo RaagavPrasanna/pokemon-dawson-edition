@@ -49,7 +49,6 @@ class TrainerBattle : AppCompatActivity() {
 
         runBlocking {
             sharedViewModel.battleType = "trainer"
-//            sharedViewModel.OpponentTrainer = Trainer(mutableListOf(), "Blue", Collection())
             if(MainActivity.contacts.size == 0) {
                 sharedViewModel.OpponentTrainer = Trainer(mutableListOf(), "Blue", Collection())
             } else {
@@ -59,7 +58,6 @@ class TrainerBattle : AppCompatActivity() {
                 for (i in 0..java.util.Random().nextInt(6)) {
                     val pk = getOpponentPk()
                     sharedViewModel.OpponentTrainer.pokemons.add(pk)
-                    println(sharedViewModel.OpponentTrainer.pokemons[i].name)
                 }
                 sharedViewModel.setOpponentPk(sharedViewModel.OpponentTrainer.pokemons[0])
             } else {
@@ -71,7 +69,6 @@ class TrainerBattle : AppCompatActivity() {
                 for (i in 0.. rand.nextInt(6)) {
                     val pk = getOpponentPk(rand)
                     sharedViewModel.OpponentTrainer.pokemons.add(pk)
-                    println(sharedViewModel.OpponentTrainer.pokemons[i].name)
                 }
                 sharedViewModel.setOpponentPk(sharedViewModel.OpponentTrainer.pokemons[0])
             }
@@ -109,7 +106,6 @@ class TrainerBattle : AppCompatActivity() {
         return pk!!
     }
     fun openDialogBox(msg: String, inpPokemon: Pokemon, isLastBox: Boolean, newMove: Move) {
-        println("opening box")
 
 
 
@@ -125,9 +121,6 @@ class TrainerBattle : AppCompatActivity() {
             .setMessage(msg)
             .setCancelable(false)
             .setPositiveButton("DON'T LEARN"){di, it ->
-                if(isLastBox) {
-//                    finish()
-                }
             }
 
         val alertDialog = builder.create()
@@ -149,7 +142,6 @@ class TrainerBattle : AppCompatActivity() {
             .setTitle(msg)
             .setCancelable(false)
             .setPositiveButton("Close prompt"){di, it ->
-//                finish()
             }
 
         val alertDialog = builder.create()
@@ -188,7 +180,6 @@ class TrainerBattle : AppCompatActivity() {
         alertDialog.show()
     }
     fun notifyALlAdapters() {
-        println("call notify all adapters")
         for (i in allAdapters) {
             i.notifyDataSetChanged()
         }

@@ -74,23 +74,11 @@ class WildBattle : AppCompatActivity() {
         }.join()
         return pk!!
     }
-    fun getNum(): Int{
-        return 5
-    }
 
-    fun sayHi() {
-        println("hi")
-    }
     fun openDialogBox(msg: String, inpPokemon: Pokemon, isLastBox: Boolean, newMove: Move) {
-        println("opening box")
-
-
-
         val dialogView = layoutInflater.inflate(R.layout.new_move_dialog, null)
 
         val rv = dialogView.findViewById<RecyclerView>(R.id.new_move_recycler_view)
-
-
 
         builder = AlertDialog.Builder(this)
             .setTitle(inpPokemon.name +" wants to learn: " +newMove.name +", choose a move to replace")
@@ -150,7 +138,6 @@ class WildBattle : AppCompatActivity() {
 
 
     fun notifyALlAdapters() {
-        println("call notify all adapters")
         for (i in allAdapters) {
             i.notifyDataSetChanged()
         }

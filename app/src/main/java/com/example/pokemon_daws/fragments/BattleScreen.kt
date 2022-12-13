@@ -87,7 +87,6 @@ class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
     }
 
     fun displayToast(s: String) {
-        println("displaying toast")
         if(this::wildBattle.isInitialized) {
             Toast.makeText(wildBattle.applicationContext, s, Toast.LENGTH_SHORT).show()
         } else if (this::trainerBattle.isInitialized) {

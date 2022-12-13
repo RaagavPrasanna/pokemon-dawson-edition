@@ -27,7 +27,6 @@ class MainMenu : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             while(MainActivity.isInit == null) {
-//                println("is null from onCreate")
             }
             withContext(Dispatchers.Main){
                 binding.loadBar.visibility = View.GONE
