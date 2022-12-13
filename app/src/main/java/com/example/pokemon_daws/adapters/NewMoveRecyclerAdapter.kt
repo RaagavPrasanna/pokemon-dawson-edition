@@ -3,14 +3,16 @@ package com.example.pokemon_daws.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pokemon_daws.TrainerBattle
 import com.example.pokemon_daws.WildBattle
 import com.example.pokemon_daws.databinding.MoveListAdapterItemBinding
 import com.example.pokemon_daws.pokemon.Move
 
 class NewMoveRecyclerAdapter(
     private val inpMoves: MutableList<Move>,
-    private val wildBattle: WildBattle,
+    private val battle: AppCompatActivity,
     private val alertDialog: AlertDialog,
     private val isLastBox: Boolean,
     private val newMove: Move,
@@ -36,10 +38,14 @@ class NewMoveRecyclerAdapter(
 
                 holder.itemView.setOnClickListener{
                     inpMoves[position] = newMove
-                    wildBattle.notifyALlAdapters()
+                    if(battle is WildBattle) {
+                        battle.notifyALlAdapters()
+                    } else if(battle is TrainerBattle) {
+                        battle.notifyALlAdapters()
+                    }
                     alertDialog.dismiss()
-                    if(isLastBox) {
-                        wildBattle.finish()
+                    if(isLastBox && battle is WildBattle) {
+                        battle.finish()
                     }
                 }
             }

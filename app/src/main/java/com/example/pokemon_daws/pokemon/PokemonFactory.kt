@@ -106,7 +106,7 @@ class PokemonFactory() {
             }
             allMoves.add(move)
         }
-         moves = moves.subList(0, if(moves.size >= 4) 3 else (moves.size - 1))
+        moves = moves.subList(0, if(moves.size >= 4) 4 else (moves.size))
         return moves
     }
 

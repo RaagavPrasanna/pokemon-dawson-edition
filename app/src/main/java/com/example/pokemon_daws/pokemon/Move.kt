@@ -23,6 +23,11 @@ class Move(
 
     fun executeMove(currentPk: Pokemon, oppositePk: Pokemon){
         if(this.power == 0){
+            if(pp == 1) {
+                pp = 0
+            } else{
+                pp -= 1
+            }
             return
         }else if(this.heal > 0){
             currentPk.hp= if(currentPk.hp + this.heal > currentPk.maxHp) currentPk.maxHp else currentPk.hp + this.heal

@@ -48,8 +48,7 @@ class StarterSelection : AppCompatActivity() {
             selectedPokemon = "charmander"
 
             val duration = Toast.LENGTH_SHORT
-            val toast = Toast.makeText(applicationContext, getString(R.string.charmander), duration)
-            toast.show()
+            val toast = Toast.makeText(applicationContext, getString(R.string.charmander), duration).show()
         }
 
         binding.selectSquirtle.setOnClickListener {
@@ -74,40 +73,11 @@ class StarterSelection : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 var pk: Pokemon
                 if(nickname.isEmpty()) {
-                    pk = MainActivity.pkFactory.createPokemon(21, selectedPokemon)
+                    pk = MainActivity.pkFactory.createPokemon(26, selectedPokemon)
                 } else {
-                    pk = MainActivity.pkFactory.createPokemon(21, selectedPokemon, nickname)
+                    pk = MainActivity.pkFactory.createPokemon(5, selectedPokemon, nickname)
                 }
-                    pk.moves.add(pk.allMoves[2])
-//                val pk2 = MainActivity.pkFactory.createPokemon(25, "mewtwo")
-//                val pk3 = MainActivity.pkFactory.createPokemon(25, "mew")
-//                val pk4 = MainActivity.pkFactory.createPokemon(36, "zapdos")
-//                val pk5 = MainActivity.pkFactory.createPokemon(36, "weepinbell")
-//                val pk6 = MainActivity.pkFactory.createPokemon(36, "hitmonchan")
-
-                val pk7 = MainActivity.pkFactory.createPokemon(50, "snorlax")
-
                 MainActivity.trainer.addPK(pk)
-//                MainActivity.trainer.addPK(pk2)
-//                MainActivity.trainer.addPK(pk3)
-//                MainActivity.trainer.addPK(pk4)
-//                MainActivity.trainer.addPK(pk5)
-//                MainActivity.trainer.addPK(pk6)
-
-                MainActivity.trainer.collection.addPK(pk7)
-                MainActivity.trainer.collection.addPK(pk7)
-                MainActivity.trainer.collection.addPK(pk7)
-                MainActivity.trainer.collection.addPK(pk7)
-                MainActivity.trainer.collection.addPK(pk7)
-                MainActivity.trainer.collection.addPK(pk7)
-                MainActivity.trainer.collection.addPK(pk7)
-                MainActivity.trainer.collection.addPK(pk7)
-                MainActivity.trainer.collection.addPK(pk7)
-                MainActivity.trainer.collection.addPK(pk7)
-                MainActivity.trainer.collection.addPK(pk7)
-                MainActivity.trainer.collection.addPK(pk7)
-                MainActivity.trainer.collection.addPK(pk7)
-
                 MainActivity.isInit = 0
             }
 

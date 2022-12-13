@@ -5,6 +5,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.pokemon_daws.R
+import com.example.pokemon_daws.TrainerBattle
+import com.example.pokemon_daws.WildBattle
 import com.example.pokemon_daws.databinding.FragmentBattleMenuBinding
 import com.example.pokemon_daws.databinding.FragmentBattleTextBinding
 import com.example.pokemon_daws.databinding.FragmentItemsMenuBinding
@@ -22,7 +24,11 @@ class BattleText : Fragment(R.layout.fragment_battle_text) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBattleTextBinding.bind(view)
         sharedViewModel.setBattleText(this)
-        sharedViewModel.startBattle()
+        if(activity is TrainerBattle) {
+            sharedViewModel.startBattle()
+        } else if(activity is WildBattle) {
+            sharedViewModel.startBattle()
+        }
     }
 
     fun setOpponentText(text: String){

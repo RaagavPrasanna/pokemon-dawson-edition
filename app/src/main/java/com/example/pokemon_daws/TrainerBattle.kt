@@ -1,11 +1,11 @@
 package com.example.pokemon_daws
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,25 +17,26 @@ import com.example.pokemon_daws.fragments.BattleText
 import com.example.pokemon_daws.fragments.BattleViewModel
 import com.example.pokemon_daws.pokemon.Move
 import com.example.pokemon_daws.pokemon.Pokemon
+import com.example.pokemon_daws.pokemon.storable.Collection
+import com.example.pokemon_daws.pokemon.storable.Trainer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.util.Random
 
-class WildBattle : AppCompatActivity() {
+class TrainerBattle : AppCompatActivity() {
     private lateinit var screenFrag : BattleScreen
     private lateinit var menuFrag: BattleMenu
     private lateinit var textFrag : BattleText
     private lateinit var binding: ActivityWildBattleBinding
-    private val sharedViewModel: BattleViewModel by viewModels()
+    val sharedViewModel: BattleViewModel by viewModels()
     private lateinit var builder: AlertDialog.Builder
     private var allAdapters: MutableList<NewMoveRecyclerAdapter> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityWildBattleBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         binding.battleScreen.visibility = View.GONE
         binding.battleMenu.visibility = View.GONE
@@ -47,7 +48,33 @@ class WildBattle : AppCompatActivity() {
         menuFrag = BattleMenu()
 
         runBlocking {
-            sharedViewModel.setOpponentPk(getOpponentPk())
+            sharedViewModel.battleType = "trainer"
+//            sharedViewModel.OpponentTrainer = Trainer(mutableListOf(), "Blue", Collection())
+            if(MainActivity.contacts.size == 0) {
+                sharedViewModel.OpponentTrainer = Trainer(mutableListOf(), "Blue", Collection())
+            } else {
+                sharedViewModel.OpponentTrainer = Trainer(mutableListOf(), MainActivity.contacts[java.util.Random().nextInt(MainActivity.contacts.size)], Collection())
+            }
+            if(sharedViewModel.OpponentTrainer.name == "Blue") {
+                for (i in 0..java.util.Random().nextInt(6)) {
+                    val pk = getOpponentPk()
+                    sharedViewModel.OpponentTrainer.pokemons.add(pk)
+                    println(sharedViewModel.OpponentTrainer.pokemons[i].name)
+                }
+                sharedViewModel.setOpponentPk(sharedViewModel.OpponentTrainer.pokemons[0])
+            } else {
+                var seed = 0
+                for (i in 0..sharedViewModel.OpponentTrainer.name.length-1) {
+                    seed += sharedViewModel.OpponentTrainer.name[i].code
+                }
+                val rand = java.util.Random(seed.toLong())
+                for (i in 0.. rand.nextInt(6)) {
+                    val pk = getOpponentPk(rand)
+                    sharedViewModel.OpponentTrainer.pokemons.add(pk)
+                    println(sharedViewModel.OpponentTrainer.pokemons[i].name)
+                }
+                sharedViewModel.setOpponentPk(sharedViewModel.OpponentTrainer.pokemons[0])
+            }
         }
 
         binding.loadBar.visibility = View.GONE
@@ -66,6 +93,13 @@ class WildBattle : AppCompatActivity() {
         sharedViewModel.setBattleText(textFrag)
     }
 
+    private suspend fun getOpponentPk(rand: Random): Pokemon {
+        var pk: Pokemon? = null
+        lifecycleScope.launch(Dispatchers.IO){
+            pk = sharedViewModel.getRandomPk(rand)
+        }.join()
+        return pk!!
+    }
 
     private suspend fun getOpponentPk(): Pokemon {
         var pk: Pokemon? = null
@@ -73,13 +107,6 @@ class WildBattle : AppCompatActivity() {
             pk = sharedViewModel.getRandomPk()
         }.join()
         return pk!!
-    }
-    fun getNum(): Int{
-        return 5
-    }
-
-    fun sayHi() {
-        println("hi")
     }
     fun openDialogBox(msg: String, inpPokemon: Pokemon, isLastBox: Boolean, newMove: Move) {
         println("opening box")
@@ -99,7 +126,7 @@ class WildBattle : AppCompatActivity() {
             .setCancelable(false)
             .setPositiveButton("DON'T LEARN"){di, it ->
                 if(isLastBox) {
-                    finish()
+//                    finish()
                 }
             }
 
@@ -121,6 +148,18 @@ class WildBattle : AppCompatActivity() {
         builder = AlertDialog.Builder(this)
             .setTitle(msg)
             .setCancelable(false)
+            .setPositiveButton("Close prompt"){di, it ->
+//                finish()
+            }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    fun openBattleDoneDialogBox(msg: String) {
+        builder = AlertDialog.Builder(this)
+            .setTitle(msg)
+            .setCancelable(false)
             .setPositiveButton("Close Battle"){di, it ->
                 finish()
             }
@@ -128,6 +167,7 @@ class WildBattle : AppCompatActivity() {
         val alertDialog = builder.create()
         alertDialog.show()
     }
+
 
     fun openCaughtDialogBox(msg: String, inpPokemon: Pokemon) {
         val cn = layoutInflater.inflate(R.layout.caught_name, null)
@@ -147,8 +187,6 @@ class WildBattle : AppCompatActivity() {
         val alertDialog = builder.create()
         alertDialog.show()
     }
-
-
     fun notifyALlAdapters() {
         println("call notify all adapters")
         for (i in allAdapters) {

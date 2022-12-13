@@ -51,11 +51,23 @@ data class Trainer(
         var isDead = true
         for (pk in pokemons){
             if (pk.hp > 0){
-                 isDead = false
+                isDead = false
             }
         }
         return isDead
     }
+
+    fun alivePokeCount(): Int{
+        var count = 0
+
+        for (pk in pokemons){
+            if (pk.hp > 0){
+                count += 1
+            }
+        }
+        return count
+    }
+
 
 }
 
