@@ -49,7 +49,12 @@ class TrainerBattle : AppCompatActivity() {
 
         runBlocking {
             sharedViewModel.battleType = "trainer"
-            sharedViewModel.OpponentTrainer = Trainer(mutableListOf(), "Blue", Collection())
+//            sharedViewModel.OpponentTrainer = Trainer(mutableListOf(), "Blue", Collection())
+            if(MainActivity.contacts.size == 0) {
+                sharedViewModel.OpponentTrainer = Trainer(mutableListOf(), "Blue", Collection())
+            } else {
+                sharedViewModel.OpponentTrainer = Trainer(mutableListOf(), MainActivity.contacts[java.util.Random().nextInt(MainActivity.contacts.size)], Collection())
+            }
             if(sharedViewModel.OpponentTrainer.name == "Blue") {
                 for (i in 0..java.util.Random().nextInt(6)) {
                     val pk = getOpponentPk()

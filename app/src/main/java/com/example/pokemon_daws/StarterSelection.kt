@@ -48,8 +48,7 @@ class StarterSelection : AppCompatActivity() {
             selectedPokemon = "charmander"
 
             val duration = Toast.LENGTH_SHORT
-            val toast = Toast.makeText(applicationContext, getString(R.string.charmander), duration)
-            toast.show()
+            val toast = Toast.makeText(applicationContext, getString(R.string.charmander), duration).show()
         }
 
         binding.selectSquirtle.setOnClickListener {
@@ -74,9 +73,9 @@ class StarterSelection : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 var pk: Pokemon
                 if(nickname.isEmpty()) {
-                    pk = MainActivity.pkFactory.createPokemon(21, selectedPokemon)
+                    pk = MainActivity.pkFactory.createPokemon(5, selectedPokemon)
                 } else {
-                    pk = MainActivity.pkFactory.createPokemon(21, selectedPokemon, nickname)
+                    pk = MainActivity.pkFactory.createPokemon(5, selectedPokemon, nickname)
                 }
                     pk.moves.add(pk.allMoves[2])
 //                val pk2 = MainActivity.pkFactory.createPokemon(25, "mewtwo")

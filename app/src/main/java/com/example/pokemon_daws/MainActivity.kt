@@ -53,11 +53,11 @@ class MainActivity : AppCompatActivity() {
         pkFactory = PokemonFactory()
         fetch = ApiController()
         lifecycleScope.launch(Dispatchers.IO){
+            getContact()
             allPk = fetch.getAllPokemon()
             val pk = pkFactory.createPokemon(5, "bulbasaur", "bulb")
             val pk1 = pkFactory.createPokemon(10, "charmander")
 
-            getContact()
         }
 
         db = PkDb.getDb(this)
@@ -135,6 +135,9 @@ class MainActivity : AppCompatActivity() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             val arr = Array<String>(1){permission.READ_CONTACTS}
             requestPermissions(arr, 100)
+            withContext(Dispatchers.Main) {
+                Toast.makeText(applicationContext, "Please relaunch the app to fetch your contacts", Toast.LENGTH_LONG).show()
+            }
         } else {
             val contactsCursor = application.contentResolver.query(
                 ContactsContract.Contacts.CONTENT_URI,
@@ -154,6 +157,15 @@ class MainActivity : AppCompatActivity() {
             }
             contacts = contactsList
             println(contacts)
+            if(contacts.size == 0) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        applicationContext,
+                        "No contacts found on phone :(",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 }
