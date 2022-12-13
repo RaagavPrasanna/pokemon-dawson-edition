@@ -1,10 +1,6 @@
 package com.example.pokemon_daws.pokemon
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
-import com.example.pokemon_daws.Controllers.Pokemon_Math
+import com.example.pokemon_daws.Controllers.PokemonMath
 
 
 class Move(
@@ -32,7 +28,7 @@ class Move(
                 pp -= 1
             }
         }else{
-            oppositePk.hp -= Pokemon_Math.CalculateDamage(currentPk, oppositePk, this)
+            oppositePk.hp -= PokemonMath.calculateDamage(currentPk, oppositePk, this)
             if(oppositePk.hp < 0 ) oppositePk.hp = 0
             if(pp == 1) {
                 pp = 0

@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import com.example.pokemon_daws.R
 import com.example.pokemon_daws.WildBattle
@@ -27,14 +26,14 @@ class BattleScreen : Fragment(R.layout.fragment_battle_screen) {
         updateScreen()
     }
 
-    public fun updateScreen(){
+    fun updateScreen(){
         binding.opponentSprite.setImageDrawable(BitmapDrawable(sharedViewModel.getOpponentPk().frontImage))
-        binding.opponentInfo.setText("${sharedViewModel.getOpponentPk().species.uppercase()}\nLVL ${sharedViewModel.getOpponentPk().level}")
-        binding.opponentHp.setText("HP: ${sharedViewModel.getOpponentPk().hp}/${sharedViewModel.getOpponentPk().maxHp}")
+        binding.opponentInfo.text = "${sharedViewModel.getOpponentPk().species.uppercase()}\nLVL ${sharedViewModel.getOpponentPk().level}"
+        binding.opponentHp.text = "HP: ${sharedViewModel.getOpponentPk().hp}/${sharedViewModel.getOpponentPk().maxHp}"
 
         binding.trainerSprite.setImageDrawable(BitmapDrawable(sharedViewModel.getTrainerPk().backImage))
-        binding.trainerInfo.setText("${sharedViewModel.getTrainerPk().species.uppercase()}\nLVL ${sharedViewModel.getTrainerPk().level}")
-        binding.trainerHp.setText("HP: ${sharedViewModel.getTrainerPk().hp}/${sharedViewModel.getTrainerPk().maxHp}")
+        binding.trainerInfo.text = "${sharedViewModel.getTrainerPk().species.uppercase()}\nLVL ${sharedViewModel.getTrainerPk().level}"
+        binding.trainerHp.text = "HP: ${sharedViewModel.getTrainerPk().hp}/${sharedViewModel.getTrainerPk().maxHp}"
     }
 
     fun passDialogMsg(s: String, inpPokemon: Pokemon, isLastBox: Boolean, newMove: Move) {

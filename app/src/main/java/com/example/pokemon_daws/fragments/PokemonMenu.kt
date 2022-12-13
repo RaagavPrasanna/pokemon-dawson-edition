@@ -10,7 +10,7 @@ import com.example.pokemon_daws.R
 import com.example.pokemon_daws.adapters.PokemonBattleSwapRecyclerViewAdapter
 import com.example.pokemon_daws.databinding.FragmentPokemonMenuBinding
 
-class PokemonMenu(val battleMenu: BattleMenu) : Fragment(R.layout.fragment_pokemon_menu) {
+class PokemonMenu(private val battleMenu: BattleMenu) : Fragment(R.layout.fragment_pokemon_menu) {
     private lateinit var binding: FragmentPokemonMenuBinding
     private lateinit var adapter: PokemonBattleSwapRecyclerViewAdapter
     private val sharedViewModel: BattleViewModel by activityViewModels()

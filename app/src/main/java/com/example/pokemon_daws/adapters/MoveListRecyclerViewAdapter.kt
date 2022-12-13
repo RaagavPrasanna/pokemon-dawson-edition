@@ -30,9 +30,9 @@ class MoveListRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val binding = holder.binding
         val move = moves[position]
-        binding.movePp.setText("PP:${move.pp}/${move.maxPP}")
-        binding.moveName.setText(move.name.uppercase())
-        binding.moveType.setText(move.type.uppercase())
+        binding.movePp.text = "PP:${move.pp}/${move.maxPP}"
+        binding.moveName.text = move.name.uppercase()
+        binding.moveType.text = move.type.uppercase()
         holder.itemView.setOnClickListener{
             if(move.pp > 0){
                 sharedViewModel.executeMove(move)

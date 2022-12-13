@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.pokemon_daws.Controllers.Pokemon_Math
+import com.example.pokemon_daws.Controllers.PokemonMath
 import com.example.pokemon_daws.MainActivity
 import com.example.pokemon_daws.pokemon.Move
 import com.example.pokemon_daws.pokemon.Pokemon
@@ -185,7 +185,7 @@ class BattleViewModel : ViewModel() {
     }
 
     fun usePokeball() {
-        val success = Pokemon_Math.AttemptCapture(
+        val success = PokemonMath.attemptCapture(
             getOpponentPk().hp.toDouble(),
             getOpponentPk().maxHp.toDouble()
         )
