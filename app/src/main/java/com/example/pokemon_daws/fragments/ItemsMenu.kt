@@ -7,7 +7,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.pokemon_daws.R
 import com.example.pokemon_daws.databinding.FragmentItemsMenuBinding
 
-class ItemsMenu() : Fragment(R.layout.fragment_items_menu) {
+class ItemsMenu : Fragment(R.layout.fragment_items_menu) {
     private lateinit var binding: FragmentItemsMenuBinding
     private val sharedViewModel: BattleViewModel by activityViewModels()
 

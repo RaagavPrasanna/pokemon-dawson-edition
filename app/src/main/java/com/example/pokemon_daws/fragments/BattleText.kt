@@ -5,15 +5,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.pokemon_daws.R
-import com.example.pokemon_daws.databinding.FragmentBattleMenuBinding
 import com.example.pokemon_daws.databinding.FragmentBattleTextBinding
-import com.example.pokemon_daws.databinding.FragmentItemsMenuBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BattleText.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BattleText : Fragment(R.layout.fragment_battle_text) {
     private lateinit var binding: FragmentBattleTextBinding
     private val sharedViewModel: BattleViewModel by activityViewModels()
@@ -26,10 +19,10 @@ class BattleText : Fragment(R.layout.fragment_battle_text) {
     }
 
     fun setOpponentText(text: String){
-        binding.opponentMessage.setText(text)
+        binding.opponentMessage.text = text
     }
 
     fun setTrainerText(text: String){
-        binding.trainerMessage.setText(text)
+        binding.trainerMessage.text = text
     }
 }

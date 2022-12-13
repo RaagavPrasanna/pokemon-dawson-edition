@@ -1,6 +1,6 @@
 package com.example.pokemon_daws
 
-import com.example.pokemon_daws.Controllers.Pokemon_Math
+import com.example.pokemon_daws.Controllers.PokemonMath
 import com.example.pokemon_daws.pokemon.Pokemon
 import org.junit.Test
 import org.junit.Assert.*
@@ -20,31 +20,31 @@ class PokemonMathTests {
 
     @Test
     fun AttemptCapture_fail() {
-        assertFalse(Pokemon_Math.AttemptCapture(10.0, 10.0))
+        assertFalse(PokemonMath.attemptCapture(10.0, 10.0))
     }
 
     @Test
     fun AttemptCapture_succeed() {
-        assertTrue(Pokemon_Math.AttemptCapture(0.0, 10.0))
+        assertTrue(PokemonMath.attemptCapture(0.0, 10.0))
     }
 
     @Test
     fun CurrentLevel_1() {
-        assertEquals(Pokemon_Math.CurrentLevel(125.0), 5)
+        assertEquals(PokemonMath.currentLevel(125.0), 5)
     }
 
     @Test
     fun CurrentLevel_2() {
-        assertEquals(Pokemon_Math.CurrentLevel(64.0), 4)
+        assertEquals(PokemonMath.currentLevel(64.0), 4)
     }
 
     @Test
     fun CalculateStat() {
-        assertEquals(Pokemon_Math.CalculateStat(10.0, 2), 5)
+        assertEquals(PokemonMath.calculateStat(10.0, 2), 5)
     }
 
     @Test
     fun CalculateHP() {
-        assertEquals(Pokemon_Math.CalculateHP(30.0, 2), 13)
+        assertEquals(PokemonMath.calculateHP(30.0, 2), 13)
     }
 }

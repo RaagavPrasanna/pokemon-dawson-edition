@@ -1,14 +1,12 @@
 package com.example.pokemon_daws.Controllers
 
 import android.util.Log
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.pokemon_daws.utils.*
 import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
@@ -24,45 +22,45 @@ import simplifyTypes
 import java.io.BufferedReader
 
 
-class ApiController() {
+class ApiController {
     private val GSON: Gson = GsonBuilder().setPrettyPrinting().serializeNulls().create()
 
     suspend fun getAllPokemon(): List<PokedexEntry> {
-        var entries = listOf<PokedexEntry>()
+        val entries: List<PokedexEntry>
         val url = URL(PokeApiEndpoint.POKEDEX.url + "/2")
-        entries = connect(url, Array<PokedexEntry>::class.java, ::simplifyPokedexEntries)!!.toList();
+        entries = connect(url, Array<PokedexEntry>::class.java, ::simplifyPokedexEntries)!!.toList()
         return entries
     }
     suspend fun getTypes(): List<String>{
-        var types = listOf<String>()
+        val types: List<String>
         val url = URL(PokeApiEndpoint.GENERATION.url + "/generation-i")
         types= connect(url, Array<String>::class.java, ::simplifyTypes)!!.toList()
         return types
     }
 
     suspend fun getPokemon(species:String):PokemonEntry?{
-        var pk :PokemonEntry? = null
+        val pk: PokemonEntry?
         val url = URL(PokeApiEndpoint.POKEMON.url + "/${species}")
-        pk = connect(url, PokemonEntry::class.java, ::simplifyPokemon);
+        pk = connect(url, PokemonEntry::class.java, ::simplifyPokemon)
         return pk
     }
 
     suspend fun getPkMoves(species: String): List<PkMove>{
-        var pkMoves = listOf<PkMove>()
+        val pkMoves: List<PkMove>
         val url = URL(PokeApiEndpoint.POKEMON.url + "/${species}")
         pkMoves = connect(url, Array<PkMove>::class.java, ::simplifyMoves)!!.toList()
         return pkMoves
     }
 
     suspend fun getMove(moveName: String): MoveEntry?{
-        var move: MoveEntry? = null
+        val move: MoveEntry?
         val url = URL(PokeApiEndpoint.MOVE.url + "/${moveName}")
         move = connect(url, MoveEntry::class.java, ::simplifyMove)
         return move
     }
 
     suspend fun getTypeRelations(type: String): TypeRelation? {
-        var relations: TypeRelation? = null
+        val relations: TypeRelation?
         val url = URL(PokeApiEndpoint.TYPE.url + "/${type}")
         relations = connect(url, TypeRelation::class.java, ::simplifyTypeRelations)
         return relations
@@ -150,7 +148,7 @@ data class MoveEntry(
     val healing: Int,
     val target: String,
 )
-
-data class Type(
-    val type: String
-)
+//
+//data class Type(
+//    val type: String
+//)

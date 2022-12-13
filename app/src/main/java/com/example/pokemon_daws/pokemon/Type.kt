@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TypeSingleton(
-    val lifecycleScope: LifecycleCoroutineScope
+    private val lifecycleScope: LifecycleCoroutineScope
 ){
     private var api = ApiController()
     private var ls = lifecycleScope
