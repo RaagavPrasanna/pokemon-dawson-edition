@@ -1,12 +1,7 @@
 package com.example.pokemon_daws
 
-import android.util.Log
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.pokemon_daws.Controllers.Pokemon_Math
 import com.example.pokemon_daws.pokemon.Pokemon
-import com.example.pokemon_daws.pokemon.PokemonFactory
-import kotlinx.coroutines.*
 import org.junit.Test
 import org.junit.Assert.*
 
