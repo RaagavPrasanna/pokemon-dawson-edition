@@ -73,7 +73,7 @@ class StarterSelection : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 var pk: Pokemon
                 if(nickname.isEmpty()) {
-                    pk = MainActivity.pkFactory.createPokemon(26, selectedPokemon)
+                    pk = MainActivity.pkFactory.createPokemon(5, selectedPokemon)
                 } else {
                     pk = MainActivity.pkFactory.createPokemon(5, selectedPokemon, nickname)
                 }

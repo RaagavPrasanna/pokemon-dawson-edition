@@ -186,7 +186,7 @@ class BattleViewModel : ViewModel() {
 
     fun usePokeball() {
         if(battleType == "pokemon") {
-            val success = Pokemon_Math.AttemptCapture(
+            val success = PokemonMath.attemptCapture(
                 getOpponentPk().hp.toDouble(),
                 getOpponentPk().maxHp.toDouble()
             )
